@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class WallRun_Scr : MonoBehaviour
 {
+    public bool isWallRunning { get; private set; } = false;
+
     [Header("Refernces")]
     public Transform orientation;
     public Camera cam;
     public Rigidbody rb;
+    PlayerMovement_Scr movementScr;
 
     [Header("Wall Running checks")]
     public float wallDistance = .5f;
@@ -34,6 +37,11 @@ public class WallRun_Scr : MonoBehaviour
 
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
+
+    private void Start()
+    {
+        movementScr = GetComponent<PlayerMovement_Scr>();
+    }
 
     bool canWallRun() // runs a ground check
     {
@@ -74,6 +82,8 @@ public class WallRun_Scr : MonoBehaviour
 
     void StartWallRun() // the wall running script
     {
+        isWallRunning = true;
+
         if (Input.GetKeyDown(KeyCode.Space)) // checks if the player presses space
         {
             if (wallLeft) // if the wall is to the left and space is pressed
@@ -105,11 +115,15 @@ public class WallRun_Scr : MonoBehaviour
         else if (wallRight) // checks what side the wall is
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
 
-        rb.AddForce(orientation.forward * wallRunSpeed, ForceMode.Force); // this makes the player move forward because if you stop you fall
+
+        //rb.AddForce(orientation.forward * wallRunSpeed, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
+
     }
 
     void StopWallRun() // the stop wall run function
     {
+        isWallRunning = false;
+
         rb.useGravity = true; // turns back on the normal gravity
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, wallRunfovTime * Time.deltaTime); // sets fov back to normal

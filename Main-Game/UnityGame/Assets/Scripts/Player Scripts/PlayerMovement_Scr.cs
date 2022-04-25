@@ -8,11 +8,12 @@ using TMPro;
 public class PlayerMovement_Scr : MonoBehaviour
 {
     float playerHeight = 2f;
-
     public Transform orientation;
 
+    [Header("Refs")]
+    WallRun_Scr wallRun;
+
     [Header("Movement")]
-    
     public float moveSpeed = 6f;
     public float airMultiplier = 0.4f;
     float movementMultiplier = 10f;
@@ -76,6 +77,7 @@ public class PlayerMovement_Scr : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.drag = 0f;
+        wallRun = GetComponent<WallRun_Scr>();
     }
 
 
@@ -171,10 +173,39 @@ public class PlayerMovement_Scr : MonoBehaviour
 
     void ControlSpeed()
     {
-        if (Input.GetKey(sprintKey) && Input.GetAxis("Vertical") > 0 && isGrounded && !isCrouching)
+        if (!wallRun.isWallRunning || isGrounded)
         {
-            moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+            float ySpeed = rb.velocity.y;
+
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+            if (rb.velocity.magnitude > sprintSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * sprintSpeed;
+            }
+
+            rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
+
+            if (isGrounded && Input.GetAxis("Vertical") > 0)
+            {
+                moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+            }
+
+            else if (isGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
+            {
+                moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+            }
+
+            else if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
+            {
+                moveSpeed = walkSpeed / 2;
+            }
         }
+        else if (wallRun.isWallRunning)
+        {
+            moveSpeed = walkSpeed * airDrag;
+        }
+
         else if (isSliding)
         {
             if (rb.velocity.magnitude > 2)
