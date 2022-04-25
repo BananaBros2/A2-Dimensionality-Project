@@ -5,27 +5,27 @@ using UnityEngine;
 public class WallRun_Scr : MonoBehaviour
 {
     [Header("Refernces")]
-    [SerializeField] Transform orientation;
-    [SerializeField] Camera cam;
-    [SerializeField] Rigidbody rb;
+    public Transform orientation;
+    public Camera cam;
+    public Rigidbody rb;
 
     [Header("Wall Running checks")]
-    [SerializeField] float wallDistance = .5f;
-    [SerializeField] float minimumJumpHeight = 1.5f;
-    [SerializeField] LayerMask wallMask;
+    public float wallDistance = .5f;
+    public float minimumJumpHeight = 1.5f;
+    public LayerMask wallMask;
 
     [Header("Wall Running forces")]
-    [SerializeField] float wallRunGravity;
-    [SerializeField] float wallRunJumpForce;
-    [SerializeField] float wallRunSpeed;
-    [SerializeField] float wallRunDesiredHeight;
+    public float wallRunGravity;
+    public float wallRunJumpForce;
+    public float wallRunSpeed;
+    public float wallRunDesiredHeight;
 
     [Header("Camera settings")]
-    [SerializeField] float fov;
-    [SerializeField] float wallRunfov;
-    [SerializeField] float wallRunfovTime;
-    [SerializeField] float camTilt;
-    [SerializeField] float camTiltTime;
+    public float fov;
+    public float wallRunfov;
+    public float wallRunfovTime;
+    public float camTilt;
+    public float camTiltTime;
 
     public float tilt { get; private set; }
 
@@ -89,7 +89,7 @@ public class WallRun_Scr : MonoBehaviour
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force); // this applies the jump force (left and right)
             }
         }
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)) // checks if the player presses and other movement so it will make the player fall
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)) // checks if the player presses other movement so it will make the player fall
         {
             StopWallRun(); // calls the stop wall run fuction
         }

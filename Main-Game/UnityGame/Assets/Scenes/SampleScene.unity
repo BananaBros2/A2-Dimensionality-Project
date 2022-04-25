@@ -4238,10 +4238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0b8eb98e8bf5840931ad0151b4e1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallRun: {fileID: 0}
+  wallRun: {fileID: 627809498}
   sensX: 0
   sensY: 0
-  sensitivityMouse: 1
+  sensitivityMouse: 100
   multiplier: 0.01
   orientation: {fileID: 966457352}
 --- !u!114 &627809495
@@ -4256,13 +4256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9245690d13feac4b90f2ac0b1b123ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orientation: {fileID: 0}
+  orientation: {fileID: 966457352}
   moveSpeed: 6
   airMultiplier: 0.4
   walkSpeed: 6
   sprintSpeed: 10
   acceleration: 10
-  jumpForce: 5
+  jumpForce: 80
   jumpKey: 32
   sprintKey: 304
   groundDrag: 6
@@ -16183,7 +16183,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250513005}
-  m_Material: {fileID: 13400000, guid: 778868cf2e1189b4bb6d222ace69f288, type: 2}
+  m_Material: {fileID: 13400000, guid: 57df34cc62627af41b1953780deffc97, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -18383,7 +18383,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16288
+  m_Name: pb_Mesh19114
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

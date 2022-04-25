@@ -9,37 +9,37 @@ public class PlayerMovement_Scr : MonoBehaviour
 {
     float playerHeight = 2f;
 
-    [SerializeField] Transform orientation;
+    public Transform orientation;
 
     [Header("Movement")]
     
-    [SerializeField] float moveSpeed = 6f;
-    [SerializeField] float airMultiplier = 0.4f;
+    public float moveSpeed = 6f;
+    public float airMultiplier = 0.4f;
     float movementMultiplier = 10f;
 
     [Header("Sprinting")]
-    [SerializeField] float walkSpeed = 6f;
-    [SerializeField] float sprintSpeed = 10f;
-    [SerializeField] float acceleration = 10f;
+    public float walkSpeed = 6f;
+    public float sprintSpeed = 15f;
+    public float acceleration = 10f;
 
     [Header("Jumping")]
-    [SerializeField] float jumpForce = 5f;
+    public float jumpForce = 5f;
 
     [Header("Keybinds")]
-    [SerializeField] KeyCode jumpKey = KeyCode.Space; //can set as null and use a keybind manager
-    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode jumpKey = KeyCode.Space; //can set as nothing and use a keybind manager
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Drag and gravity")]
-    [SerializeField] float groundDrag = 6f;
-    [SerializeField] float airDrag = 2f;
+    public float groundDrag = 6f;
+    public float airDrag = 2f;
 
     float horizontalMovement;
     float verticalMovement;
 
     [Header("Ground Detection")]
-    [SerializeField] Transform groundCheck;
-    [SerializeField] LayerMask groundMask;
-    [SerializeField] float groundDistance = 0.4f;
+    public Transform groundCheck;
+    public LayerMask groundMask;
+    public float groundDistance = 0.4f;
     bool isGrounded;
 
     Vector3 moveDirection;
@@ -90,7 +90,7 @@ public class PlayerMovement_Scr : MonoBehaviour
         ControlSpeed();
 
         //allows the player to jump if they are on the ground and presses the jump key
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        if (Input.GetKeyDown(jumpKey) && isGrounded && !isSliding)
         {
             Jump();
         }
@@ -149,10 +149,16 @@ public class PlayerMovement_Scr : MonoBehaviour
 
     void Slide()
     {
-        if (!isSliding)
+        Vector3 vel = rb.velocity;
+        float slowspeed = -30f;
+
+        float slowdown = slowspeed * Time.deltaTime;
+        print(slowdown);
+
+        if (vel.magnitude > sprintSpeed)
         {
             rb.transform.localScale = new Vector3(1f, 0.5f, 1f);
-            rb.AddForce(moveDirection.normalized * sprintSpeed * 30f, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * slowdown, ForceMode.Impulse);
         }
         isSliding = true;
     }
