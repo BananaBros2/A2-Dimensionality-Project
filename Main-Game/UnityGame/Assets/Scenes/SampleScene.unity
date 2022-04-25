@@ -4267,7 +4267,7 @@ MonoBehaviour:
   sprintKey: 304
   groundDrag: 6
   airDrag: 2
-  groundCheck: {fileID: 0}
+  groundCheck: {fileID: 1864916993}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
