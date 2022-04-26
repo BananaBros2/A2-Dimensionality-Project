@@ -97,11 +97,7 @@ public class PlayerMovement_Scr : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && isGrounded && !isCrouching && Input.GetAxis("Vertical") > 0)
-        {
-            Slide();
-        }
-        else if (Input.GetKey(KeyCode.C) || Physics.Raycast(transform.position, Vector3.up, (playerHeight / 2) + 0.2f))
+        if (Input.GetKey(KeyCode.C) || Physics.Raycast(transform.position, Vector3.up, (playerHeight / 2) + 0.2f))
         {
             Crouch();
         }
@@ -147,22 +143,6 @@ public class PlayerMovement_Scr : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(groundCheck.position, groundDistance);
-    }
-
-    void Slide()
-    {
-        Vector3 vel = rb.velocity;
-        float slowspeed = -30f;
-
-        float slowdown = slowspeed * Time.deltaTime;
-        print(slowdown);
-
-        if (vel.magnitude > sprintSpeed)
-        {
-            rb.transform.localScale = new Vector3(1f, 0.5f, 1f);
-            rb.AddForce(moveDirection.normalized * slowdown, ForceMode.Impulse);
-        }
-        isSliding = true;
     }
 
     void Stand()

@@ -4327,7 +4327,7 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 128
-  wallRunGravity: -2
+  wallRunGravity: -7
   wallRunJumpForce: 40
   wallRunSpeed: 15
   wallRunDesiredHeight: 2
