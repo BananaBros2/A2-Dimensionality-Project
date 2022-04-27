@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17815,8 +17815,9 @@ GameObject:
   m_Component:
   - component: {fileID: 654389828}
   - component: {fileID: 654389827}
+  - component: {fileID: 654389829}
   m_Layer: 6
-  m_Name: Entery Trigger
+  m_Name: Entry Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17849,6 +17850,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &654389829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654389826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3644f084879339940b845e5edf0abba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerController: {fileID: 1951986144}
 --- !u!43 &661955013
 Mesh:
   m_ObjectHideFlags: 0
@@ -28842,7 +28856,7 @@ GameObject:
   - component: {fileID: 1319096308}
   - component: {fileID: 1319096307}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29083,6 +29097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1325120554}
   - component: {fileID: 1325120553}
+  - component: {fileID: 1325120555}
   m_Layer: 6
   m_Name: Exit Trigger
   m_TagString: Untagged
@@ -29117,6 +29132,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325120555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325120552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ccc58ffad125049af0530e38e37a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerController: {fileID: 1951986144}
 --- !u!43 &1394498953
 Mesh:
   m_ObjectHideFlags: 0
@@ -48438,7 +48466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5da2dfe2ed5c640930ec1ce72ac85e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 1319096307}
+  timerText: {fileID: 1319096307}
   levelEndTrigger: {fileID: 1325120553}
   levelStartTrigger: {fileID: 654389827}
 --- !u!114 &1951986145
