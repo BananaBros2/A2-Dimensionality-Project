@@ -35,7 +35,33 @@ public class Timer : MonoBehaviour
 
         seconds = Mathf.Round(seconds * 100f) / 100f;
 
-        timer.text = minutes.ToString() + ":" + seconds.ToString();
+        int removeSeconds = Mathf.FloorToInt(time - minutes * 60f);
+
+        float Mili = seconds - removeSeconds;
+
+        string secs;
+
+        string milis;
+
+        if (Mili < 10)
+        {
+            milis = "0" + Mili.ToString();
+        }
+        else
+        {
+            milis = Mili.ToString();
+        }
+
+        if (seconds < 10)
+        {
+            secs = "0" + seconds.ToString();
+        }
+        else
+        {
+            secs = seconds.ToString();
+        }
+
+        timer.text = minutes.ToString() + ":" + secs + "." + milis;
         
     }
 }
