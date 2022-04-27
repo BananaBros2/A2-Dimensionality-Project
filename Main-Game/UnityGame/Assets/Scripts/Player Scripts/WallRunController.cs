@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallRun_Scr : MonoBehaviour
+public class WallRunController : MonoBehaviour
 {
     public bool isWallRunning { get; private set; } = false;
 
@@ -10,7 +10,7 @@ public class WallRun_Scr : MonoBehaviour
     public Transform orientation;
     public Camera cam;
     public Rigidbody rb;
-    PlayerMovement_Scr movementScr;
+    BasicPlayerMovementController movementScr;
 
     [Header("Wall Running checks")]
     public float wallDistance = .5f;
@@ -40,7 +40,7 @@ public class WallRun_Scr : MonoBehaviour
 
     private void Start()
     {
-        movementScr = GetComponent<PlayerMovement_Scr>();
+        movementScr = GetComponent<BasicPlayerMovementController>();
     }
 
     bool canWallRun() // runs a ground check

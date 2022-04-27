@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.Windows;
 using TMPro;
 
-public class PlayerCamMove_Scr : MonoBehaviour
+public class PlayerCameraController : MonoBehaviour
 {
-    [SerializeField] WallRun_Scr wallRun;
+    [SerializeField] WallRunController wallRun;
 
     [Header("Mouse sensitivity")]
 
@@ -23,6 +23,7 @@ public class PlayerCamMove_Scr : MonoBehaviour
     //[SerializeField] Transform cam;
     Camera cam;
     [SerializeField] Transform orientation;
+    [SerializeField] Transform cameraPosition;
 
     float mouseX;
     float mouseY;
@@ -49,6 +50,7 @@ public class PlayerCamMove_Scr : MonoBehaviour
 
         
         cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt); // this rotates the camera seperatly (up and down)
+        cam.transform.position = cameraPosition.position;
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0); // this rotates the orientation (left and right)
     }
 }
