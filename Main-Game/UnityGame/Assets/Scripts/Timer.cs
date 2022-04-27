@@ -29,7 +29,11 @@ public class Timer : MonoBehaviour
         time = time + Time.deltaTime;
 
         int minutes = Mathf.FloorToInt(time / 60f);
-        int seconds = Mathf.FloorToInt(time - minutes * 60f);
+        float seconds = time - minutes * 60f;
+
+        seconds.ToString("2F");
+
+        seconds = Mathf.Round(seconds * 100f) / 100f;
 
         timer.text = minutes.ToString() + ":" + seconds.ToString();
         
