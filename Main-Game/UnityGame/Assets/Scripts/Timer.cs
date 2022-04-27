@@ -24,44 +24,16 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(time);
-
-        time = time + Time.deltaTime;
+        time += Time.deltaTime;
 
         int minutes = Mathf.FloorToInt(time / 60f);
         float seconds = time - minutes * 60f;
+        float miliseconds = seconds - Mathf.Floor(seconds);
 
-        seconds.ToString("2F");
+        miliseconds = Mathf.Floor(miliseconds * 100f);
+        seconds = Mathf.Floor(seconds);
 
-        seconds = Mathf.Round(seconds * 100f) / 100f;
-
-        int removeSeconds = Mathf.FloorToInt(time - minutes * 60f);
-
-        float Mili = seconds - removeSeconds;
-
-        string secs;
-
-        string milis;
-
-        if (Mili < 10)
-        {
-            milis = "0" + Mili.ToString();
-        }
-        else
-        {
-            milis = Mili.ToString();
-        }
-
-        if (seconds < 10)
-        {
-            secs = "0" + seconds.ToString();
-        }
-        else
-        {
-            secs = seconds.ToString();
-        }
-
-        timer.text = minutes.ToString() + ":" + secs + "." + milis;
+        timer.text = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
         
     }
 }
