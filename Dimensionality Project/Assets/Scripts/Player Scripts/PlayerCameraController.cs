@@ -28,7 +28,7 @@ public class PlayerCameraController : MonoBehaviour
     float mouseX;
     float mouseY;
 
-    float xRotation;
+    public float xRotation;
     float yRotation;
 
     private void Start()
