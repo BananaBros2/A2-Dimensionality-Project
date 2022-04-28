@@ -117,7 +117,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKey(KeyCode.C) || Physics.Raycast(transform.position, Vector3.up, (playerHeight / 2) + 0.2f))
+        if (Input.GetKey(KeyCode.C))
         {
             Crouch();
         }
