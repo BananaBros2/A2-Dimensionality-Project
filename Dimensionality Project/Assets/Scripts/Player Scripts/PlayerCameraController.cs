@@ -22,6 +22,7 @@ public class PlayerCameraController : MonoBehaviour
     [Header("Mouse required objects")]
     //[SerializeField] Transform cam;
     Camera cam;
+    public Transform head;
     [SerializeField] Transform orientation;
     [SerializeField] Transform cameraPosition;
 
@@ -52,5 +53,7 @@ public class PlayerCameraController : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt); // this rotates the camera seperatly (up and down)
         cam.transform.position = cameraPosition.position;
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0); // this rotates the orientation (left and right)
+
+        head.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt); // TEMP
     }
 }

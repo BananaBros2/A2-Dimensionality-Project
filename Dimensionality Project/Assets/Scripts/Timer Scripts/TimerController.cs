@@ -27,6 +27,10 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) //temp close
+        {
+            Application.Quit();
+        }
 
         if (isRunning) time += Time.deltaTime;
 
