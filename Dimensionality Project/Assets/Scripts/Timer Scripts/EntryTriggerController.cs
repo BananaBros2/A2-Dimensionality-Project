@@ -8,7 +8,10 @@ public class EntryTriggerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        timerController.ResetTimer();
-        timerController.StartTimer();
+        if (other.transform.tag == "Player")
+        {
+            timerController.ResetTimer();
+            timerController.StartTimer();
+        }
     }
 }

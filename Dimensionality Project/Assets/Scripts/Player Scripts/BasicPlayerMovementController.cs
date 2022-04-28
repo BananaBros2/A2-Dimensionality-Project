@@ -137,8 +137,6 @@ public class BasicPlayerMovementController : MonoBehaviour
         groundDistance = rb.transform.localScale.y * 2 / 5;
 
         MainHeadBobing();
-
-        print(wallRun.isWallRunning);
     }
 
     //when called it will grab movement input
@@ -281,6 +279,10 @@ public class BasicPlayerMovementController : MonoBehaviour
         {
             rb.drag = groundDrag;
         }
+        else if (wallRun.isWallRunning)
+        {
+            rb.drag = groundDrag;
+        }
         else
         {
             rb.drag = airDrag;
@@ -315,7 +317,6 @@ public class BasicPlayerMovementController : MonoBehaviour
         {
             //jumping in mid air force with a downwards force
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
-            rb.useGravity = true;
         }
     }
 }

@@ -8,6 +8,9 @@ public class ExitTriggerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        timerController.StartCoroutine("StopTimer");
+        if (other.transform.tag == "Player")
+        {
+           timerController.StartCoroutine("StopTimer");
+        }
     }
 }
