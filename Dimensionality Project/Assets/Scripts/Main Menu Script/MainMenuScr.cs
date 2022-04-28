@@ -27,6 +27,11 @@ public class MainMenuScr : MonoBehaviour
         EditorSceneManager.LoadScene(1, UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
+    public void LoadMap002()
+    {
+        EditorSceneManager.LoadScene(2, UnityEngine.SceneManagement.LoadSceneMode.Single);
+    }
+
     public void OutErrorNotFound()
     {
         Debug.LogError("Unable to load. Reason: Missing component");

@@ -137,6 +137,8 @@ public class BasicPlayerMovementController : MonoBehaviour
         groundDistance = rb.transform.localScale.y * 2 / 5;
 
         MainHeadBobing();
+
+        print(wallRun.isWallRunning);
     }
 
     //when called it will grab movement input
@@ -178,7 +180,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         if (isMoving && isGrounded || wallRun.isWallRunning) walkingTime += Time.deltaTime;
         else walkingTime = 0f;
 
-        bobFreq = 1f * rb.velocity.magnitude;
+        bobFreq = (moveSpeed > 4.5f) ? 1f * moveSpeed : 4.5f;
 
         targetCameraPosition = head.position + CalculateHeadBobOffset(walkingTime);
 
@@ -218,24 +220,31 @@ public class BasicPlayerMovementController : MonoBehaviour
             }
 
             rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
-            
+
+
+            //if (isGrounded && Input.GetAxis("Vertical") > 0)
+            //{
+            //    if (Mathf.Abs(Input.GetAxis("Mouse X")) > 7)
+            //    {
+            //        moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, Mathf.Abs(Input.GetAxis("Mouse X")) * Time.deltaTime);
+            //        print(Mathf.Abs(Input.GetAxis("Mouse X")));
+            //    }
+            //    else
+            //    {
+            //        moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, Input.GetAxisRaw("Mouse X") * 2f * Time.deltaTime);
+            //    }
+
+            //    isMoving = true;
+            //}
 
             if (isGrounded && Input.GetAxis("Vertical") > 0)
             {
-                if (Mathf.Abs(Input.GetAxis("Mouse X")) > 7)
-                {
-                    moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, Mathf.Abs(Input.GetAxis("Mouse X")) * Time.deltaTime);
-                    print(Mathf.Abs(Input.GetAxis("Mouse X")));
-                }
-                else
-                {
-                    moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, Input.GetAxisRaw("Mouse X") * 2f * Time.deltaTime);
-                }
+                moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
 
                 isMoving = true;
             }
 
-            else if (isGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
+            if (isGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
             {
                 moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
 
@@ -254,21 +263,9 @@ public class BasicPlayerMovementController : MonoBehaviour
             moveSpeed = walkSpeed * airDrag;
         }
 
-        else if (isSliding)
-        {
-            if (rb.velocity.magnitude > 2)
-            {
-                isSliding = true;
-            }
-            else
-            {
-                isSliding = false;
-                isCrouching = true;
-            }
-        }
         else if (isCrouching)
         {
-            moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed - 0.35f, acceleration * Time.deltaTime);
+            moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed / 2f, acceleration * Time.deltaTime);
         }
         else
         {

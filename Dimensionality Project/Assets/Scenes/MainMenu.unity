@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1231106550}
         m_TargetAssemblyTypeName: MainMenuScr, Assembly-CSharp
-        m_MethodName: OutErrorNotFound
+        m_MethodName: LoadMap002
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -86,7 +86,7 @@ public class WallRunController : MonoBehaviour
 
     void StartWallRun() // the wall running script
     {
-        if (!isWallRunning) rb.velocity = new Vector3(rb.velocity.x, 2f, rb.velocity.z);
+        //if (!isWallRunning) rb.velocity = new Vector3(rb.velocity.x, 2f, rb.velocity.z);
         isWallRunning = true;
 
         if (Input.GetKeyDown(KeyCode.Space)) // checks if the player presses space
@@ -103,10 +103,6 @@ public class WallRunController : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, wallRunDesiredHeight, rb.velocity.z); // will set y > 0 or it will make the player fall
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force); // this applies the jump force (left and right)
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)) // checks if the player presses other movement so it will make the player fall
-        {
-            StopWallRun(); // calls the stop wall run fuction
         }
 
         rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity
