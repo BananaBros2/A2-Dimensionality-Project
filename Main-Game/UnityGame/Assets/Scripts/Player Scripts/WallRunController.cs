@@ -45,6 +45,10 @@ public class WallRunController : MonoBehaviour
 
     bool canWallRun() // runs a ground check
     {
+        
+
+        //if ( > 2f && !Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight)) return true;
+        //else return false;
         return !Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight); // this returns the opposite of the raycast hit to see if your in mid air
     }
 
@@ -82,6 +86,7 @@ public class WallRunController : MonoBehaviour
 
     void StartWallRun() // the wall running script
     {
+        if (!isWallRunning) rb.velocity = new Vector3(rb.velocity.x, 2f, rb.velocity.z);
         isWallRunning = true;
 
         if (Input.GetKeyDown(KeyCode.Space)) // checks if the player presses space

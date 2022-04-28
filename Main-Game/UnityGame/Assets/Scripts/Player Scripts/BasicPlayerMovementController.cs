@@ -13,6 +13,8 @@ public class BasicPlayerMovementController : MonoBehaviour
     [Header("Refs")]
     WallRunController wallRun;
 
+    PlayerCameraController camCon;
+
     [Header("Movement")]
     public float moveSpeed = 6f;
     public float airMultiplier = 0.4f;
@@ -54,6 +56,23 @@ public class BasicPlayerMovementController : MonoBehaviour
 
     RaycastHit slopeHit;
 
+    [Header("Temp Vars and that")]
+    public Transform head;
+    public Transform cameraforbob;
+
+    public float bobFreq = 5f;
+    public float bobHorrAmplitude = 0.1f;
+    public float bobVertAmplitude = 0.1f;
+    [Range(0, 1)] public float headbobSmoothing = 0.1f;
+
+    public bool isMoving;
+    private float walkingTime;
+    private Vector3 targetCameraPosition;
+
+    //temp holder
+    float c;
+
+
     //when called it will send a raycast out and return is true if the vector does not return stright up
     private bool OnSlope()
     {
@@ -78,6 +97,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         rb.freezeRotation = true;
         rb.drag = 0f;
         wallRun = GetComponent<WallRunController>();
+        camCon = GetComponent<PlayerCameraController>();
     }
 
 
@@ -115,6 +135,8 @@ public class BasicPlayerMovementController : MonoBehaviour
         //gets the player's height by getting the scale of the Rigidbody and timesing by 2 as defult is 1
         playerHeight = rb.transform.localScale.y * 2;
         groundDistance = rb.transform.localScale.y * 2 / 5;
+
+        MainHeadBobing();
     }
 
     //when called it will grab movement input
@@ -151,9 +173,40 @@ public class BasicPlayerMovementController : MonoBehaviour
         rb.transform.localScale = Vector3.one; // sets size back to normal
     }
 
+    private void MainHeadBobing()
+    {
+        if (isMoving && isGrounded || wallRun.isWallRunning) walkingTime += Time.deltaTime;
+        else walkingTime = 0f;
+
+        bobFreq = 1f * rb.velocity.magnitude;
+
+        targetCameraPosition = head.position + CalculateHeadBobOffset(walkingTime);
+
+        cameraforbob.position = Vector3.Lerp(cameraforbob.transform.position, targetCameraPosition, headbobSmoothing);
+
+        if ((cameraforbob.position - targetCameraPosition).magnitude <= 0.001) cameraforbob.position = targetCameraPosition;
+    }
+
+    private Vector3 CalculateHeadBobOffset(float t)
+    {
+        float horOffset = 0f;
+        float vertOffset = 0f;
+        Vector3 Offset = Vector3.zero;
+
+        if (t > 0)
+        {
+            horOffset = Mathf.Cos(t * bobFreq) * bobHorrAmplitude;
+            vertOffset = Mathf.Sin(t * bobFreq * 2f) * bobVertAmplitude;
+
+            Offset = orientation.right * horOffset + orientation.up * vertOffset;
+        }
+
+        return Offset;
+    }
+
     void ControlSpeed()
     {
-        if (!wallRun.isWallRunning || isGrounded)
+        if (!wallRun.isWallRunning || isGrounded) //DO NOT TOUCH IF STATEMENT UNLESS YOU WANT TO REWORK BOTH THIS AND WALL RINNING SCRIPTS
         {
             float ySpeed = rb.velocity.y;
 
@@ -165,20 +218,35 @@ public class BasicPlayerMovementController : MonoBehaviour
             }
 
             rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
+            
 
             if (isGrounded && Input.GetAxis("Vertical") > 0)
             {
-                moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+                if (Mathf.Abs(Input.GetAxis("Mouse X")) > 7)
+                {
+                    moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, Mathf.Abs(Input.GetAxis("Mouse X")) * Time.deltaTime);
+                    print(Mathf.Abs(Input.GetAxis("Mouse X")));
+                }
+                else
+                {
+                    moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, Input.GetAxisRaw("Mouse X") * 2f * Time.deltaTime);
+                }
+
+                isMoving = true;
             }
 
             else if (isGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
             {
                 moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+
+                isMoving = true;
             }
 
             else if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
             {
                 moveSpeed = walkSpeed / 2;
+
+                isMoving = false;
             }
         }
         else if (wallRun.isWallRunning)

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Windows;
+using UnityEngine.SceneManagement;
 
 public class TimerController : MonoBehaviour
 {
@@ -38,6 +39,11 @@ public class TimerController : MonoBehaviour
 
         timerText.text = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
         
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(2, LoadSceneMode.Single);
+        }
+
     }
 
     public void StartTimer()
