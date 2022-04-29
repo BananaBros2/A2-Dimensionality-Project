@@ -15,9 +15,9 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
 
-    [SerializeField] float sensitivityMouse = 1; //DO NOT HARD SET THIS VALUE - USE A SCRIPT TO MANAGE SETTINGS
+    public float sensitivityMouse = 1; //DO NOT HARD SET THIS VALUE - USE A SCRIPT TO MANAGE SETTINGS
 
-    [SerializeField] float multiplier = 0.01f;
+    public float multiplier = 0.01f;
 
     [Header("Mouse required objects")]
     //[SerializeField] Transform cam;
@@ -29,7 +29,7 @@ public class PlayerCameraController : MonoBehaviour
     float mouseX;
     float mouseY;
 
-    public float xRotation;
+    float xRotation;
     float yRotation;
 
     private void Start()

@@ -279,10 +279,6 @@ public class BasicPlayerMovementController : MonoBehaviour
         {
             rb.drag = groundDrag;
         }
-        else if (wallRun.isWallRunning)
-        {
-            rb.drag = groundDrag;
-        }
         else
         {
             rb.drag = airDrag;
