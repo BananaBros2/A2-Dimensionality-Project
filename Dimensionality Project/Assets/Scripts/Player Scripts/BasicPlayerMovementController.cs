@@ -1,118 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Windows;
-using TMPro;
 
 public class BasicPlayerMovementController : MonoBehaviour
 {
-    float playerHeight = 2f;
+    private float playerHeight = 0f;
+
     public Transform orientation;
-
-    [Header("Refs")]
-    WallRunController wallRun;
-
-    PlayerCameraController camCon;
-
-    [Header("Movement")]
-    public float moveSpeed = 6f;
-    public float airMultiplier = 0.4f;
-    float movementMultiplier = 10f;
-
-    [Header("Sprinting")]
-    public float walkSpeed = 6f;
-    public float sprintSpeed = 15f;
-    public float acceleration = 10f;
-
-    [Header("Jumping")]
-    public float jumpForce = 5f;
+    public Transform headPosition;
+    public Transform cameraPosition;
+    public WallRunController wallRunController;
+    public Rigidbody rb;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space; //can set as nothing and use a keybind manager
-    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode jumpKey;
+    public KeyCode walkKey;
+    public KeyCode scaleUpKey;
+    public KeyCode scaleDownKey;
 
-    [Header("Drag and gravity")]
-    public float groundDrag = 6f;
-    public float airDrag = 2f;
+    [Header("Basic Movement")]
+    public float airMultiplier;
 
-    float horizontalMovement;
-    float verticalMovement;
+    public bool IsMoving { get; private set; } = false;
+    public bool IsGrounded { get; private set; } = false;
+    public bool IsCrouching { get; private set; } = false;
+
+    private float horizontalMovement = 0f;
+    private float verticalMovement = 0f;
+    private float currentMovementSpeed = 0f;
+    private float movementMultiplier = 10f;
+
+    [Header("Sprinting")]
+    public float walkSpeed;
+    public float sprintSpeed;
+    public float acceleration;
+
+    [Header("Jumping")]
+    public float jumpForce;
+
+    [Header("Drag and Gravity")]
+    public float groundDrag;
+    public float airDrag;
 
     [Header("Ground Detection")]
     public Transform groundCheck;
     public LayerMask groundMask;
-    public float groundDistance = 0.4f;
-    bool isGrounded;
+    public float groundDistance;
 
-    Vector3 moveDirection;
-    Vector3 slopeMoveDirection;
-    Vector3 jumpMoveDirection;
-
-    bool isCrouching = false;
-    bool isSliding = false;
-
-    Rigidbody rb;
-
-    RaycastHit slopeHit;
-
-    [Header("Temp Vars and that")]
-    public Transform head;
-    public Transform cameraforbob;
-
-    public float bobFreq = 5f;
-    public float bobHorrAmplitude = 0.1f;
-    public float bobVertAmplitude = 0.1f;
-    [Range(0, 1)] public float headbobSmoothing = 0.1f;
-
-    public bool isMoving;
-    private float walkingTime;
-    private Vector3 targetCameraPosition;
-
-    //temp holder
-    float c;
-
-
-    //when called it will send a raycast out and return is true if the vector does not return stright up
-    private bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
-        {
-            if (slopeHit.normal != Vector3.up)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    public void Start()
-    {
-        //rigid body settings are set as well as varibles and the script get the rigidbody
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
-        rb.drag = 0f;
-        wallRun = GetComponent<WallRunController>();
-        camCon = GetComponent<PlayerCameraController>();
-    }
-
+    private Vector3 moveDirection = Vector3.zero;
+    private Vector3 slopeMoveDirection = Vector3.zero;
+    private RaycastHit slopeHit;
+    //private Vector3 jumpMoveDirection; May need this in the future
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //is grounded check
+        IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //is grounded check
 
-
-        //runs myinput funtion and controll drag (more over this farther down)
-        MyInput();
-        ControllDrag();
+        //runs myinput function and control drag (more over this further down)
+        SetMoveDirectionFromInput();
+        ControlDrag();
         ControlSpeed();
 
         //allows the player to jump if they are on the ground and presses the jump key
-        if (Input.GetKeyDown(jumpKey) && isGrounded && !isSliding)
+        if (Input.GetKeyDown(jumpKey) && IsGrounded)
         {
             Jump();
         }
@@ -129,18 +77,22 @@ public class BasicPlayerMovementController : MonoBehaviour
         //sets the direction following the slope
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
-        //moive direction so the player can control inair movement
-        jumpMoveDirection = moveDirection * 0.1f;
+        //move direction so the player can control inair movement
+        //jumpMoveDirection = moveDirection * 0.1f;
 
         //gets the player's height by getting the scale of the Rigidbody and timesing by 2 as defult is 1
-        playerHeight = rb.transform.localScale.y * 2;
-        groundDistance = rb.transform.localScale.y * 2 / 5;
+        playerHeight = transform.localScale.y * 2;
+        groundDistance = playerHeight / 5;
+    }
 
-        MainHeadBobing();
+    private void FixedUpdate()
+    {
+        //calls the Move player funtion
+        MovePlayer();
     }
 
     //when called it will grab movement input
-    void MyInput()
+    void SetMoveDirectionFromInput()
     {
         //grabs key inputs
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -150,68 +102,29 @@ public class BasicPlayerMovementController : MonoBehaviour
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
     }
 
-    void Jump() //when called then the player will jump in the air
+    //when called then drag will be controlled
+    void ControlDrag()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); //add a jump force to the rigid body component.
-    }
-
-    void Crouch()
-    {
-        isCrouching = true;
-        rb.transform.localScale = new Vector3(1f, 0.5f, 1f); // sets to crouch size
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(groundCheck.position, groundDistance);
-    }
-
-    void Stand()
-    {
-        isCrouching = false;
-        rb.transform.localScale = Vector3.one; // sets size back to normal
-    }
-
-    private void MainHeadBobing()
-    {
-        if (isMoving && isGrounded || wallRun.isWallRunning) walkingTime += Time.deltaTime;
-        else walkingTime = 0f;
-
-        bobFreq = (moveSpeed > 4.5f) ? 1f * moveSpeed : 4.5f;
-
-        targetCameraPosition = head.position + CalculateHeadBobOffset(walkingTime);
-
-        cameraforbob.position = Vector3.Lerp(cameraforbob.transform.position, targetCameraPosition, headbobSmoothing);
-
-        if ((cameraforbob.position - targetCameraPosition).magnitude <= 0.001) cameraforbob.position = targetCameraPosition;
-    }
-
-    private Vector3 CalculateHeadBobOffset(float t)
-    {
-        float horOffset = 0f;
-        float vertOffset = 0f;
-        Vector3 Offset = Vector3.zero;
-
-        if (t > 0)
+        //drag is controlled if in air or ground so the player is not slow falling
+        if (IsGrounded)
         {
-            horOffset = Mathf.Cos(t * bobFreq) * bobHorrAmplitude;
-            vertOffset = Mathf.Sin(t * bobFreq * 2f) * bobVertAmplitude;
-
-            Offset = orientation.right * horOffset + orientation.up * vertOffset;
+            rb.drag = groundDrag;
         }
-
-        return Offset;
+        else
+        {
+            rb.drag = airDrag;
+        }
     }
 
     void ControlSpeed()
     {
-        if (!wallRun.isWallRunning || isGrounded) //DO NOT TOUCH IF STATEMENT UNLESS YOU WANT TO REWORK BOTH THIS AND WALL RINNING SCRIPTS
+        if (!wallRunController.isWallRunning || IsGrounded) //DO NOT TOUCH IF STATEMENT UNLESS YOU WANT TO REWORK BOTH THIS AND WALL RUNNING SCRIPTS
         {
             float ySpeed = rb.velocity.y;
 
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
+            // clamps to max speed
             if (rb.velocity.magnitude > sprintSpeed)
             {
                 rb.velocity = rb.velocity.normalized * sprintSpeed;
@@ -235,84 +148,110 @@ public class BasicPlayerMovementController : MonoBehaviour
             //    isMoving = true;
             //}
 
-            if (isGrounded && Input.GetAxis("Vertical") > 0)
+            if (IsGrounded && Input.GetAxis("Vertical") > 0)
             {
-                moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+                currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime);
 
-                isMoving = true;
+                IsMoving = true;
             }
 
-            if (isGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
+            if (IsGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
             {
-                moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+                currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
 
-                isMoving = true;
+                IsMoving = true;
             }
 
             else if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
             {
-                moveSpeed = walkSpeed / 2;
+                currentMovementSpeed = walkSpeed / 2;
 
-                isMoving = false;
+                IsMoving = false;
             }
         }
-        else if (wallRun.isWallRunning)
+        else if (wallRunController.isWallRunning)
         {
-            moveSpeed = walkSpeed * airDrag;
+            currentMovementSpeed = walkSpeed * airDrag;
         }
 
-        else if (isCrouching)
+        else if (IsCrouching)
         {
-            moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed / 2f, acceleration * Time.deltaTime);
+            currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, walkSpeed / 2f, acceleration * Time.deltaTime);
         }
         else
         {
-            moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+            currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
         }
     }
 
-    //when called then drag will be controlled
-    void ControllDrag()
+    void Jump() //when called then the player will jump in the air
     {
-        //drag is controlled if in air or ground so the player is not slow falling
-        if (isGrounded)
-        {
-            rb.drag = groundDrag;
-        }
-        else
-        {
-            rb.drag = airDrag;
-        }
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); //add a jump force to the rigid body component.
     }
 
-    private void FixedUpdate()
+    void Crouch()
     {
-        //calls the Move player funtion
-        MovePlayer();
+        IsCrouching = true;
+        rb.transform.localScale = new Vector3(1f, 0.5f, 1f); // sets to crouch size
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(groundCheck.position, groundDistance);
+    }
+
+    void Stand()
+    {
+        IsCrouching = false;
+        rb.transform.localScale = Vector3.one; // sets size back to normal
+    }
+
+    //when called it will send a raycast out and return is true if the vector does not return stright up
+    private bool IsOnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
+        {
+            if (slopeHit.normal != Vector3.up)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
     }
 
     //when called then the rigid body will get force applyed
     void MovePlayer()
     {
         //if on the ground but not on a slope
-        if (isGrounded && !OnSlope())
+        if (IsGrounded && !IsOnSlope())
         {
             //walk speed on flat ground
-            rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * currentMovementSpeed * movementMultiplier, ForceMode.Acceleration);
         }
 
         //if the player is on the ground and on a slope
-        else if (isGrounded && OnSlope())
+        else if (IsGrounded && IsOnSlope())
         {
             //walk speed on slope
-            rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+            rb.AddForce(slopeMoveDirection.normalized * currentMovementSpeed * movementMultiplier, ForceMode.Acceleration);
         }
 
         //if the player is not on the ground
-        else if (!isGrounded)
+        else if (!IsGrounded)
         {
             //jumping in mid air force with a downwards force
-            rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * currentMovementSpeed * airMultiplier, ForceMode.Acceleration);
         }
     }
+
+    public float GetCurrentMovementSpeed()
+    {
+        return currentMovementSpeed;
+    }
+
 }

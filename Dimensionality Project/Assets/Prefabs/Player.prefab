@@ -24,11 +24,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2734810589102550777}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.69599915, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5633313194428832300}
-  m_RootOrder: 0
+  m_Father: {fileID: 5910550733111457768}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3013881596106870386
 GameObject:
@@ -127,7 +127,7 @@ Transform:
   - {fileID: 2777513660465035913}
   - {fileID: 3133028213404573831}
   - {fileID: 7254066303532056801}
-  - {fileID: 5633313194428832300}
+  - {fileID: 4661226149377441425}
   - {fileID: 2731022013785492467}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -146,7 +146,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3391243968074441186
 MonoBehaviour:
@@ -160,14 +160,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0b8eb98e8bf5840931ad0151b4e1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallRun: {fileID: 6232795009754679149}
+  cam: {fileID: 7426548633535021586}
+  movementController: {fileID: 5186398040680255914}
+  wallRunController: {fileID: 6232795009754679149}
+  headPosition: {fileID: 5633313194370008140}
   sensX: 0
   sensY: 0
   sensitivityMouse: 100
   multiplier: 0.01
-  head: {fileID: 5633313194370008140}
   orientation: {fileID: 2777513660465035913}
   cameraPosition: {fileID: 4661226149377441425}
+  headBobHorizontalAmplitude: 0.1
+  headBobVerticalAmplitude: 0.1
+  headBobSmoothing: 0.1
 --- !u!114 &5186398040680255914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,14 +186,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 2777513660465035913}
-  moveSpeed: 5
+  headPosition: {fileID: 5633313194370008140}
+  cameraPosition: {fileID: 4661226149377441425}
+  wallRunController: {fileID: 6232795009754679149}
+  rb: {fileID: 3184520929093536050}
+  jumpKey: 32
+  walkKey: 308
+  scaleUpKey: 304
+  scaleDownKey: 306
   airMultiplier: 1
   walkSpeed: 5
   sprintSpeed: 12
   acceleration: 0.5
   jumpForce: 100
-  jumpKey: 32
-  sprintKey: 304
   groundDrag: 6
   airDrag: 0.4
   groundCheck: {fileID: 7254066303532056801}
@@ -196,13 +206,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundDistance: 0.4
-  head: {fileID: 5633313194428832300}
-  cameraforbob: {fileID: 4661226149377441425}
-  bobFreq: 5
-  bobHorrAmplitude: 0.1
-  bobVertAmplitude: 0.1
-  headbobSmoothing: 0.1
-  isMoving: 0
 --- !u!114 &6232795009754679149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +425,7 @@ GameObject:
   - component: {fileID: 5633313192893264315}
   - component: {fileID: 5633313192893264308}
   - component: {fileID: 5633313192893264309}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: R Arm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -503,8 +506,8 @@ GameObject:
   - component: {fileID: 5633313193044534658}
   - component: {fileID: 5633313193044534687}
   - component: {fileID: 5633313193044534684}
-  m_Layer: 3
-  m_Name: neck
+  m_Layer: 0
+  m_Name: Neck
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -584,7 +587,7 @@ GameObject:
   - component: {fileID: 5633313193452318881}
   - component: {fileID: 5633313193452318882}
   - component: {fileID: 5633313193452318883}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Chest
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -671,7 +674,7 @@ GameObject:
   - component: {fileID: 5633313193777956095}
   - component: {fileID: 5633313193777956088}
   - component: {fileID: 5633313193777956089}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: L Leg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -753,7 +756,7 @@ GameObject:
   - component: {fileID: 5633313194196950963}
   - component: {fileID: 5633313194196950960}
   - component: {fileID: 5633313194196950961}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: L Arm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -936,7 +939,7 @@ GameObject:
   - component: {fileID: 5633313194371722808}
   - component: {fileID: 5633313194371722805}
   - component: {fileID: 5633313194371722810}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: R Leg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1017,7 +1020,7 @@ GameObject:
   - component: {fileID: 5633313194414321378}
   - component: {fileID: 5633313194414321404}
   - component: {fileID: 5633313194414321405}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Backpack
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1087,37 +1090,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5633313194428832301
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5633313194428832300}
-  m_Layer: 0
-  m_Name: Head
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5633313194428832300
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5633313194428832301}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.69599915, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4661226149377441425}
-  m_Father: {fileID: 5910550733111457768}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5633313194489893605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,7 +1200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7770031888862765744}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3133028213404573831}

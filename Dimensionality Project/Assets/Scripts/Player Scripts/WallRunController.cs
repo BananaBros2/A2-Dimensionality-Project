@@ -10,7 +10,6 @@ public class WallRunController : MonoBehaviour
     public Transform orientation;
     public Camera cam;
     public Rigidbody rb;
-    BasicPlayerMovementController movementScr;
 
     [Header("Wall Running checks")]
     public float wallDistance = .5f;
@@ -44,7 +43,7 @@ public class WallRunController : MonoBehaviour
 
     private void Start()
     {
-        movementScr = GetComponent<BasicPlayerMovementController>();
+        
     }
 
     bool canWallRun() // runs a ground check

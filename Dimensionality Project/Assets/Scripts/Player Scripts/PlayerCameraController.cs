@@ -7,9 +7,12 @@ using TMPro;
 
 public class PlayerCameraController : MonoBehaviour
 {
-    [SerializeField] WallRunController wallRun;
+    public Camera cam;
+    public BasicPlayerMovementController movementController;
+    public WallRunController wallRunController;
+    public Transform headPosition;
 
-    [Header("Mouse sensitivity")]
+    [Header("Mouse Sensitivity")]
 
     //old mouse sensitivity so you can set indivisual values to the mouse. Switch this out with the sensitivityMouse
     [SerializeField] private float sensX;
@@ -20,11 +23,8 @@ public class PlayerCameraController : MonoBehaviour
     public float multiplier = 0.01f;
 
     [Header("Mouse required objects")]
-    //[SerializeField] Transform cam;
-    Camera cam;
-    public Transform head;
-    [SerializeField] Transform orientation;
-    [SerializeField] Transform cameraPosition;
+    public Transform orientation;
+    public Transform cameraPosition;
 
     float mouseX;
     float mouseY;
@@ -32,9 +32,16 @@ public class PlayerCameraController : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    public float headBobHorizontalAmplitude;
+    public float headBobVerticalAmplitude;
+    [Range(0, 1)] public float headBobSmoothing;
+
+    private float headBobFrequency;
+    private float walkingTime;
+    private Vector3 targetCameraPosition;
+
     private void Start()
     {
-        cam = GetComponentInChildren<Camera>(); // this gets the camera component and sets cam 
         Cursor.lockState = CursorLockMode.Locked; // this locks the cursor
         Cursor.visible = false; // this hide the cursor
     }
@@ -50,10 +57,43 @@ public class PlayerCameraController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f); // this clamps the up down so you cannot flip the camera
 
         
-        cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt); // this rotates the camera seperatly (up and down)
+        cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRunController.tilt); // this rotates the camera seperatly (up and down)
         cam.transform.position = cameraPosition.position;
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0); // this rotates the orientation (left and right)
 
-        head.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRun.tilt); // TEMP
+        headPosition.transform.localRotation = Quaternion.Euler(xRotation, yRotation, wallRunController.tilt); // TEMP
+
+        MainHeadBobbing();
+    }
+
+    private void MainHeadBobbing()
+    {
+        if (movementController.IsMoving && movementController.IsGrounded || wallRunController.isWallRunning) walkingTime += Time.deltaTime;
+        else walkingTime = 0f;
+
+        headBobFrequency = (movementController.GetCurrentMovementSpeed() > 4.5f) ? 1f * movementController.GetCurrentMovementSpeed() : 4.5f;
+
+        targetCameraPosition = headPosition.position + CalculateHeadBobOffset(walkingTime);
+
+        cameraPosition.position = Vector3.Lerp(cameraPosition.transform.position, targetCameraPosition, headBobSmoothing);
+
+        if ((cameraPosition.position - targetCameraPosition).magnitude <= 0.001) cameraPosition.position = targetCameraPosition;
+    }
+
+    private Vector3 CalculateHeadBobOffset(float t)
+    {
+        float horOffset = 0f;
+        float vertOffset = 0f;
+        Vector3 Offset = Vector3.zero;
+
+        if (t > 0)
+        {
+            horOffset = Mathf.Cos(t * headBobFrequency) * headBobHorizontalAmplitude;
+            vertOffset = Mathf.Sin(t * headBobFrequency * 2f) * headBobVerticalAmplitude;
+
+            Offset = orientation.right * horOffset + orientation.up * vertOffset;
+        }
+
+        return Offset;
     }
 }
