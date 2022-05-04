@@ -25,6 +25,13 @@ public class MainMenuScr : MonoBehaviour
         }
     }
 
+    public void QuitGame()
+    {
+        Debug.LogWarning("Game is trying to Quit application");
+        Application.Quit();
+        Debug.LogError("Game failed to Quit - In editor use build of the game v 1.2.3 or above");
+    }
+
     public void LoadMap001()
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
@@ -37,6 +44,6 @@ public class MainMenuScr : MonoBehaviour
 
     public void OutErrorNotFound()
     {
-        Debug.LogError("Unable to load. Reason: Missing component");
+        Debug.LogError("Unable to load > Reason: Missing component");
     }
 }
