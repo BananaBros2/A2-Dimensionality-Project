@@ -27,11 +27,6 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) //temp close
-        {
-            Application.Quit();
-        }
-
         if (isRunning) time += Time.deltaTime;
 
         int minutes = Mathf.FloorToInt(time / 60f);
@@ -45,6 +40,7 @@ public class TimerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.R))
         {
+            Debug.Log("Better use build not editor"); // don't use my computer please but use the builds on teams or github.com
             SceneManager.LoadScene(2, LoadSceneMode.Single);
         }
 
