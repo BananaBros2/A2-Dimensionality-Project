@@ -198,7 +198,7 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 12
   acceleration: 0.5
-  jumpForce: 100
+  jumpForce: 150
   groundDrag: 6
   airDrag: 0.4
   groundCheck: {fileID: 7254066303532056801}
@@ -222,19 +222,19 @@ MonoBehaviour:
   cam: {fileID: 7426548633535021586}
   rb: {fileID: 3184520929093536050}
   wallDistance: 0.7
-  minimumJumpHeight: 1.5
   wallMask:
     serializedVersion: 2
     m_Bits: 192
+  minimumJumpHeight: 1.5
   minimumSpeed: 5
   wallRunGravity: 2
   wallRunJumpForce: 30
   wallRunSpeed: 15
   wallRunDesiredHeight: 0
-  wallRunDeAcceleration: 0
-  fov: 90
-  wallRunfov: 120
-  wallRunfovTime: 10
+  wallRunDeceleration: 0
+  FOV: 90
+  wallRunFOV: 90
+  wallRunFOVTime: 10
   camTilt: 20
   camTiltTime: 20
 --- !u!1 &5552373228229708346

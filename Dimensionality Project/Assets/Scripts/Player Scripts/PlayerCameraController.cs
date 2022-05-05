@@ -11,38 +11,28 @@ public class PlayerCameraController : MonoBehaviour
     public BasicPlayerMovementController movementController;
     public WallRunController wallRunController;
     public Transform headPosition;
-
-    [Header("Mouse Sensitivity")]
-
-    //old mouse sensitivity so you can set indivisual values to the mouse. Switch this out with the sensitivityMouse
-    [SerializeField] private float sensX;
-    [SerializeField] private float sensY;
-
-    public float sensitivityMouse = 1; //DO NOT HARD SET THIS VALUE - USE A SCRIPT TO MANAGE SETTINGS
-
-    public float multiplier = 0.01f;
-
-    [Header("Mouse required objects")]
     public Transform orientation;
     public Transform cameraPosition;
 
-    float mouseX;
-    float mouseY;
+    [Header("Mouse Sensitivity")]
+    public float sensitivityMouse = 1f; //DO NOT HARD SET THIS VALUE - USE A SCRIPT TO MANAGE SETTINGS
+    public float multiplier = 0.01f;
 
-    float xRotation;
-    float yRotation;
-
+    [Header("Head Bob")]
     public float headBobHorizontalAmplitude;
     public float headBobVerticalAmplitude;
     [Range(0, 1)] public float headBobSmoothing;
 
+    private float mouseX;
+    private float mouseY;
+    private float xRotation;
+    private float yRotation;
     private float headBobFrequency;
     private float walkingTime;
     private Vector3 targetCameraPosition;
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked; // this locks the cursor
         Cursor.visible = false; // this hide the cursor
     }
 
@@ -71,7 +61,7 @@ public class PlayerCameraController : MonoBehaviour
         if (movementController.IsMoving && movementController.IsGrounded || wallRunController.isWallRunning) walkingTime += Time.deltaTime;
         else walkingTime = 0f;
 
-        headBobFrequency = (movementController.GetCurrentMovementSpeed() > 4.5f) ? 1f * movementController.GetCurrentMovementSpeed() : 4.5f;
+        headBobFrequency = (movementController.CurrentMovementSpeed > 4.5f) ? 1f * movementController.CurrentMovementSpeed : 4.5f;
 
         targetCameraPosition = headPosition.position + CalculateHeadBobOffset(walkingTime);
 

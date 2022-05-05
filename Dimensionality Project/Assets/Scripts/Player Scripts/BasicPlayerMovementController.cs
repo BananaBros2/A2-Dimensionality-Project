@@ -22,10 +22,10 @@ public class BasicPlayerMovementController : MonoBehaviour
     public bool IsMoving { get; private set; } = false;
     public bool IsGrounded { get; private set; } = false;
     public bool IsCrouching { get; private set; } = false;
+    public float CurrentMovementSpeed { get; private set; } = 0f;
 
     private float horizontalMovement = 0f;
     private float verticalMovement = 0f;
-    private float currentMovementSpeed = 0f;
     private float movementMultiplier = 10f;
 
     [Header("Sprinting")]
@@ -80,14 +80,14 @@ public class BasicPlayerMovementController : MonoBehaviour
         //move direction so the player can control inair movement
         //jumpMoveDirection = moveDirection * 0.1f;
 
-        //gets the player's height by getting the scale of the Rigidbody and timesing by 2 as defult is 1
+        //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
         playerHeight = transform.localScale.y * 2;
         groundDistance = playerHeight / 5;
     }
 
     private void FixedUpdate()
     {
-        //calls the Move player funtion
+        //calls the Move player function
         MovePlayer();
     }
 
@@ -132,55 +132,36 @@ public class BasicPlayerMovementController : MonoBehaviour
 
             rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
 
-
-            //if (isGrounded && Input.GetAxis("Vertical") > 0)
-            //{
-            //    if (Mathf.Abs(Input.GetAxis("Mouse X")) > 7)
-            //    {
-            //        moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, Mathf.Abs(Input.GetAxis("Mouse X")) * Time.deltaTime);
-            //        print(Mathf.Abs(Input.GetAxis("Mouse X")));
-            //    }
-            //    else
-            //    {
-            //        moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, Input.GetAxisRaw("Mouse X") * 2f * Time.deltaTime);
-            //    }
-
-            //    isMoving = true;
-            //}
-
-            if (IsGrounded && Input.GetAxis("Vertical") > 0)
+            if (IsGrounded && Input.GetAxis("Vertical") > 0) // if moving forward
             {
-                currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime);
+                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime);
 
                 IsMoving = true;
             }
-
-            if (IsGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
+            else if (IsGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0) // else if moving another direction
             {
-                currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
+                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
 
                 IsMoving = true;
             }
-
             else if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
             {
-                currentMovementSpeed = walkSpeed / 2;
+                CurrentMovementSpeed = walkSpeed / 2;
 
                 IsMoving = false;
             }
         }
         else if (wallRunController.isWallRunning)
         {
-            currentMovementSpeed = walkSpeed * airDrag;
+            CurrentMovementSpeed = walkSpeed * airDrag;
         }
-
         else if (IsCrouching)
         {
-            currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, walkSpeed / 2f, acceleration * Time.deltaTime);
+            CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed / 2f, acceleration * Time.deltaTime);
         }
         else
         {
-            currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
+            CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
         }
     }
 
@@ -196,11 +177,6 @@ public class BasicPlayerMovementController : MonoBehaviour
         rb.transform.localScale = new Vector3(1f, 0.5f, 1f); // sets to crouch size
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(groundCheck.position, groundDistance);
-    }
-
     void Stand()
     {
         IsCrouching = false;
@@ -210,7 +186,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     //when called it will send a raycast out and return is true if the vector does not return stright up
     private bool IsOnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, (playerHeight / 2) + 0.5f)) // might need to make this value scale with player later
         {
             if (slopeHit.normal != Vector3.up)
             {
@@ -224,34 +200,29 @@ public class BasicPlayerMovementController : MonoBehaviour
         return false;
     }
 
-    //when called then the rigid body will get force applyed
+    // when called then the rigid body will get force applyed
     void MovePlayer()
     {
-        //if on the ground but not on a slope
-        if (IsGrounded && !IsOnSlope())
+        if (IsGrounded && !IsOnSlope()) // if on the ground but not on a slope
         {
-            //walk speed on flat ground
-            rb.AddForce(moveDirection.normalized * currentMovementSpeed * movementMultiplier, ForceMode.Acceleration);
+            // walk speed on flat ground
+            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * movementMultiplier, ForceMode.Acceleration);
         }
-
-        //if the player is on the ground and on a slope
-        else if (IsGrounded && IsOnSlope())
+        else if (IsGrounded && IsOnSlope()) // if the player is on the ground and on a slope
         {
-            //walk speed on slope
-            rb.AddForce(slopeMoveDirection.normalized * currentMovementSpeed * movementMultiplier, ForceMode.Acceleration);
+            // walk speed on slope
+            rb.AddForce(slopeMoveDirection.normalized * CurrentMovementSpeed * movementMultiplier, ForceMode.Acceleration);
         }
-
-        //if the player is not on the ground
-        else if (!IsGrounded)
+        else if (!IsGrounded) // if the player is not on the ground
         {
-            //jumping in mid air force with a downwards force
-            rb.AddForce(moveDirection.normalized * currentMovementSpeed * airMultiplier, ForceMode.Acceleration);
+            // jumping in mid air force with a downwards force
+            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier, ForceMode.Acceleration);
         }
     }
 
-    public float GetCurrentMovementSpeed()
+    private void OnDrawGizmos()
     {
-        return currentMovementSpeed;
+        Gizmos.DrawSphere(groundCheck.position, groundDistance);
     }
 
 }
