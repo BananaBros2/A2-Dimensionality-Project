@@ -32,7 +32,7 @@ public class PauseMenuScript : MonoBehaviour
         isPaused = !isPaused;
 
         Cursor.lockState = isPaused ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Cursor.visible = isPaused;
+        Cursor.visible = isPaused ? true : false;
         pauseMenu.SetActive(isPaused);
     }
 
