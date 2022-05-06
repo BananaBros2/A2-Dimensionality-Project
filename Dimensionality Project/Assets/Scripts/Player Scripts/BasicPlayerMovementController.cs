@@ -2,19 +2,16 @@ using UnityEngine;
 
 public class BasicPlayerMovementController : MonoBehaviour
 {
-    private float playerHeight = 0f;
-
+    public PlayerController playerController;
+    public WallRunController wallRunController;
     public Transform orientation;
     public Transform headPosition;
     public Transform cameraPosition;
-    public WallRunController wallRunController;
     public Rigidbody rb;
 
     [Header("Keybinds")]
     public KeyCode jumpKey;
     public KeyCode walkKey;
-    public KeyCode scaleUpKey;
-    public KeyCode scaleDownKey;
 
     [Header("Basic Movement")]
     public float airMultiplier;
@@ -47,7 +44,7 @@ public class BasicPlayerMovementController : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 slopeMoveDirection = Vector3.zero;
-    private RaycastHit slopeHit;
+    private RaycastHit slopeHit; // out
     //private Vector3 jumpMoveDirection; May need this in the future
 
     private void Update()
@@ -65,15 +62,6 @@ public class BasicPlayerMovementController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKey(KeyCode.C))
-        {
-            Crouch();
-        }
-        else
-        {
-            Stand();
-        }
-
         //sets the direction following the slope
         slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
 
@@ -81,8 +69,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         //jumpMoveDirection = moveDirection * 0.1f;
 
         //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
-        playerHeight = transform.localScale.y * 2;
-        groundDistance = playerHeight / 5;
+        groundDistance = playerController.PlayerHeight / 5;
     }
 
     private void FixedUpdate()
@@ -171,22 +158,10 @@ public class BasicPlayerMovementController : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse); //add a jump force to the rigid body component.
     }
 
-    void Crouch()
-    {
-        IsCrouching = true;
-        rb.transform.localScale = new Vector3(1f, 0.5f, 1f); // sets to crouch size
-    }
-
-    void Stand()
-    {
-        IsCrouching = false;
-        rb.transform.localScale = Vector3.one; // sets size back to normal
-    }
-
     //when called it will send a raycast out and return is true if the vector does not return stright up
     private bool IsOnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, (playerHeight / 2) + 0.5f)) // might need to make this value scale with player later
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, (playerController.PlayerHeight / 2) + 0.5f)) // might need to make this value scale with player later
         {
             if (slopeHit.normal != Vector3.up)
             {
