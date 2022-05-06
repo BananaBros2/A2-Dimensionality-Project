@@ -103,9 +103,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5910550733111457768}
   - component: {fileID: 3184520929093536050}
+  - component: {fileID: -21374666972907026}
   - component: {fileID: 3391243968074441186}
   - component: {fileID: 5186398040680255914}
   - component: {fileID: 6232795009754679149}
+  - component: {fileID: 9103313812203768553}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -148,6 +150,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-21374666972907026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184830907854241120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd5906312bf64d43992f8b4d7f317be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3391243968074441186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,12 +178,10 @@ MonoBehaviour:
   movementController: {fileID: 5186398040680255914}
   wallRunController: {fileID: 6232795009754679149}
   headPosition: {fileID: 5633313194370008140}
-  sensX: 0
-  sensY: 0
-  sensitivityMouse: 100
-  multiplier: 0.01
   orientation: {fileID: 2777513660465035913}
   cameraPosition: {fileID: 4661226149377441425}
+  sensitivityMouse: 100
+  multiplier: 0.01
   headBobHorizontalAmplitude: 0.1
   headBobVerticalAmplitude: 0.1
   headBobSmoothing: 0.1
@@ -185,15 +197,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9245690d13feac4b90f2ac0b1b123ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: -21374666972907026}
+  wallRunController: {fileID: 6232795009754679149}
   orientation: {fileID: 2777513660465035913}
   headPosition: {fileID: 5633313194370008140}
   cameraPosition: {fileID: 4661226149377441425}
-  wallRunController: {fileID: 6232795009754679149}
   rb: {fileID: 3184520929093536050}
   jumpKey: 32
   walkKey: 308
-  scaleUpKey: 304
-  scaleDownKey: 306
   airMultiplier: 1
   walkSpeed: 5
   sprintSpeed: 12
@@ -237,6 +248,19 @@ MonoBehaviour:
   wallRunFOVTime: 10
   camTilt: 20
   camTiltTime: 20
+--- !u!114 &9103313812203768553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184830907854241120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8638d75cfab540d47b19612106970d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScaleRange: 5
 --- !u!1 &5552373228229708346
 GameObject:
   m_ObjectHideFlags: 0

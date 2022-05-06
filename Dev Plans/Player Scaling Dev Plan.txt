@@ -1,0 +1,13 @@
+~ PLAYER SCALING ~
+
+Inputs: Left Shift, Left Ctrl
+
+DONE - Set up player scaling axis in input manager
+PROGRESS - Implement basic scaling mechanic
+  DONE - Changing scale based on Input
+  DONE - Implement maximum scale range
+  Implement scale up check
+  Scale other values that should scale with size
+    Work out what those values are
+Implement FOV change
+Implement smoother scaling
