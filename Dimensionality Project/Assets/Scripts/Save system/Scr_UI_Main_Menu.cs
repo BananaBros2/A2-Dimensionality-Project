@@ -45,8 +45,8 @@ public class Scr_UI_Main_Menu : MonoBehaviour
         //ConfirmDeleteData.SetActive(false);
 
         //makes the cursor visible and confines it so you can't click out
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.visible = true;
     }
 
     private void Update()

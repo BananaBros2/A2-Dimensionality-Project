@@ -25,7 +25,7 @@ public class Save_Manager : MonoBehaviour
         string dataPath = Application.persistentDataPath;
 
         var serializer = new XmlSerializer(typeof(SaveData));
-        var stream = new FileStream(dataPath + "/" + saveData.saveName + ".save", FileMode.Create);
+        var stream = new FileStream(dataPath + "/" + saveData.saveName + ".datafile", FileMode.Create);
         serializer.Serialize(stream, saveData);
         stream.Close();
     }
@@ -34,24 +34,24 @@ public class Save_Manager : MonoBehaviour
     {
         string dataPath = Application.persistentDataPath;
 
-        if(System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".save"))
+        if(System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".datafile"))
         {
             var serializer = new XmlSerializer(typeof(SaveData));
-            var stream = new FileStream(dataPath + "/" + saveData.saveName + ".save", FileMode.Open);
+            var stream = new FileStream(dataPath + "/" + saveData.saveName + ".datafile", FileMode.Open);
             saveData = serializer.Deserialize(stream) as SaveData;
             stream.Close();
 
-            Debug.Log("Loaded" + dataPath + "/" + saveData.saveName + ".save");
+            Debug.Log("Loaded" + dataPath + "/" + saveData.saveName + ".datafile");
             hasLoaded = true;
         }
         else
         {
-            Debug.LogError("COULD NOT FIND SAVE! on path ~ " + dataPath + "/" + saveData.saveName + ".save | Generating new blank slate. This is not recommened!");
+            Debug.LogError("COULD NOT FIND SAVE! on path ~ " + dataPath + "/" + saveData.saveName + ".datafile | Generating new blank slate. This is not recommened!");
             hasLoaded = false;
 
             //saveData.masterVolumeSave = 1f; >examples<
 
-            //saveData.FullscreenMode = 4;
+            saveData.FullscreenMode = 4;
 
             //saveData.ScreenResolution = 3;
 
@@ -70,9 +70,9 @@ public class Save_Manager : MonoBehaviour
     {
         string dataPath = Application.persistentDataPath;
 
-        if (System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".save"))
+        if (System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".datafile"))
         {
-            File.Delete(dataPath + "/" + saveData.saveName + ".save");
+            File.Delete(dataPath + "/" + saveData.saveName + ".datafile");
         }
     }
 }
@@ -81,13 +81,12 @@ public class Save_Manager : MonoBehaviour
 [System.Serializable]
 public class SaveData
 {
-    public string saveName;
-
+    public string saveName = "GAMEDATA";
 
 
     //public float masterVolumeSave; >examples<
 
-    //public int FullscreenMode;
+    public int FullscreenMode;
 
     //public int ScreenResolution;
 
