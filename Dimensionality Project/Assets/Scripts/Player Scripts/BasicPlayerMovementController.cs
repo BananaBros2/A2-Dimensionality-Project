@@ -153,7 +153,8 @@ public class BasicPlayerMovementController : MonoBehaviour
         }
         else if (wallRunController.isWallRunning)
         {
-            CurrentMovementSpeed = walkSpeed * airDrag;
+            // CurrentMovementSpeed = walkSpeed * airDrag;
+            Debug.LogError("ahhhhhhhhhhhhhhhh");
         }
         else if (IsCrouching)
         {
