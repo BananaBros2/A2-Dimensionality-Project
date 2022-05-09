@@ -21,7 +21,7 @@ public class PauseMenuScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePauseMenu();
         }
@@ -34,6 +34,14 @@ public class PauseMenuScript : MonoBehaviour
         Cursor.lockState = isPaused ? CursorLockMode.Confined : CursorLockMode.Locked;
         Cursor.visible = isPaused ? true : false;
         pauseMenu.SetActive(isPaused);
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public void ReturnToMainMenu()
