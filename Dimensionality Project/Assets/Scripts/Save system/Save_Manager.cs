@@ -53,6 +53,8 @@ public class Save_Manager : MonoBehaviour
 
             saveData.FullscreenMode = 4;
 
+            saveData.isTimerVisible = false;
+
             //saveData.ScreenResolution = 3;
 
             //saveData.HighScore = 0;
@@ -87,6 +89,8 @@ public class SaveData
     //public float masterVolumeSave; >examples<
 
     public int FullscreenMode;
+
+    public bool isTimerVisible;
 
     //public int ScreenResolution;
 
