@@ -10,9 +10,13 @@ public class TimerController : MonoBehaviour
 {
     public Text timerText;
 
+    public GameObject timer;
+
     float time = 0f;
 
     bool isRunning = false;
+
+    private bool isVisible { get; set; }
 
     public BoxCollider levelEndTrigger;
 
@@ -35,7 +39,14 @@ public class TimerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Better use build not editor"); // don't use my computer please but use the builds on teams or github.com
-            SceneManager.LoadScene(1, LoadSceneMode.Single);
+            SceneManager.LoadScene(2, LoadSceneMode.Single);
+        }
+
+        timer.SetActive(isVisible);
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isVisible = !isVisible;
         }
     }
 
