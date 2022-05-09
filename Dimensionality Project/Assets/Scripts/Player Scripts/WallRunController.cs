@@ -105,7 +105,7 @@ public class WallRunController : MonoBehaviour
 
         time += Time.deltaTime;
 
-        rb.AddForce(Vector3.down * (-Physics.gravity.y * time * wallRunGravity), ForceMode.Force); // this applies the custom gravity to the player
+        rb.AddForce(Vector3.down * (wallRunGravity * time), ForceMode.Acceleration); // this applies the custom gravity to the player
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time
 

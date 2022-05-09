@@ -18,12 +18,6 @@ public class TimerController : MonoBehaviour
 
     public BoxCollider levelStartTrigger;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -41,9 +35,8 @@ public class TimerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Better use build not editor"); // don't use my computer please but use the builds on teams or github.com
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
         }
-
     }
 
     public void StartTimer()
