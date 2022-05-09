@@ -69,7 +69,7 @@ public class PlayerCameraController : MonoBehaviour
 
         if ((cameraPosition.position - targetCameraPosition).magnitude <= 0.001) cameraPosition.position = targetCameraPosition;
     }
-
+    
     private Vector3 CalculateHeadBobOffset(float t)
     {
         float horOffset = 0f;
@@ -86,4 +86,5 @@ public class PlayerCameraController : MonoBehaviour
 
         return Offset;
     }
+
 }

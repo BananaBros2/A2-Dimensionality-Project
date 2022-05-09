@@ -11,7 +11,7 @@ public class MainMenuScr : MonoBehaviour
     public GameObject mainMenu;
     public GameObject settingsMenu;
 
-    public TMP_Dropdown FullScreenDropdown;
+    public Dropdown FullScreenDropdown;
     FullScreenMode settingVid;
 
     // Start is called before the first frame update
@@ -54,11 +54,11 @@ public class MainMenuScr : MonoBehaviour
                 break;
 
             case 2:
-                settingVid = FullScreenMode.ExclusiveFullScreen;
+                settingVid = FullScreenMode.FullScreenWindow;
                 break;
 
             case 3:
-                settingVid = FullScreenMode.FullScreenWindow;
+                settingVid = FullScreenMode.ExclusiveFullScreen;
                 break;
         }
     }
