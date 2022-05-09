@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScr : MonoBehaviour
 {
+    public GameObject mainMenu;
+    public GameObject settingsMenu;
+
     public TMP_Dropdown FullScreenDropdown;
     FullScreenMode settingVid;
 
@@ -22,6 +25,9 @@ public class MainMenuScr : MonoBehaviour
         {
             Save_Manager.instance.saveData.FullscreenMode = 4;
         }
+
+        mainMenu.SetActive(true);
+        settingsMenu.SetActive(false);
     }
 
     // Update is called once per frame
