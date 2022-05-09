@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float PlayerHeight { get; private set; } = 2f;
 
     private bool isPaused = false;
-    private float refreshTick = 0.2f;
+    private float updateTick = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
         while (!isPaused)
         {
             PlayerHeight = GetComponentInChildren<CapsuleCollider>().height * transform.localScale.y;
-            yield return new WaitForSeconds(refreshTick);
+            yield return new WaitForSeconds(updateTick);
         }
     }
 }
