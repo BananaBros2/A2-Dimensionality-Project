@@ -16,7 +16,7 @@ public class TimerController : MonoBehaviour
 
     bool isRunning = false;
 
-    private bool isVisible { get; set; }
+    private bool isVisible = false;
 
     public BoxCollider levelEndTrigger;
 
