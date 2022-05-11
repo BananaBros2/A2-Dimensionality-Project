@@ -11,7 +11,6 @@ public class ScaleUpTriggerController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             scalingController.IsRoomToScaleUp = false;
-            Debug.Log(scalingController.IsRoomToScaleUp.ToString());
         }
     }
 
@@ -20,7 +19,6 @@ public class ScaleUpTriggerController : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             scalingController.IsRoomToScaleUp = true;
-            Debug.Log(scalingController.IsRoomToScaleUp.ToString());
         }
     }
 }

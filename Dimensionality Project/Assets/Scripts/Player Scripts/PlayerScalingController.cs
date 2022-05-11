@@ -13,12 +13,6 @@ public class PlayerScalingController : MonoBehaviour
     private int currentScaleIndex = 0;
     private bool scaledThisFrame = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -29,7 +23,7 @@ public class PlayerScalingController : MonoBehaviour
 
     private bool ScaleDown()
     {
-        if (currentScaleIndex > maxScaleRange * -1 && !scaledThisFrame)
+        if (currentScaleIndex > -maxScaleRange && !scaledThisFrame)
         {
             transform.localScale /= 2f;
             currentScaleIndex--;
