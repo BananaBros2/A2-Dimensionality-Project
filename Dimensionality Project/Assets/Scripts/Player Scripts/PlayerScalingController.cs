@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerScalingController : MonoBehaviour
 {
     public PlayerController playerController;
+    public GameObject scaleUpTrigger;
     public int maxScaleRange;
+
+    public bool IsRoomToScaleUp { get; set; } = true;
 
     private int currentScaleIndex = 0;
     private bool scaledThisFrame = false;
@@ -40,7 +43,7 @@ public class PlayerScalingController : MonoBehaviour
 
     private bool ScaleUp()
     {
-        if (IsRoomToScaleUp() && currentScaleIndex < maxScaleRange && !scaledThisFrame)
+        if (IsRoomToScaleUp && currentScaleIndex < maxScaleRange && !scaledThisFrame)
         {
             transform.localScale *= 2f;
             currentScaleIndex++;
@@ -50,11 +53,5 @@ public class PlayerScalingController : MonoBehaviour
         {
             return false;
         }
-    }
-
-    private bool IsRoomToScaleUp()
-    {
-        // TODO: implement
-        return true;
     }
 }
