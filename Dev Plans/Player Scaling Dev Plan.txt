@@ -1,0 +1,22 @@
+~ PLAYER SCALING ~
+
+Inputs: Left Shift, Left Ctrl
+
+DONE - Set up player scaling axis in input manager
+PROGRESS - Implement basic scaling mechanic
+  DONE - Changing scale based on Input
+  DONE - Implement maximum scale range
+  DONE - Implement scale up check
+    BUG: Can't scale up with scale trigger implemented
+      CAUSE: Scale up trigger making contact with ground collider
+      FIX: Adjusted trigger size and position
+    BUG: Scale up check not functioning
+      CAUSE: Scale up trigger was checking for tag not layer
+      FIX: Changed trigger if statements to check layer
+  Scale other values that should scale with size
+    Work out what those values are
+Implement FOV change
+Implement feedback for not being able to scale
+  either by max scale range
+  or no room to scale up
+Implement smoother scaling
