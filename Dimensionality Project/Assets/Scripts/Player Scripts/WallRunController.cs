@@ -7,6 +7,7 @@ public class WallRunController : MonoBehaviour
     public bool isWallRunning { get; private set; } = false;
     public float tilt { get; private set; }
 
+    public PlayerController playerController;
     public Transform orientation;
     public Camera cam;
     public Rigidbody rb;
@@ -65,7 +66,7 @@ public class WallRunController : MonoBehaviour
 
     bool CanWallRun() // runs a ground check
     {
-        if (rb.velocity.magnitude > minimumSpeed && Input.GetAxis("Vertical") > 0 && Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight) == false)
+        if (rb.velocity.magnitude > minimumSpeed && Input.GetAxis("Vertical") > 0 && Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight * playerController.PlayerHeight / 2) == false)
         {
             return true;
         }
@@ -77,8 +78,8 @@ public class WallRunController : MonoBehaviour
 
     void CheckWall() // checks what side the wall is on
     {
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallDistance, wallMask); // sends out a raycast to the left and sets left to ture if hit
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallDistance, wallMask); // sends out a raycast to the right and sets right to true if hit
+        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, rb.transform.localScale.x * wallDistance, wallMask); // sends out a raycast to the left and sets left to ture if hit
+        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, rb.transform.localScale.x * wallDistance, wallMask); // sends out a raycast to the right and sets right to true if hit
     }
 
     void StartWallRun() // the wall running script
@@ -114,7 +115,7 @@ public class WallRunController : MonoBehaviour
         else if (wallRight) // checks what side the wall is
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
 
-        //rb.AddForce(orientation.forward * wallRunSpeed, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
+        rb.AddForce(orientation.forward * wallRunSpeed * playerController.PlayerHeight / 2f, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
 
     }
 

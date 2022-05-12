@@ -9,6 +9,7 @@ public class PlayerCameraController : MonoBehaviour
 {
     public Camera cam;
     public BasicPlayerMovementController movementController;
+    public PlayerController playerController;
     public WallRunController wallRunController;
     public Transform headPosition;
     public Transform orientation;
@@ -78,8 +79,8 @@ public class PlayerCameraController : MonoBehaviour
 
         if (t > 0)
         {
-            horOffset = Mathf.Cos(t * headBobFrequency) * headBobHorizontalAmplitude;
-            vertOffset = Mathf.Sin(t * headBobFrequency * 2f) * headBobVerticalAmplitude;
+            horOffset = Mathf.Cos(t * headBobFrequency) * headBobHorizontalAmplitude * playerController.PlayerHeight / 2;
+            vertOffset = Mathf.Sin(t * headBobFrequency * 2f) * headBobVerticalAmplitude * playerController.PlayerHeight / 2;
 
             Offset = orientation.right * horOffset + orientation.up * vertOffset;
         }
