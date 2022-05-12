@@ -115,7 +115,7 @@ public class WallRunController : MonoBehaviour
         else if (wallRight) // checks what side the wall is
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
 
-        //rb.AddForce(orientation.forward * wallRunSpeed, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
+        rb.AddForce(orientation.forward * wallRunSpeed * playerController.PlayerHeight / 2f, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
 
     }
 

@@ -99,7 +99,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         }
         else
         {
-            rb.drag = airDrag;
+            rb.drag = airDrag * playerController.PlayerHeight / 2f * 0.4f;
         }
     }
 
@@ -112,7 +112,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
             // clamps to max speed
-            if (rb.velocity.magnitude > sprintSpeed)
+            if (rb.velocity.magnitude > sprintSpeed * playerController.PlayerHeight / 2)
             {
                 rb.velocity = rb.velocity.normalized * sprintSpeed * playerController.PlayerHeight / 2;
             }
@@ -148,7 +148,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     void Jump() //when called then the player will jump in the air
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce * playerController.PlayerHeight / 2, ForceMode.Impulse); //add a jump force to the rigid body component.
+        rb.AddForce(transform.up * jumpForce * (playerController.PlayerHeight < 2f ? playerController.PlayerHeight / 2 * 2f : playerController.PlayerHeight / 2) , ForceMode.Impulse); //add a jump force to the rigid body component.
     }
 
     //when called it will send a raycast out and return is true if the vector does not return stright up
