@@ -93,7 +93,7 @@ public class WallRunController : MonoBehaviour
             Vector3 wallRunJumpDirection;
             if (wallLeft) // if the wall is to the left and space is pressed
             {
-                wallRunJumpDirection = transform.up + leftWallHit.normal ; // this will return the direction of the face of the wall
+                wallRunJumpDirection = transform.up + leftWallHit.normal; // this will return the direction of the face of the wall
             }
             else // if the wall is to the right and space is pressed
             {
@@ -116,7 +116,7 @@ public class WallRunController : MonoBehaviour
         else if (wallRight) // checks what side the wall is
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
 
-        rb.AddForce(orientation.forward * wallRunSpeed * playerController.PlayerHeight / 2f, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
+        //rb.AddForce(orientation.forward * wallRunSpeed, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
 
     }
 
@@ -126,7 +126,7 @@ public class WallRunController : MonoBehaviour
 
         isWallRunning = false;
 
-        //rb.useGravity = true; // turns back on the normal gravity
+        //rb.useGravity = true; // turns back on the normal gravity \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, FOV, wallRunFOVTime * Time.deltaTime); // sets fov back to normal
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime); // set the tilt back to normal
