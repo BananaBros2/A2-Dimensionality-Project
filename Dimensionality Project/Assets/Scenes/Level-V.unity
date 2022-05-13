@@ -10809,6 +10809,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &159104542 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4751404396415420377, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+  m_PrefabInstance: {fileID: 8100254194785223194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd5906312bf64d43992f8b4d7f317be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &159281795
 GameObject:
   m_ObjectHideFlags: 0
@@ -100097,7 +100108,7 @@ PrefabInstance:
     - target: {fileID: 7510659254629464410, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 159104542}
     - target: {fileID: 7510659254629464410, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: wallRunJumpForce
       value: 70
@@ -100112,15 +100123,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7800815470096501215, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 93.12047
+      value: 9.620468
       objectReference: {fileID: 0}
     - target: {fileID: 7800815470096501215, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.0413
+      value: -5.0413
       objectReference: {fileID: 0}
     - target: {fileID: 7800815470096501215, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 203.09338
+      value: 20.593391
       objectReference: {fileID: 0}
     - target: {fileID: 8100254193195966848, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_Layer
