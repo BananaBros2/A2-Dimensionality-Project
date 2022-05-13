@@ -19108,6 +19108,17 @@ Transform:
   m_Father: {fileID: 1908590119}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+--- !u!114 &259095648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4751404396415420377, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
+  m_PrefabInstance: {fileID: 8100254194785223194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd5906312bf64d43992f8b4d7f317be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &290351300
 GameObject:
   m_ObjectHideFlags: 0
@@ -99991,7 +100002,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 513475099, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.23000526
+      value: -0.23000336
       objectReference: {fileID: 0}
     - target: {fileID: 1319096309, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -100108,7 +100119,7 @@ PrefabInstance:
     - target: {fileID: 7510659254629464410, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 159104542}
+      objectReference: {fileID: 259095648}
     - target: {fileID: 7510659254629464410, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
       propertyPath: wallRunJumpForce
       value: 70
