@@ -78,7 +78,7 @@ MonoBehaviour:
   doorLeft: {fileID: 3695811278870346618}
   targetRight: {fileID: 4578825015251138019}
   targetLeft: {fileID: 4578825014224193750}
-  speed: 5
+  speed: 7
 --- !u!136 &4578825013685471452
 CapsuleCollider:
   m_ObjectHideFlags: 0
