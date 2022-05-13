@@ -113,7 +113,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
             // clamps to max speed
-            if (rb.velocity.magnitude > sprintSpeed)
+            if (rb.velocity.magnitude > sprintSpeed * playerController.PlayerHeight / 2)
             {
                 rb.velocity = rb.velocity.normalized * sprintSpeed * playerController.PlayerHeight / 2;
             }
