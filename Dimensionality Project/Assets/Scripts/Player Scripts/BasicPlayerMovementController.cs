@@ -70,6 +70,7 @@ public class BasicPlayerMovementController : MonoBehaviour
 
         //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
         groundDistance = playerController.PlayerHeight / 5;
+        airMultiplier = 1 * playerController.PlayerHeight / 2;
     }
 
     private void FixedUpdate()
@@ -99,7 +100,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         }
         else
         {
-            rb.drag = airDrag * playerController.PlayerHeight / 2f * 0.4f;
+            rb.drag = airDrag * playerController.PlayerHeight / 2;
         }
     }
 
@@ -121,13 +122,13 @@ public class BasicPlayerMovementController : MonoBehaviour
 
             if (IsGrounded && Input.GetAxis("Vertical") > 0) // if moving forward
             {
-                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime);
+                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime * playerController.PlayerHeight / 2);
 
                 IsMoving = true;
             }
             else if (IsGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0) // else if moving another direction
             {
-                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime);
+                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime * playerController.PlayerHeight / 2);
 
                 IsMoving = true;
             }
@@ -148,7 +149,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     void Jump() //when called then the player will jump in the air
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce * (playerController.PlayerHeight < 2f ? playerController.PlayerHeight / 2 * 2f : playerController.PlayerHeight / 2) , ForceMode.Impulse); //add a jump force to the rigid body component.
+        rb.AddForce(transform.up * jumpForce * playerController.PlayerHeight / 2, ForceMode.Impulse); //add a jump force to the rigid body component.
     }
 
     //when called it will send a raycast out and return is true if the vector does not return stright up
@@ -184,7 +185,11 @@ public class BasicPlayerMovementController : MonoBehaviour
         else if (!IsGrounded) // if the player is not on the ground
         {
             // jumping in mid air force with a downwards force
-            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight / 2) , ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
+
+            
+            //Increased gravity
+            rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);
         }
     }
 

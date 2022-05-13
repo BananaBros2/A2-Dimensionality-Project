@@ -10,7 +10,8 @@ public class PlayerScalingController : MonoBehaviour
 
     public bool IsRoomToScaleUp { get; set; } = true;
 
-    private int currentScaleIndex = 0;
+    [HideInInspector]
+    public int currentScaleIndex = 0;
     private bool scaledThisFrame = false;
 
     // Update is called once per frame

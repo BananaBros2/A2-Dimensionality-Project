@@ -40,6 +40,7 @@ public class WallRunController : MonoBehaviour
 
     void Update() // runs all wallrun functions every frame
     {
+        minimumSpeed = 5 * playerController.PlayerHeight / 2;
         WallRun(); // called the wall run manager
     }
 
@@ -92,21 +93,21 @@ public class WallRunController : MonoBehaviour
             Vector3 wallRunJumpDirection;
             if (wallLeft) // if the wall is to the left and space is pressed
             {
-                wallRunJumpDirection = transform.up + leftWallHit.normal; // this will return the direction of the face of the wall
+                wallRunJumpDirection = transform.up + leftWallHit.normal ; // this will return the direction of the face of the wall
             }
             else // if the wall is to the right and space is pressed
             {
                 wallRunJumpDirection = transform.up + rightWallHit.normal; // this will return the direction of the face of the wall
             }
-            rb.velocity = new Vector3(rb.velocity.x, wallRunDesiredHeight, rb.velocity.z); // will set y > 0 or it will make the player fall
-            rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force); // this applies the jump force (left and right)
+            rb.velocity = new Vector3(rb.velocity.x * playerController.PlayerHeight / 2, wallRunDesiredHeight * playerController.PlayerHeight / 2, rb.velocity.z); // will set y > 0 or it will make the player fall
+            rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100 * playerController.PlayerHeight / 2, ForceMode.Force); // this applies the jump force (left and right)
         }
 
         rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity
 
         time += Time.deltaTime;
 
-        rb.AddForce(Vector3.down * (wallRunGravity * time), ForceMode.Acceleration); // this applies the custom gravity to the player
+        rb.AddForce(Vector3.down * (wallRunGravity * time) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time
 
@@ -125,7 +126,7 @@ public class WallRunController : MonoBehaviour
 
         isWallRunning = false;
 
-        rb.useGravity = true; // turns back on the normal gravity
+        //rb.useGravity = true; // turns back on the normal gravity
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, FOV, wallRunFOVTime * Time.deltaTime); // sets fov back to normal
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime); // set the tilt back to normal

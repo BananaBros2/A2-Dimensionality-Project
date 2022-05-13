@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 732651723670231623}
   - component: {fileID: 732651723670231622}
   m_Layer: 0
-  m_Name: Jump Pad
+  m_Name: (OLD) Jump Pad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
