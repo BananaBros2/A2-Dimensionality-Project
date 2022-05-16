@@ -301,9 +301,9 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 12
   acceleration: 0.5
-  jumpForce: 150
+  jumpForce: 125
   groundDrag: 6
-  airDrag: 0.4
+  airDrag: 0.2
   groundCheck: {fileID: 7254066303532056801}
   groundMask:
     serializedVersion: 2
@@ -331,10 +331,10 @@ MonoBehaviour:
     m_Bits: 192
   minimumJumpHeight: 1.5
   minimumSpeed: 5
-  wallRunGravity: 1
-  wallRunJumpForce: 40
+  wallRunGravity: 2
+  wallRunJumpForce: 70
   wallRunSpeed: 15
-  wallRunDesiredHeight: 0
+  wallRunDesiredHeight: -4
   wallRunDeceleration: 0
   FOV: 90
   wallRunFOV: 90
@@ -355,7 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: -21374666972907026}
   scaleUpTrigger: {fileID: 733184070501931435}
-  maxScaleRange: 5
+  maxScaleRange: 3
+  currentScaleIndex: 0
 --- !u!1 &5552373228229708346
 GameObject:
   m_ObjectHideFlags: 0
