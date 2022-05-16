@@ -267,6 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 7426548633535021586}
   movementController: {fileID: 5186398040680255914}
+  playerController: {fileID: -21374666972907026}
   wallRunController: {fileID: 6232795009754679149}
   headPosition: {fileID: 5633313194370008140}
   orientation: {fileID: 2777513660465035913}
@@ -320,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60981689d9bf173418089984b0029480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: -21374666972907026}
   orientation: {fileID: 2777513660465035913}
   cam: {fileID: 7426548633535021586}
   rb: {fileID: 3184520929093536050}
@@ -354,6 +356,7 @@ MonoBehaviour:
   playerController: {fileID: -21374666972907026}
   scaleUpTrigger: {fileID: 733184070501931435}
   maxScaleRange: 5
+  currentScaleIndex: 0
 --- !u!1 &5552373228229708346
 GameObject:
   m_ObjectHideFlags: 0
