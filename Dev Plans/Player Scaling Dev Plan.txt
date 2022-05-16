@@ -13,8 +13,8 @@ PROGRESS - Implement basic scaling mechanic
     BUG: Scale up check not functioning
       CAUSE: Scale up trigger was checking for tag not layer
       FIX: Changed trigger if statements to check layer
-  Scale other values that should scale with size
-    Work out what those values are
+  DONE - Scale other values that should scale with size
+    DONE - Work out what those values are
 Implement FOV change
 Implement feedback for not being able to scale
   either by max scale range
