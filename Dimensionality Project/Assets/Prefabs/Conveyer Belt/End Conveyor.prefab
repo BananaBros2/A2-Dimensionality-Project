@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 700091068181305235}
   - component: {fileID: 872928010}
-  - component: {fileID: 1354146669}
-  - component: {fileID: 1354146670}
   m_Layer: 0
   m_Name: End Conveyor
   m_TagString: Untagged
@@ -47,51 +45,12 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 9ec4df1cf4c4b55479f29ec4c4a354b5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1354146669
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40810186190979732}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.48, y: 1.05, z: 2.57}
-  m_Center: {x: 0, y: 0.98, z: 0}
---- !u!114 &1354146670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40810186190979732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48d80adbf332d34484df075f096c699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!64 &847664202
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024498237376569247}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3705882075255635136, guid: ce6f5066a75d99e4c9c697317fb4336d, type: 3}
 --- !u!95 &7907597725538310509
 Animator:
   serializedVersion: 3
