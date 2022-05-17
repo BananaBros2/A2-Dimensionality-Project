@@ -1,0 +1,30 @@
+~ EXPERIMENTAL MOVEMENT REWORK ~
+
+Inputs & Mechanics:
+  W - Accelerate forward
+  S - Brake / Pace backwards
+  A - Strafe left
+  D - Strafe right
+  Space - Jump / Double jump? / Glide??
+  Left Alt - 180
+  Left Shift - Scale: x2
+  Left Ctrl - Scale: x0.5
+
+  Horizontal Wall-Running: Run alongside a wall with enough speed and jump, aiming slightly towards the wall, but mostly still in the direction of desired travel. Travel further than just jumping.
+  Vertical Wall-Running: Run directly at a wall with enough speed and jump, stepping up the wall a few times and gaining some height.
+  Grabbing Ledges: Can shimmy left and right, pull self up, or jump backwards, gaining a little height. Can only look 270 degrees.
+  Grabbing Bars and Poles: Poles on (90 degree only?) corners can be grabbed to swing round that corner really fast. Can grab horizontal bars to hang and swing and jump from.
+  Slide down slants of 45 degrees or more. Go faster than top running speed.
+  Height damage?
+
+Basic Player Prefab
+  DONE - Capsule collider body
+  DONE - Camera
+  DONE - Scale up check trigger collider
+    DONE - Trigger controller
+  DONE - Grounded check trigger collider
+    DONE - Trigger controller
+Camera Control
+  Mouse looking
+
+  Head bob - after basic movement
