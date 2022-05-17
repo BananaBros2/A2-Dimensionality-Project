@@ -16,10 +16,7 @@ public class Conveyor : MonoBehaviour
         else if (other.transform.tag == "RigidBody")
         {
             other.transform.Translate(-transform.right * power * Time.deltaTime);
-            if (other.attachedRigidbody.velocity.magnitude > power)
-            {
-                other.attachedRigidbody.velocity = other.attachedRigidbody.velocity.normalized * power;
-            }
+            other.attachedRigidbody.velocity = other.attachedRigidbody.velocity.normalized * power;
         }
     }
 }
