@@ -333,7 +333,7 @@ MonoBehaviour:
   minimumSpeed: 5
   wallRunGravity: 2
   wallRunJumpForce: 70
-  wallRunSpeed: 15
+  wallRunSpeed: 0
   wallRunDesiredHeight: -4
   wallRunDeceleration: 0
   FOV: 90
