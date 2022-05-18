@@ -13,18 +13,19 @@ public class TeleportController : MonoBehaviour
     private float cooldowntime;
     private float time;
 
-    public PlayerController playerController;
-
     public Vector3 targetPosition;
     Vector3 topOfCap;
     Vector3 botOfCap;
 
-    public GameObject target;
     public GameObject player;
 
     public Transform or;
 
     public LayerMask GroundMask;
+    
+    private float offsetZ;
+    private float offsetX;
+
 
     private void Start()
     {
@@ -38,18 +39,13 @@ public class TeleportController : MonoBehaviour
 
         if (Input.GetButtonDown("Teleport"))
         {
-
-            //targetPosition = target.transform.position; //sets the position that the player will teleport to
-
             targetPosition = transform.position + or.forward * range;
-
-            topOfCap = new Vector3(player.transform.position.x, player.transform.position.y + capsuleCollider.height / 2f, player.transform.position.z);
-            botOfCap = new Vector3(player.transform.position.x, player.transform.position.y - capsuleCollider.height / 2f, player.transform.position.z);
 
             if (time >= cooldowntime)
             {
+                topOfCap = new Vector3(player.transform.position.x, player.transform.position.y + capsuleCollider.height / 2f - capsuleCollider.radius, player.transform.position.z);
+                botOfCap = new Vector3(player.transform.position.x, player.transform.position.y - capsuleCollider.height / 2f + capsuleCollider.radius, player.transform.position.z);
                 Teleport(); //calls function
-
             }
             else
             {
@@ -60,11 +56,13 @@ public class TeleportController : MonoBehaviour
         
     }
 
+    /*
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(topOfCap, 0.5f);
-        Gizmos.DrawSphere(botOfCap, 0.5f);
+        Gizmos.DrawSphere(topOfCap, capsuleCollider.radius);
+        Gizmos.DrawSphere(botOfCap, capsuleCollider.radius);
     }
+    */
 
     void Teleport()
     {
@@ -72,13 +70,17 @@ public class TeleportController : MonoBehaviour
 
         cooldowntime = time + coolDown;
         
-        if (Physics.CapsuleCast(topOfCap, botOfCap, capsuleCollider.radius * playerController.PlayerHeight / 2f, or.forward, out hit, range))
+        if (Physics.CapsuleCast(topOfCap, botOfCap, capsuleCollider.radius / 1000f, or.forward / 1f, out hit, range))
         {
-            player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, hit.point.z);
+            print(hit.distance);
+            offsetZ = ((player.transform.position.z - hit.point.z) / 2.5f);
+            offsetX = ((player.transform.position.x - hit.point.x) / 2.5f);
+            player.transform.position = new Vector3(hit.point.x + offsetX, player.transform.position.y, hit.point.z + offsetZ);
         }
         else
         {
             player.transform.position = targetPosition;
+            print("aight");
         }
         
     }

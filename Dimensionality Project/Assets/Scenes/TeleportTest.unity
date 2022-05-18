@@ -517,17 +517,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 1424271191}
   m_IsSelectable: 1
-  m_SelectedFaces: 04000000
-  m_SelectedEdges:
-  - a: 16
-    b: 17
-  - a: 18
-    b: 16
-  - a: 17
-    b: 19
-  - a: 19
-    b: 18
-  m_SelectedVertices: 10000000110000001200000013000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &210908523
 Transform:
   m_ObjectHideFlags: 0
@@ -1791,7 +1783,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-12324
+  m_Name: pb_Mesh83702
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2275,17 +2267,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 1601168704}
   m_IsSelectable: 1
-  m_SelectedFaces: 04000000
-  m_SelectedEdges:
-  - a: 16
-    b: 17
-  - a: 18
-    b: 16
-  - a: 17
-    b: 19
-  - a: 19
-    b: 18
-  m_SelectedVertices: 10000000110000001200000013000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!4 &1579986438
 Transform:
   m_ObjectHideFlags: 0
@@ -2306,7 +2290,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13068
+  m_Name: pb_Mesh83750
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2469,17 +2453,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 312981811989513047, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
   m_PrefabInstance: {fileID: 528746795}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1728192326 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4751404396415420377, guid: ca271c2296576a84d86b48ded0e0348d, type: 3}
-  m_PrefabInstance: {fileID: 528746795}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728192323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd5906312bf64d43992f8b4d7f317be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1728192331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2494,9 +2467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 5
   coolDown: 1
-  playerController: {fileID: 1728192326}
   targetPosition: {x: 0, y: 0, z: 0}
-  target: {fileID: 1492340463}
   player: {fileID: 1728192323}
   or: {fileID: 59552592}
   GroundMask:
