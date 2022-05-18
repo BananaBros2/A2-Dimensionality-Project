@@ -32,10 +32,10 @@ public class ExpPlayerCameraController : MonoBehaviour
         Vector3 eulerAngles;
         eulerAngles = neckPivot.localEulerAngles;
         eulerAngles.x = (eulerAngles.x > 180f) ? eulerAngles.x - 360f : eulerAngles.x;
-        eulerAngles.x = Mathf.Clamp(eulerAngles.x, -verticalClamp, verticalClamp);
         eulerAngles.x += xAxisRotation;
         eulerAngles.y += yAxisRotation;
         eulerAngles.z = 0f;
+        eulerAngles.x = Mathf.Clamp(eulerAngles.x, -verticalClamp, verticalClamp);
         neckPivot.localRotation = Quaternion.Euler(eulerAngles);
     }
 }

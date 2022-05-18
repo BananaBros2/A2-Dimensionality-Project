@@ -10,24 +10,32 @@ Inputs & Mechanics:
   Left Shift - Scale: x2
   Left Ctrl - Scale: x0.5
 
-  Horizontal Wall-Running: Run alongside a wall with enough speed and jump, aiming slightly towards the wall, but mostly still in the direction of desired travel. Travel further than just jumping.
-  Vertical Wall-Running: Run directly at a wall with enough speed and jump, stepping up the wall a few times and gaining some height.
-  Grabbing Ledges: Can shimmy left and right, pull self up, or jump backwards, gaining a little height. Can only look 270 degrees.
-  Grabbing Bars and Poles: Poles on (90 degree only?) corners can be grabbed to swing round that corner really fast. Can grab horizontal bars to hang and swing and jump from.
+  Horizontal wall-running: Run alongside a wall with enough speed and jump, aiming slightly towards the wall, but mostly still in the direction of desired travel. Travel further than just jumping.
+  Vertical wall-running: Run directly at a wall with enough speed and jump, stepping up the wall a few times and gaining some height.
+  Grabbing ledges: Can shimmy left and right, pull self up, or jump backwards, gaining a little height. Can only look 270 degrees.
+  Grabbing bars and poles: Poles on (90 degree only?) corners can be grabbed to swing round that corner really fast. Can grab horizontal bars to hang and swing and jump from.
   Slide down slants of 45 degrees or more. Go faster than top running speed.
   Height damage?
 
-Basic Player Prefab
+DONE - Basic player prefab
   DONE - Capsule collider body
   DONE - Camera
   DONE - Scale up check trigger collider
     DONE - Trigger controller
   DONE - Grounded check trigger collider
     DONE - Trigger controller
-Camera Control
-  Mouse looking
-    BUG: X-axis rotation clamping at just -88 to 0
-      CAUSE: transform.localEulerAngles is not the same as the local rotation shown in the inspector. Above 0 degrees, the X rotation goes to 360 degrees and down.
-      FIX: If localEulerAngles.x > 180 then minus 360.
-
-  Head bob - after basic movement
+DONE - Mouse looking
+  BUG: X-axis rotation clamping at just -88 to 0
+    CAUSE: transform.localEulerAngles is not the same as the local rotation shown in the inspector. Above 0 degrees, the X rotation goes to 360 degrees and down.
+    FIX: If localEulerAngles.x > 180 then minus 360.
+PROGRESS - Basic movement
+  DONE - Set up Input axes
+  PROGRESS - Move forward
+    DONE - Movement intent: where the player is trying to move
+    Actual movement
+  Brake
+  Move backwards
+  Strafe
+  Jump
+Scaling integration
+Head bob
