@@ -26,5 +26,8 @@ Basic Player Prefab
     DONE - Trigger controller
 Camera Control
   Mouse looking
+    BUG: X-axis rotation clamping at just -88 to 0
+      CAUSE: transform.localEulerAngles is not the same as the local rotation shown in the inspector. Above 0 degrees, the X rotation goes to 360 degrees and down.
+      FIX: If localEulerAngles.x > 180 then minus 360.
 
   Head bob - after basic movement
