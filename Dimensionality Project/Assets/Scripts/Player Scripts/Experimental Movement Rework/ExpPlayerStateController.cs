@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExpPlayerStateController : MonoBehaviour
 {
-    public float PlayerHeight { get; private set; } = 2f;
+    //public float PlayerHeight { get; private set; } = 2f;
     public bool isGrounded = false;
 
     private bool isPaused = false;
@@ -27,7 +27,7 @@ public class ExpPlayerStateController : MonoBehaviour
     {
         while (!isPaused)
         {
-            PlayerHeight = GetComponentInChildren<CapsuleCollider>().height * transform.localScale.y;
+            //PlayerHeight = GetComponentInChildren<CapsuleCollider>().height * transform.localScale.y;
             yield return new WaitForSeconds(updateTick);
         }
     }
@@ -36,7 +36,7 @@ public class ExpPlayerStateController : MonoBehaviour
     {
         while (!isPaused)
         {
-            Debug.Log("Player Height: " + PlayerHeight.ToString());
+            //Debug.Log("Player Height: " + PlayerHeight.ToString());
             Debug.Log("Is Grounded?: " + isGrounded);
             yield return new WaitForSeconds(updateTick);
         }
