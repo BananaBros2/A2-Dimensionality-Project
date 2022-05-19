@@ -30,12 +30,16 @@ DONE - Mouse looking
     FIX: If localEulerAngles.x > 180 then minus 360.
 PROGRESS - Basic movement
   DONE - Set up Input axes
-  PROGRESS - Move forward
-    DONE - Movement intent: where the player is trying to move
-    Actual movement
-  Brake
-  Move backwards
-  Strafe
-  Jump
+  DONE - Movement intent: where the player is trying to move
+    DONE - MovementIntent rework
+  DONE - Move forward
+  DONE - Brake
+  DONE - Move backwards
+  DONE - Strafe
+  PROGRESS - Jump
+    Hold jump for higher jump?
 Scaling integration
+  Scale mass
+  Scale velocity?
+  Scale head bob?
 Head bob

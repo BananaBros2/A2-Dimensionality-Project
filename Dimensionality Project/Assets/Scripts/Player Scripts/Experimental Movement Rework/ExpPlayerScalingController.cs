@@ -6,6 +6,7 @@ public class ExpPlayerScalingController : MonoBehaviour
 {
     public ExpPlayerStateController stateController;
     public GameObject scaleUpTrigger;
+    public Rigidbody rb;
     public int maxScaleRange;
 
     public bool IsRoomToScaleUp { get; set; } = true;
