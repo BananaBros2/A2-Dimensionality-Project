@@ -18,9 +18,7 @@ public class Corruption : MonoBehaviour
 
     private void Start()
     {
-        if (GetComponentInChildren<Renderer>().material.HasProperty("_Color"))
-            originalColour = new Color(1, 1, 1, 1);
-        else originalColour = GetComponentInChildren<Renderer>().material.GetColor("_color");
+        originalColour = GetComponent<Renderer>().material.GetColor("_Color");
         originalTexOffset = GetComponentInChildren<Renderer>().material.GetTextureOffset("_MainTex");
         originalTexScale = GetComponentInChildren<Renderer>().material.GetTextureScale("_MainTex");
         originalObjectScale = GetComponent<Transform>().localScale;
@@ -60,7 +58,7 @@ public class Corruption : MonoBehaviour
             }
         }
 
-        if (Random.Range(1, 100) <= 10 && time*3 >= cooldowntime)
+        if (Random.Range(1, 100) <= 10 && time * 3 >= cooldowntime)
         {
             GetComponentInChildren<Renderer>().material.SetColor("_Color", originalColour);
             GetComponentInChildren<Renderer>().material.mainTextureOffset = originalTexOffset;
