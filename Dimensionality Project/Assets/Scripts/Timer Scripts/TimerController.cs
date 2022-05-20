@@ -38,7 +38,6 @@ public class TimerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("Better use build not editor"); // don't use my computer please but use the builds on teams or github.com
             SceneManager.LoadScene(2, LoadSceneMode.Single);
         }
 
