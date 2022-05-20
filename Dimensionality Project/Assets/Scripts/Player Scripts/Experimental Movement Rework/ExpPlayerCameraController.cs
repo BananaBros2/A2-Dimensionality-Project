@@ -6,6 +6,7 @@ public class ExpPlayerCameraController : MonoBehaviour
 {
     public Camera cam;
     public Transform neckPivot;
+    public Transform cameraPoint;
 
     [Header("Mouse Sensitivity")]
     public float horizontalSensitivity;
@@ -23,6 +24,7 @@ public class ExpPlayerCameraController : MonoBehaviour
     private void Update()
     {
         UpdateCameraLookDirection();
+        PlaceCamera();
     }
 
     private void UpdateCameraLookDirection()
@@ -37,5 +39,10 @@ public class ExpPlayerCameraController : MonoBehaviour
         eulerAngles.z = 0f;
         eulerAngles.x = Mathf.Clamp(eulerAngles.x, -verticalClamp, verticalClamp);
         neckPivot.localRotation = Quaternion.Euler(eulerAngles);
+    }
+
+    private void PlaceCamera()
+    {
+        cam.transform.SetPositionAndRotation(cameraPoint.position, cameraPoint.rotation);
     }
 }

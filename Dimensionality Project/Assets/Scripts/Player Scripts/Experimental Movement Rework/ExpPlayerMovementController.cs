@@ -13,11 +13,13 @@ public class ExpPlayerMovementController : MonoBehaviour
     public float maxForwardSpeed;
     public float maxBackwardSpeed;
     public float maxStrafeSpeed;
+    public float maxInAirSpeed;
 
     [Header("Acceleration Settings")]
     public float forwardAccel;
     public float backwardAccel;
     public float strafeAccel;
+    public float inAirAccel;
 
     [Header("Jump Settings")]
     public float jumpForce;
@@ -25,6 +27,7 @@ public class ExpPlayerMovementController : MonoBehaviour
 
     private bool[] inputArray = { false, false, false, false };
     private bool jumpIntent = false;
+    //private Vector3 velocityAtStartOfJump = Vector3.zero;
     private float minSpeed = 0.1f;
 
     private Dictionary<bool[], string> inputDictionary;
@@ -59,14 +62,14 @@ public class ExpPlayerMovementController : MonoBehaviour
 
     private void UpdateMovement()
     {
+        float accelToApply = 0f;
+        float maxSpeedToApply = maxForwardSpeed;
+        Vector3 directionToApply = Vector3.zero;
+
+        string inputType = GetInputType();
+
         if (stateController.isGrounded) // on ground movement control
         {
-            float accelToApply = 0f;
-            float maxSpeedToApply = maxForwardSpeed;
-            Vector3 directionToApply = Vector3.zero;
-
-            string inputType = GetInputType();
-
             switch (inputType)
             {
                 case "Forward":
@@ -138,6 +141,57 @@ public class ExpPlayerMovementController : MonoBehaviour
                 jumpIntent = false;
                 StartCoroutine(PerformJump());
             }
+        }
+        else // in-air movement control
+        {
+            accelToApply = inAirAccel;
+            switch (inputType)
+            {
+                case "Forward":
+                    directionToApply = facingDirection.forward;
+                    break;
+
+                case "Backward":
+                    directionToApply = -facingDirection.forward;
+                    break;
+
+                case "Left":
+                    directionToApply = -facingDirection.right;
+                    break;
+
+                case "Right":
+                    directionToApply = facingDirection.right;
+                    break;
+
+                case "Forward Left":
+                    directionToApply = Vector3.Normalize(facingDirection.forward + -facingDirection.right);
+                    break;
+
+                case "Forward Right":
+                    directionToApply = Vector3.Normalize(facingDirection.forward + facingDirection.right);
+                    break;
+
+                case "Backward Left":
+                    directionToApply = Vector3.Normalize(-facingDirection.forward + -facingDirection.right);
+                    break;
+
+                case "Backward Right":
+                    directionToApply = Vector3.Normalize(-facingDirection.forward + facingDirection.right);
+                    break;
+
+                case "Forward Backward":
+                case "Left Right":
+                case "Forward Backward Left":
+                case "Forward Backward Right":
+                case "Left Right Forward":
+                case "Left Right Backward":
+                case "All Inputs":
+                case "No Input":
+                    directionToApply = Vector3.zero;
+                    break;
+            }
+
+            rb.AddForce(accelToApply * transform.localScale.y * directionToApply, ForceMode.Acceleration);
         }
 
         if (Input.GetButton("Jump"))
