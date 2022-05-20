@@ -28,7 +28,6 @@ DONE - Mouse looking
   BUG: X-axis rotation clamping at just -88 to 0
     CAUSE: transform.localEulerAngles is not the same as the local rotation shown in the inspector. Above 0 degrees, the X rotation goes to 360 degrees and down.
     FIX: If localEulerAngles.x > 180 then minus 360.
-  BUG: Jittery camera
 PROGRESS - Basic movement
   DONE - Set up Input axes
   DONE - Movement intent: where the player is trying to move
@@ -37,14 +36,22 @@ PROGRESS - Basic movement
   DONE - Brake
   DONE - Move backwards
   DONE - Strafe
+  BUG: player moves slightly when standing still
   PROGRESS - Jump
     DONE - Basic force change
     DONE - Change jump direction based on speed
     DONE - Smooth jump
+    BUG: Pressing jump in mid-air makes you jump again when you hit the ground
     Hold jump for bigger arc
-Wall-running
+    Tweak
+DONE - Rework camera to avoid jittering
+In-air movement
 Scaling integration
   Scale mass
   Scale velocity?
+Wall-running
+  Horizontal
+  Vertical
+    180 mechanic
 Head bob
   Scale head bob
