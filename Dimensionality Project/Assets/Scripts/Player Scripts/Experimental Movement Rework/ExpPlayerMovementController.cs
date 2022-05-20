@@ -21,6 +21,7 @@ public class ExpPlayerMovementController : MonoBehaviour
 
     [Header("Jump Settings")]
     public float jumpForce;
+    public int jumpForceApplicationAmount;
 
     private bool[] inputArray = { false, false, false, false };
     private bool jumpIntent = false;
@@ -58,7 +59,7 @@ public class ExpPlayerMovementController : MonoBehaviour
 
     private void UpdateMovement()
     {
-        if (stateController.isGrounded)
+        if (stateController.isGrounded) // on ground movement control
         {
             float accelToApply = 0f;
             float maxSpeedToApply = maxForwardSpeed;
@@ -125,30 +126,18 @@ public class ExpPlayerMovementController : MonoBehaviour
                 case "All Inputs":
                 case "No Input":
                     accelToApply = backwardAccel / 2f;
-                    //maxSpeedToApply = rb.velocity.magnitude;
                     directionToApply = -rb.velocity.normalized;
                     break;
             }
 
+            rb.AddForce(accelToApply * transform.localScale.y * directionToApply, ForceMode.Acceleration);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeedToApply);
+
             if (jumpIntent)
             {
                 jumpIntent = false;
-                Vector3 up = transform.up;
-                Vector3 forward = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-                float t = (rb.velocity.magnitude / maxSpeedToApply) / 2f;
-                float jumpX = Mathf.Lerp(up.x, forward.x, t);
-                float jumpY = Mathf.Lerp(up.y, forward.y, t);
-                float jumpZ = Mathf.Lerp(up.z, forward.z, t);
-                Vector3 jumpDirection = new Vector3(jumpX, jumpY, jumpZ);
-                Debug.Log("Up: " + up.ToString());
-                Debug.Log("Forward: " + forward.ToString());
-                Debug.Log("t: " + t.ToString());
-                Debug.Log("Jump Direction: " + jumpDirection.ToString());
-                rb.AddForce(jumpForce * transform.localScale.y * jumpDirection, ForceMode.VelocityChange);
+                StartCoroutine(PerformJump());
             }
-
-            rb.AddForce(accelToApply * transform.localScale.y * directionToApply, ForceMode.Acceleration);
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeedToApply);
         }
 
         if (Input.GetButton("Jump"))
@@ -157,6 +146,19 @@ public class ExpPlayerMovementController : MonoBehaviour
         }
 
         if (rb.velocity.magnitude < minSpeed) rb.velocity = Vector3.zero;
+    }
+
+    private IEnumerator PerformJump()
+    {
+        Vector3 up = transform.up;
+        Vector3 forward = new Vector3(rb.velocity.x, 0f, rb.velocity.z).normalized;
+        float t = (rb.velocity.magnitude / maxForwardSpeed) / 2f;
+        Vector3 jumpDirection = Vector3.Lerp(up, forward, t);
+        for (int applicationCount = 0; applicationCount < jumpForceApplicationAmount; applicationCount++)
+        {
+            rb.AddForce(jumpForce * transform.localScale.y * jumpDirection, ForceMode.Acceleration);
+            yield return null;
+        }
     }
 
     private string GetInputType()

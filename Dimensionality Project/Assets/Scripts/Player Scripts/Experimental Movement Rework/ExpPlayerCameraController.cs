@@ -14,13 +14,13 @@ public class ExpPlayerCameraController : MonoBehaviour
     private float verticalClamp = 88f;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Cursor.visible = false;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         UpdateCameraLookDirection();
     }
