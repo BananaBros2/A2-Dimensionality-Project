@@ -27,6 +27,7 @@ public class ExpPlayerScalingController : MonoBehaviour
         if (currentScaleIndex > -maxScaleRange && !scaledThisFrame)
         {
             transform.localScale /= 2f;
+            rb.mass /= 2f;
             currentScaleIndex--;
             return true;
         }
@@ -41,6 +42,7 @@ public class ExpPlayerScalingController : MonoBehaviour
         if (IsRoomToScaleUp && currentScaleIndex < maxScaleRange && !scaledThisFrame)
         {
             transform.localScale *= 2f;
+            rb.mass *= 2f;
             currentScaleIndex++;
             return true;
         }
