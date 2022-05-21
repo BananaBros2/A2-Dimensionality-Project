@@ -15,7 +15,7 @@ Inputs & Mechanics:
   Grabbing ledges: Can shimmy left and right, pull self up, or jump backwards, gaining a little height. Can only look 270 degrees.
   Grabbing bars and poles: Poles on (90 degree only?) corners can be grabbed to swing round that corner really fast. Can grab horizontal bars to hang and swing and jump from.
   Slide down slants of 45 degrees or more. Go faster than top running speed.
-  Height damage?
+  Height damage? Spoken with Dom. No height damage, but height stun. Maybe implement as a camera modifier, like head bob.
 
 DONE - Basic player prefab
   DONE - Capsule collider body
@@ -28,7 +28,7 @@ DONE - Mouse looking
   BUG: X-axis rotation clamping at just -88 to 0
     CAUSE: transform.localEulerAngles is not the same as the local rotation shown in the inspector. Above 0 degrees, the X rotation goes to 360 degrees and down.
     FIX: If localEulerAngles.x > 180 then minus 360.
-PROGRESS - Basic movement
+DONE - Basic movement
   DONE - Set up Input axes
   DONE - Movement intent: where the player is trying to move
     DONE - MovementIntent rework
@@ -36,22 +36,26 @@ PROGRESS - Basic movement
   DONE - Brake
   DONE - Move backwards
   DONE - Strafe
-  BUG: player moves slightly when standing still
+  BUG: player moves slightly when standing still, code to still player isn't working
+    CAUSE: Selection of the direction of force to apply for no input was always -velocity, so kept the rigidbody oscillating.
+    FIX: No input selects zero-vector instead of -velocity under minSpeed. Old line that (tried to) still the player no longer required.
   PROGRESS - Jump
     DONE - Basic force change
     DONE - Change jump direction based on speed
     DONE - Smooth jump
     BUG: Pressing jump in mid-air makes you jump again when you hit the ground
-    Hold jump for bigger arc
-    Tweak
+      CAUSE: jumpIntent can be set to true even when not grounded.
+      FIX: Add isGrounded check to where jumpIntent gets set.
+    DONE - Hold jump for bigger arc
 DONE - Rework camera to avoid jittering
-In-air movement
-Scaling integration
-  Scale mass
-  Scale velocity?
+DONE - In-air movement
+DONE - Scaling integration
+  DONE - Scale mass
+  DONE - Scale velocity
 Wall-running
   Horizontal
   Vertical
     180 mechanic
+  Scale wall-run checks
 Head bob
   Scale head bob

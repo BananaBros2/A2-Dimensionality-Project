@@ -377,13 +377,12 @@ MonoBehaviour:
   maxForwardSpeed: 10
   maxBackwardSpeed: 4
   maxStrafeSpeed: 8
-  maxInAirSpeed: 1
   forwardAccel: 40
   backwardAccel: 20
   strafeAccel: 30
-  inAirAccel: 40
+  inAirAccel: 1
   jumpForce: 150
-  jumpForceApplicationAmount: 5
+  jumpForceRepetitions: 5
 --- !u!114 &4478896436596055768
 MonoBehaviour:
   m_ObjectHideFlags: 0

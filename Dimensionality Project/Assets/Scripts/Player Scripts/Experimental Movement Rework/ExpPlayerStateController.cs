@@ -13,7 +13,7 @@ public class ExpPlayerStateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(UpdatePlayerStats());
+        //StartCoroutine(UpdatePlayerStats());
         //StartCoroutine(OutputPlayerStats());
     }
 

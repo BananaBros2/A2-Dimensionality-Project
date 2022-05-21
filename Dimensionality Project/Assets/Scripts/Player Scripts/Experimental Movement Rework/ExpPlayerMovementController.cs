@@ -13,7 +13,6 @@ public class ExpPlayerMovementController : MonoBehaviour
     public float maxForwardSpeed;
     public float maxBackwardSpeed;
     public float maxStrafeSpeed;
-    public float maxInAirSpeed;
 
     [Header("Acceleration Settings")]
     public float forwardAccel;
@@ -23,12 +22,14 @@ public class ExpPlayerMovementController : MonoBehaviour
 
     [Header("Jump Settings")]
     public float jumpForce;
-    public int jumpForceApplicationAmount;
+    public int jumpForceRepetitions;
 
     private bool[] inputArray = { false, false, false, false };
     private bool jumpIntent = false;
-    //private Vector3 velocityAtStartOfJump = Vector3.zero;
-    private float minSpeed = 0.1f;
+    private bool jumpHang = false;
+    private Vector3 jumpHangForce = -Physics.gravity / 4f;
+
+    private const float minSpeed = 0.01f;
 
     private Dictionary<bool[], string> inputDictionary;
 
@@ -54,9 +55,17 @@ public class ExpPlayerMovementController : MonoBehaviour
     {
         inputArray = GetInputThisFrame();
 
-        if (!jumpIntent)
+        if (!jumpIntent && stateController.isGrounded)
         {
             jumpIntent = Input.GetButtonDown("Jump");
+        }
+        else if (!stateController.isGrounded)
+        {
+            jumpHang = Input.GetButton("Jump");
+        }
+        else
+        {
+            jumpHang = false;
         }
     }
 
@@ -110,13 +119,13 @@ public class ExpPlayerMovementController : MonoBehaviour
 
                 case "Backward Left":
                     accelToApply = (backwardAccel + strafeAccel) / 2;
-                    maxSpeedToApply = (maxBackwardSpeed + maxStrafeSpeed) / 2;
+                    maxSpeedToApply = maxBackwardSpeed;
                     directionToApply = Vector3.Normalize(-facingDirection.forward + -facingDirection.right);
                     break;
 
                 case "Backward Right":
                     accelToApply = (backwardAccel + strafeAccel) / 2;
-                    maxSpeedToApply = (maxBackwardSpeed + maxStrafeSpeed) / 2;
+                    maxSpeedToApply = maxBackwardSpeed;
                     directionToApply = Vector3.Normalize(-facingDirection.forward + facingDirection.right);
                     break;
 
@@ -129,12 +138,12 @@ public class ExpPlayerMovementController : MonoBehaviour
                 case "All Inputs":
                 case "No Input":
                     accelToApply = backwardAccel / 2f;
-                    directionToApply = -rb.velocity.normalized;
+                    directionToApply = (rb.velocity.magnitude > minSpeed) ? -rb.velocity.normalized : Vector3.zero;
                     break;
             }
 
             rb.AddForce(accelToApply * transform.localScale.y * directionToApply, ForceMode.Acceleration);
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeedToApply);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeedToApply * transform.localScale.y);
 
             if (jumpIntent)
             {
@@ -192,23 +201,21 @@ public class ExpPlayerMovementController : MonoBehaviour
             }
 
             rb.AddForce(accelToApply * transform.localScale.y * directionToApply, ForceMode.Acceleration);
+
+            if (jumpHang) // what happens when you hold jump in mid-air?
+            {
+                rb.AddForce(jumpHangForce * transform.localScale.y, ForceMode.Acceleration);
+            }
         }
-
-        if (Input.GetButton("Jump"))
-        {
-
-        }
-
-        if (rb.velocity.magnitude < minSpeed) rb.velocity = Vector3.zero;
     }
 
     private IEnumerator PerformJump()
     {
         Vector3 up = transform.up;
         Vector3 forward = new Vector3(rb.velocity.x, 0f, rb.velocity.z).normalized;
-        float t = (rb.velocity.magnitude / maxForwardSpeed) / 2f;
+        float t = (rb.velocity.magnitude / maxForwardSpeed) / 4f;
         Vector3 jumpDirection = Vector3.Lerp(up, forward, t);
-        for (int applicationCount = 0; applicationCount < jumpForceApplicationAmount; applicationCount++)
+        for (int applicationCount = 0; applicationCount < jumpForceRepetitions; applicationCount++)
         {
             rb.AddForce(jumpForce * transform.localScale.y * jumpDirection, ForceMode.Acceleration);
             yield return null;
