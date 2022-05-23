@@ -2088,9 +2088,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484620066276657286}
-  - component: {fileID: 1617527070}
   - component: {fileID: 417691454}
   - component: {fileID: 417691455}
+  - component: {fileID: 3439148759028942160}
   m_Layer: 0
   m_Name: Middle Conveyor
   m_TagString: Untagged
@@ -2113,25 +2113,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1617527070
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7949213650754703937}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1745503eb0e127e4595e849c6efd587f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!65 &417691454
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2159,7 +2140,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 1
   conveyorForce: {x: 0, y: 0, z: 0}
-  mainAnimator: {fileID: 1617527070}
+  mainAnimator: {fileID: 0}
+--- !u!111 &3439148759028942160
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949213650754703937}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1827226128182048838, guid: 0f95ca8ee4490c74eac1eac42a4fd645, type: 3}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8949042894498476973
 GameObject:
   m_ObjectHideFlags: 0

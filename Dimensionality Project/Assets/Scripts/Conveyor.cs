@@ -4,27 +4,39 @@ using UnityEngine;
 
 public class Conveyor : MonoBehaviour
 {
-    public float power = 1f;
+    public float power = 2f;
     [HideInInspector]
     public Vector3 conveyorForce;
-    public bool speedParameterActive;
-    [SerializeField] Animator mainAnimator;
+    [SerializeField] Animation Animation;
+    void Start()
+    {
+
+        Animation = GetComponent<Animation>();
+
+        /*
+        mainAnimator.SetFloat("test", power);
+        print(mainAnimator.GetFloat("test"));
+        mainAnimator.speed = power;
+        */
+
+        Animation["Turn"].speed = 1f;
+    }
+
 
     private void OnTriggerStay(Collider other)
     {
-        mainAnimator = GetComponent<Animator>();
-        mainAnimator.SetFloat("speed", power);
-
         if (other.transform.tag == "Player")
         {
             Rigidbody rb = other.GetComponentInParent<Rigidbody>();
-            BasicPlayerMovementController BPMS = other.GetComponentInParent<BasicPlayerMovementController>();
             other.GetComponentInParent<BasicPlayerMovementController>().conveyorForce = -transform.right * power / 30;
         }
         else if (other.transform.tag == "RigidBody")
         {
-            other.transform.Translate(-transform.right * power * Time.deltaTime);
-            other.attachedRigidbody.velocity = other.attachedRigidbody.velocity.normalized * power;
+            other.transform.Translate(-transform.right * power * Time.deltaTime *1.75f);
+            if (other.attachedRigidbody.velocity.magnitude > power)
+            {
+                other.attachedRigidbody.velocity = other.attachedRigidbody.velocity.normalized * power;
+            }
         }
     }
 }
