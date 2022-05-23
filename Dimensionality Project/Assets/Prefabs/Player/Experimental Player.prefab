@@ -381,9 +381,7 @@ MonoBehaviour:
   backwardAccel: 20
   strafeAccel: 30
   inAirAccel: 2
-  jumpForce: 150
-  jumpForceRepetitions: 5
-  jumpHangForceProportion: 0.35
+  maxJumpHeight: 20
 --- !u!114 &4478896436596055768
 MonoBehaviour:
   m_ObjectHideFlags: 0

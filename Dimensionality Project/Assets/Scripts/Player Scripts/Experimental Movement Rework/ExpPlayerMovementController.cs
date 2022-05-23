@@ -29,7 +29,6 @@ public class ExpPlayerMovementController : MonoBehaviour
     private int jumpForceRepetitions = 5;
     private bool jumpIntent = false;
     private bool jumpHang = false;
-    private float jumpDistanceAtPeak = 0f;
 
     private const float minSpeed = 0.01f;
 
@@ -164,35 +163,35 @@ public class ExpPlayerMovementController : MonoBehaviour
         switch (inputType)
         {
             case "Forward":
-                directionToApply = FlattenDirection(facingDirection.forward);
+                directionToApply = FlattenVector(facingDirection.forward).normalized;
                 break;
 
             case "Backward":
-                directionToApply = FlattenDirection(-facingDirection.forward);
+                directionToApply = FlattenVector(-facingDirection.forward).normalized;
                 break;
 
             case "Left":
-                directionToApply = FlattenDirection(-facingDirection.right);
+                directionToApply = FlattenVector(-facingDirection.right).normalized;
                 break;
 
             case "Right":
-                directionToApply = FlattenDirection(facingDirection.right);
+                directionToApply = FlattenVector(facingDirection.right).normalized;
                 break;
 
             case "Forward Left":
-                directionToApply = FlattenDirection(facingDirection.forward + -facingDirection.right);
+                directionToApply = FlattenVector(facingDirection.forward + -facingDirection.right).normalized;
                 break;
 
             case "Forward Right":
-                directionToApply = FlattenDirection(facingDirection.forward + facingDirection.right);
+                directionToApply = FlattenVector(facingDirection.forward + facingDirection.right).normalized;
                 break;
 
             case "Backward Left":
-                directionToApply = FlattenDirection(-facingDirection.forward + -facingDirection.right);
+                directionToApply = FlattenVector(-facingDirection.forward + -facingDirection.right).normalized;
                 break;
 
             case "Backward Right":
-                directionToApply = FlattenDirection(-facingDirection.forward + facingDirection.right);
+                directionToApply = FlattenVector(-facingDirection.forward + facingDirection.right).normalized;
                 break;
 
             case "Forward Backward":
@@ -209,20 +208,19 @@ public class ExpPlayerMovementController : MonoBehaviour
         return directionToApply;
     }
 
-    private Vector3 FlattenDirection(Vector3 direction)
+    private Vector3 FlattenVector(Vector3 vector)
     {
-        return new Vector3(direction.x, 0f, direction.z).normalized;
+        return new Vector3(vector.x, 0f, vector.z);
     }
 
     private void PerformJump()
     {
-        GetHorizontalComponentOfVelocity();
-        CalculateDistanceToPeak();
+        CalculateDistanceToJumpPeak();
         SmoothlyReachInitialVelocity(); // 3-5 frames
 
     }
 
-    private void CalulateDistanceToJumpPeak()
+    private void CalculateDistanceToJumpPeak()
     {
 
     }
@@ -254,6 +252,11 @@ public class ExpPlayerMovementController : MonoBehaviour
         inputThisFrame[2] = Input.GetButtonDown("Backward Movement") || Input.GetButton("Backward Movement");
         inputThisFrame[3] = Input.GetButtonDown("Strafe Right") || Input.GetButton("Strafe Right");
         return inputThisFrame;
+    }
+
+    private bool GetJumpInput()
+    {
+        return Input.GetButtonDown("Jump") || Input.GetButton("Jump");
     }
 
     private void InitialiseInputDictionary() // the digits are ordered: left, forward, backward, right
