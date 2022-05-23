@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExpPlayerScalingController : MonoBehaviour
 {
-    public ExpPlayerStateController stateController;
+    public ExpPlayerStateController state;
     public GameObject scaleUpTrigger;
     public Rigidbody rb;
     public int maxScaleRange;

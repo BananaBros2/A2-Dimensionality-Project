@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee1150e0cd44144ebe324d0168d617c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 6293107663316259667}
+  state: {fileID: 6293107663316259667}
   facingDirection: {fileID: 6837071034887666900}
   rb: {fileID: 7475870761242433413}
   maxForwardSpeed: 10
@@ -380,9 +380,10 @@ MonoBehaviour:
   forwardAccel: 40
   backwardAccel: 20
   strafeAccel: 30
-  inAirAccel: 1
+  inAirAccel: 2
   jumpForce: 150
   jumpForceRepetitions: 5
+  jumpHangForceProportion: 0.35
 --- !u!114 &4478896436596055768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31863e7d0646da944ab2e5d4483e97d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateController: {fileID: 6293107663316259667}
+  state: {fileID: 6293107663316259667}
   scaleUpTrigger: {fileID: 4265803765579775939}
   rb: {fileID: 7475870761242433413}
   maxScaleRange: 5
