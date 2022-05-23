@@ -222,6 +222,16 @@ public class ExpPlayerMovementController : MonoBehaviour
 
     }
 
+    //I need to make a function so I can bake. remove this when implimenting the attual use of the function.
+    private void GetHorizontalComponentOfVelocity()
+    {
+        //remove me
+    }
+    private void CalculateDistanceToPeak()
+    {
+        //remove me
+    }
+
     private void CalulateDistanceToJumpPeak()
     {
 
