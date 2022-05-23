@@ -1501,6 +1501,7 @@ GameObject:
   - component: {fileID: 5472877518098154051}
   - component: {fileID: 1847826852}
   - component: {fileID: 6643377599430468297}
+  - component: {fileID: 7495090537972259663}
   m_Layer: 6
   m_Name: Conveyor Middle
   m_TagString: Untagged
@@ -1517,7 +1518,7 @@ Transform:
   m_GameObject: {fileID: 5833126249171116950}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1171133645306112110}
   - {fileID: 2116121118853562956}
@@ -1630,6 +1631,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &7495090537972259663
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5833126249171116950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.55, y: 2.67, z: 0.69}
+  m_Center: {x: 0, y: 0, z: 0.32}
 --- !u!1 &5906103452432392013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,14 +2105,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7949213650754703937}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 24.929998, y: 1, z: 39.992}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6609241117733533996}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1617527070
 Animator:
   serializedVersion: 3
@@ -2129,8 +2143,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.48, y: 1.05, z: 2.57}
-  m_Center: {x: 0, y: 0.98, z: 0}
+  m_Size: {x: 2.5, y: 0.1, z: 2.61}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &417691455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2143,6 +2157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48d80adbf332d34484df075f096c699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  power: 1
+  conveyorForce: {x: 0, y: 0, z: 0}
+  mainAnimator: {fileID: 1617527070}
 --- !u!1 &8949042894498476973
 GameObject:
   m_ObjectHideFlags: 0
