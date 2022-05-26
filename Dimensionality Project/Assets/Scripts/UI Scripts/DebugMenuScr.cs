@@ -14,6 +14,15 @@ public class DebugMenuScr : MonoBehaviour
     public TMP_InputField console;
 
     public bool playerCheated { get; private set; } = false;
+    private bool noClipEnabled = false;
+
+    ColorBlock defultButtonColours;
+
+    private void Start()
+    {
+        Button noClipButton = GameObject.Find("NoClipButton").GetComponent<Button>();
+        defultButtonColours = noClipButton.colors;
+    }
 
     private void Update()
     {       
@@ -41,13 +50,28 @@ public class DebugMenuScr : MonoBehaviour
     public void NoClip()
     {
         playerCheated = true;
-        
+
+        noClipEnabled = !noClipEnabled;
+
         Button noClipButton = GameObject.Find("NoClipButton").GetComponent<Button>();
         var buttonColors = noClipButton.colors;
-        buttonColors.normalColor = Color.red;
-        noClipButton.colors = buttonColors;
+        if (noClipEnabled)
+        {
+            buttonColors.normalColor = Color.red;
+            buttonColors.selectedColor = Color.black;
+            noClipButton.colors = buttonColors;
+        }
+        else
+        {
+            buttonColors.normalColor = defultButtonColours.normalColor;
+            buttonColors.selectedColor = defultButtonColours.selectedColor;
+            noClipButton.colors = buttonColors;
+        }
 
-        BasicPlayerMovementController bpmc = GetComponentInParent<BasicPlayerMovementController>();
-        print("bpmc");
+        GameObject parent = transform.parent.gameObject;
+        parent.GetComponentInChildren<BasicPlayerMovementController>();
+
+        BasicPlayerMovementController bpmc = parent.GetComponentInChildren<BasicPlayerMovementController>();
+        print(bpmc);
     }
 }
