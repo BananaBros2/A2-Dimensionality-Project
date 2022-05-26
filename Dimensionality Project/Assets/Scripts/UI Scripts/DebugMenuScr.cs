@@ -20,17 +20,31 @@ public class DebugMenuScr : MonoBehaviour
 
     private void Start()
     {
+        debugMenu.SetActive(true);
+
         Button noClipButton = GameObject.Find("NoClipButton").GetComponent<Button>();
         defultButtonColours = noClipButton.colors;
+
+        debugMenu.SetActive(false);
     }
 
     private void Update()
     {       
         if (Input.GetButtonDown("Debug Menu")) debugShowen = !debugShowen;
 
-        Cursor.lockState = debugShowen ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Cursor.visible = debugShowen ? true : false;
+        if (Time.timeScale != 0f)
+        {
+            Cursor.lockState = debugShowen ? CursorLockMode.Confined : CursorLockMode.Locked;
+            Cursor.visible = debugShowen ? true : false;
+        }
         debugMenu.SetActive(debugShowen);
+
+        if (playerCheated)
+        {
+            GameObject parent = transform.parent.gameObject;
+            TimerController timerController = parent.GetComponentInChildren<TimerController>();
+            timerController.hasCheated = true;
+        }
     }
 
     public void Submit()
@@ -69,9 +83,7 @@ public class DebugMenuScr : MonoBehaviour
         }
 
         GameObject parent = transform.parent.gameObject;
-        parent.GetComponentInChildren<BasicPlayerMovementController>();
-
         BasicPlayerMovementController bpmc = parent.GetComponentInChildren<BasicPlayerMovementController>();
-        print(bpmc);
+        bpmc.noClip = noClipEnabled;
     }
 }

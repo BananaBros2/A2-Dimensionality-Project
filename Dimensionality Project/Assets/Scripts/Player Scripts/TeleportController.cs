@@ -15,6 +15,8 @@ public class TeleportController : MonoBehaviour
     public GameObject player;
     public Transform or;
 
+    public bool IsPlayerNoClipping = false;
+
     private void Start()
     {
         capsuleCollider = GetComponentInChildren<CapsuleCollider>();
@@ -25,7 +27,7 @@ public class TeleportController : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (Input.GetButtonDown("Teleport") && time >= cooldowntime)
+        if (Input.GetButtonDown("Teleport") && time >= cooldowntime && !IsPlayerNoClipping)
         {
             Teleport(); //calls function
         }

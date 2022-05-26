@@ -4,6 +4,8 @@ public class BasicPlayerMovementController : MonoBehaviour
 {
     public PlayerController playerController;
     public WallRunController wallRunController;
+    public TeleportController teleportController;
+    public PlayerScalingController playerScalingController;
     public Transform orientation;
     public Transform headPosition;
     public Transform cameraPosition;
@@ -23,7 +25,10 @@ public class BasicPlayerMovementController : MonoBehaviour
 
     private float horizontalMovement = 0f;
     private float verticalMovement = 0f;
+    private float yAxisOfMovement = 0f;
     private float movementMultiplier = 10f;
+
+    public bool noClip = false;
 
     [Header("Sprinting")]
     public float walkSpeed;
@@ -49,6 +54,18 @@ public class BasicPlayerMovementController : MonoBehaviour
 
     private void Update()
     {
+        if (noClip)
+        {
+            horizontalMovement = Input.GetAxisRaw("Horizontal");
+            verticalMovement = Input.GetAxisRaw("Vertical");
+            yAxisOfMovement = Input.GetAxisRaw("Up and Down");
+
+            moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement + orientation.up * yAxisOfMovement;
+
+            rb.drag = groundDrag;
+
+            return;
+        }
         IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //is grounded check
 
         //runs myinput function and control drag (more over this further down)
@@ -75,6 +92,29 @@ public class BasicPlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        wallRunController.isNoClipEnabled = noClip; // toggles gravity and wall running.
+        playerScalingController.IsNoClipEnabled = noClip; // toggles scaling on and off.
+        teleportController.IsPlayerNoClipping = noClip;
+
+        if (noClip)
+        {
+            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * movementMultiplier * playerController.PlayerHeight / 2, ForceMode.Acceleration);
+
+            Transform collider = transform.Find("Capsule");
+            CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
+
+            capsuleCollider.enabled = false;
+
+            return;
+        }
+        else
+        {
+            Transform collider = transform.Find("Capsule");
+            CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
+
+            capsuleCollider.enabled = true;
+        }
+
         //calls the Move player function
         MovePlayer();
     }
