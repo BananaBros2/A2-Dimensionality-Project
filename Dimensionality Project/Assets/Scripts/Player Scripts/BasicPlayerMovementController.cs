@@ -116,10 +116,10 @@ public class BasicPlayerMovementController : MonoBehaviour
             CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
 
             capsuleCollider.enabled = true;
-        }
 
-        //calls the Move player function
-        MovePlayer();
+            //calls the Move player function
+            MovePlayer();
+        }
     }
 
     //when called it will grab movement input
@@ -230,6 +230,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             // jumping in mid air force with a downwards force
             rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
 
+            if (noClip) return; // stops gravity.
 
             //Increased gravity
             if (!wallRunController.isWallRunning)

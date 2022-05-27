@@ -17,6 +17,7 @@ public class TimerController : MonoBehaviour
     float time = 0f;
 
     bool isRunning = false;
+    public bool canRestart = true;
 
     private bool isVisible = false;
 
@@ -27,7 +28,18 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer.SetActive(isVisible);
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isVisible = !isVisible;
+        }
+
+<<<<<<< HEAD
+        if (Input.GetKeyDown(KeyCode.R) && canRestart)
+=======
         if (Input.GetKeyDown(KeyCode.R))
+>>>>>>> Bugfixes
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single); // did some googling.
         }
@@ -51,13 +63,6 @@ public class TimerController : MonoBehaviour
         seconds = Mathf.Floor(seconds);
 
         timerText.text = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
-
-        timer.SetActive(isVisible);
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            isVisible = !isVisible;
-        }
     }
 
     public void StartTimer()
