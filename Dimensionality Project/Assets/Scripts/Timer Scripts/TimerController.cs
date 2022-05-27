@@ -35,7 +35,11 @@ public class TimerController : MonoBehaviour
             isVisible = !isVisible;
         }
 
+<<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.R) && canRestart)
+=======
+        if (Input.GetKeyDown(KeyCode.R))
+>>>>>>> Bugfixes
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single); // did some googling.
         }
