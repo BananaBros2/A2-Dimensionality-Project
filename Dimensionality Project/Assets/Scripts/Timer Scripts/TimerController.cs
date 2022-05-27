@@ -17,6 +17,7 @@ public class TimerController : MonoBehaviour
     float time = 0f;
 
     bool isRunning = false;
+    public bool canRestart = true;
 
     private bool isVisible = false;
 
@@ -34,7 +35,7 @@ public class TimerController : MonoBehaviour
             isVisible = !isVisible;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && canRestart)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single); // did some googling.
         }

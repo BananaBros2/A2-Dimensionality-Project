@@ -116,10 +116,10 @@ public class BasicPlayerMovementController : MonoBehaviour
             CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
 
             capsuleCollider.enabled = true;
-        }
 
-        //calls the Move player function
-        MovePlayer();
+            //calls the Move player function
+            MovePlayer();
+        }
     }
 
     //when called it will grab movement input
