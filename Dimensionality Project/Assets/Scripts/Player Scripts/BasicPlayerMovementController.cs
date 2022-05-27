@@ -72,7 +72,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         //jumpMoveDirection = moveDirection * 0.1f;
 
         //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
-        groundDistance = playerController.PlayerHeight / 100;
+        groundDistance = playerController.PlayerHeight / 8;
         airMultiplier = 1 * playerController.PlayerHeight / 2;
     }
 
@@ -190,7 +190,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             // jumping in mid air force with a downwards force
             rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
 
-            
+
             //Increased gravity
             if (!wallRunController.isWallRunning)
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);

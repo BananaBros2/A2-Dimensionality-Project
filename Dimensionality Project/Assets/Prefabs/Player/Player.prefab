@@ -300,6 +300,7 @@ MonoBehaviour:
   airMultiplier: 1
   walkSpeed: 5
   sprintSpeed: 12
+  trueSprintSpeed: 12
   acceleration: 0.5
   jumpForce: 125
   groundDrag: 6
@@ -309,6 +310,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundDistance: 0.4
+  conveyorForce: {x: 0, y: 0, z: 0}
 --- !u!114 &6232795009754679149
 MonoBehaviour:
   m_ObjectHideFlags: 0
