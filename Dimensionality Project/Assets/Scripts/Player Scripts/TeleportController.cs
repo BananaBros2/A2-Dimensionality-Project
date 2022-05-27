@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TeleportController : MonoBehaviour
 {
+    public Slider coolDownBar;
+
     CapsuleCollider capsuleCollider;
 
     public float range = 5f;
@@ -20,11 +23,16 @@ public class TeleportController : MonoBehaviour
     private void Start()
     {
         capsuleCollider = GetComponentInChildren<CapsuleCollider>();
+
+        coolDownBar.maxValue = coolDown;
+        coolDownBar.value = coolDown;
     }
 
     // Update is called once per frame
     void Update()
     {
+        coolDownBar.value = time <= cooldowntime ? coolDown / cooldowntime - time : coolDown;
+
         time += Time.deltaTime;
 
         if (Input.GetButtonDown("Teleport") && time >= cooldowntime && !IsPlayerNoClipping)
