@@ -234,9 +234,9 @@ public class BasicPlayerMovementController : MonoBehaviour
             {
                 //Increased gravity
                 if (!wallRunController.isWallRunning)
-                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);
+                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 5);
                 else
-                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
+                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 3);
             }
         }
 
