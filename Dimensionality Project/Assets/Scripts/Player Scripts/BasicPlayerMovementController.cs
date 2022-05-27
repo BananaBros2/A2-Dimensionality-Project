@@ -230,13 +230,14 @@ public class BasicPlayerMovementController : MonoBehaviour
             // jumping in mid air force with a downwards force
             rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
 
-            if (noClip) return; // stops gravity.
-
-            //Increased gravity
-            if (!wallRunController.isWallRunning)
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);
-            else
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
+            if (!noClip) // stops gravity.
+            {
+                //Increased gravity
+                if (!wallRunController.isWallRunning)
+                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);
+                else
+                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
+            }
         }
 
         rb.transform.position += conveyorForce;
