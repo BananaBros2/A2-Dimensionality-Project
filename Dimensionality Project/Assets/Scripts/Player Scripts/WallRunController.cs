@@ -40,7 +40,8 @@ public class WallRunController : MonoBehaviour
 
     void Update() // runs all wallrun functions every frame
     {
-        if (isNoClipEnabled) rb.useGravity = false; // stops the gravity and wall running.
+        rb.useGravity = isNoClipEnabled; // stops the gravity and wall running.
+        if (isNoClipEnabled) return;
 
         minimumSpeed = 5 * playerController.PlayerHeight / 2;
         WallRun(); // called the wall run manager
@@ -128,7 +129,7 @@ public class WallRunController : MonoBehaviour
 
         isWallRunning = false;
 
-        //rb.useGravity = true; // turns back on the normal gravity \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        rb.useGravity = true; // turns back on the normal gravity
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, FOV, wallRunFOVTime * Time.deltaTime); // sets fov back to normal
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime); // set the tilt back to normal
