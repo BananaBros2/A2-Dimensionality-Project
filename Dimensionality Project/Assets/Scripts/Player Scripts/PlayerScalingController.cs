@@ -8,6 +8,8 @@ public class PlayerScalingController : MonoBehaviour
     public GameObject scaleUpTrigger;
     public int maxScaleRange;
 
+    public bool IsNoClipEnabled = false;
+
     public bool IsRoomToScaleUp { get; set; } = true;
 
     [HideInInspector]
@@ -17,6 +19,8 @@ public class PlayerScalingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsNoClipEnabled) { transform.localScale = new Vector3(2, 2, 2); return; } // sets player back to normal and stops code of running.
+
         scaledThisFrame = false;
         if (Input.GetButtonUp("Scale Down")) scaledThisFrame = ScaleDown();
         if (Input.GetButtonUp("Scale Up")) scaledThisFrame = ScaleUp();

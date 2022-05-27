@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WallRunController : MonoBehaviour
@@ -17,6 +15,8 @@ public class WallRunController : MonoBehaviour
     public LayerMask wallMask;
     public float minimumJumpHeight;
     public float minimumSpeed;
+
+    public bool isNoClipEnabled = false;
 
     [Header("Wall Running Forces")]
     public float wallRunGravity;
@@ -40,6 +40,8 @@ public class WallRunController : MonoBehaviour
 
     void Update() // runs all wallrun functions every frame
     {
+        if (isNoClipEnabled) rb.useGravity = false; // stops the gravity and wall running.
+
         minimumSpeed = 5 * playerController.PlayerHeight / 2;
         WallRun(); // called the wall run manager
     }

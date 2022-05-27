@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class TimerController : MonoBehaviour
 {
+    public bool hasCheated = false;
+
     public Text timerText;
 
     public GameObject timer;
@@ -25,6 +27,20 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single); // did some googling.
+        }
+
+        if (hasCheated)
+        {
+            time = 0f;
+            StopTimer();
+
+            timerText.text = "CHEATED RESTART THE GAME";
+            return;
+        }
+
         if (isRunning) time += Time.deltaTime;
 
         int minutes = Mathf.FloorToInt(time / 60f);
@@ -35,12 +51,6 @@ public class TimerController : MonoBehaviour
         seconds = Mathf.Floor(seconds);
 
         timerText.text = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
-        
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Better use build not editor"); // don't use my computer please but use the builds on teams or github.com
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
-        }
 
         timer.SetActive(isVisible);
 
