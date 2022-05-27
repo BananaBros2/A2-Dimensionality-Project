@@ -19,6 +19,8 @@ public class PauseMenuScript : MonoBehaviour
         Time.timeScale = 1f;
 
         pauseMenu.SetActive(isPaused);
+
+        Time.timeScale = 1f;
     }
 
     private void Update()

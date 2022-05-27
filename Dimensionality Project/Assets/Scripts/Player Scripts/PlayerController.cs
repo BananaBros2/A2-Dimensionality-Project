@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isPaused = false;
     private float updateTick = 0.2f;
-
+    
     // Start is called before the first frame update
     void Start()
     {

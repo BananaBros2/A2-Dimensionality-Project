@@ -1,0 +1,78 @@
+~ EXPERIMENTAL MOVEMENT REWORK ~
+
+Inputs & Mechanics:
+  W - Accelerate forward
+  S - Brake / Pace backwards
+  A - Strafe left
+  D - Strafe right
+  Space - Jump / Double jump? / Glide??
+  Left Alt - 180
+  Left Shift - Scale: x2
+  Left Ctrl - Scale: x0.5
+
+  Horizontal wall-running: Run alongside a wall with enough speed and jump, aiming slightly towards the wall, but mostly still in the direction of desired travel. Travel further than just jumping.
+  Vertical wall-running: Run directly at a wall with enough speed and jump, stepping up the wall a few times and gaining some height.
+  Grabbing ledges: Can shimmy left and right, pull self up, or jump backwards, gaining a little height. Can only look 270 degrees.
+  Grabbing bars and poles: Poles on (90 degree only?) corners can be grabbed to swing round that corner really fast. Can grab horizontal bars to hang and swing and jump from.
+  Slide down slants of 45 degrees or more. Go faster than top running speed.
+  Height damage? Spoken with Dom. No height damage, but height stun. Maybe implement as a camera modifier, like head bob.
+
+DONE - Basic player prefab
+  DONE - Capsule collider body
+  DONE - Camera
+  DONE - Scale up check trigger collider
+    DONE - Trigger controller
+  DONE - Grounded check trigger collider
+    DONE - Trigger controller
+DONE - Mouse looking
+  FIXED - BUG: X-axis rotation clamping at just -88 to 0
+    CAUSE: transform.localEulerAngles is not the same as the local rotation shown in the inspector. Above 0 degrees, the X rotation goes to 360 degrees and down.
+    FIX: If localEulerAngles.x > 180 then minus 360.
+DONE - Basic movement
+  DONE - Set up Input axes
+  DONE - Movement intent: where the player is trying to move
+    DONE - MovementIntent rework
+  DONE - Move forward
+  DONE - Brake
+  DONE - Move backwards
+  DONE - Strafe
+  FIXED - BUG: player moves slightly when standing still, code to still player isn't working
+    CAUSE: Selection of the direction of force to apply for no input was always -velocity, so kept the rigidbody oscillating.
+    FIX: No input selects zero-vector instead of -velocity under minSpeed. Old line that (tried to) still the player no longer required.
+  PROGRESS - Jump
+    DONE - Basic force change
+    DONE - Change jump direction based on speed
+    DONE - Smooth jump
+    FIXED - BUG: Pressing jump in mid-air makes you jump again when you hit the ground
+      CAUSE: jumpIntent can be set to true even when not grounded.
+      FIX: Add isGrounded check to where jumpIntent gets set.
+    DONE - Hold jump for bigger arc
+    DONE - Tweak jump to use static direction for jump
+DONE - Rework camera to avoid jittering
+DONE - In-air movement
+DONE - Tweak friction
+FIXED - BUG: Moving towards facing direction causes odd behaviours when looking up/down.
+  CAUSE: Facing direction is taking y-component into account
+  FIX: Flatten direction vectors (remove y-component)
+DONE - Scaling integration
+  DONE - Scale mass
+  DONE - Scale velocity
+
+Jump is inconsistent - rework with inputs of (max)Height and (max)Distance
+  Tweak gravity - currently too "floaty" 
+  Jumping doesn't work well with scaling
+  Tweak strength of jump hang force / rework dynamic jump implementation
+  Reworked jump: Holding down jump until landing while moving at max speed gives jump described by maxJumpHeight & maxJumpDistance.
+
+Wall-running
+  Horizontal
+  Vertical
+    180 mechanic
+  Scale wall-run checks
+Head bob
+  Scale head bob
+Look at jump pad code
+
+Feedback
+  Attach the player to the menus
+  Test elevator

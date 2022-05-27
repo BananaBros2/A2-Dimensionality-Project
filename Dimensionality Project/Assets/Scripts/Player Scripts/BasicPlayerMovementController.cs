@@ -28,6 +28,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     [Header("Sprinting")]
     public float walkSpeed;
     public float sprintSpeed;
+    public float trueSprintSpeed = 12;
     public float acceleration;
 
     [Header("Jumping")]
@@ -46,6 +47,8 @@ public class BasicPlayerMovementController : MonoBehaviour
     private Vector3 slopeMoveDirection = Vector3.zero;
     private RaycastHit slopeHit; // out
     //private Vector3 jumpMoveDirection; May need this in the future
+    public Vector3 conveyorForce = new Vector3(0, 0, 0);
+
 
     private void Update()
     {
@@ -69,7 +72,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         //jumpMoveDirection = moveDirection * 0.1f;
 
         //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
-        groundDistance = playerController.PlayerHeight / 5;
+        groundDistance = playerController.PlayerHeight / 8;
         airMultiplier = 1 * playerController.PlayerHeight / 2;
     }
 
@@ -138,6 +141,7 @@ public class BasicPlayerMovementController : MonoBehaviour
 
                 IsMoving = false;
             }
+            sprintSpeed = trueSprintSpeed;
         }
         else if (wallRunController.isWallRunning)
         {
@@ -186,13 +190,16 @@ public class BasicPlayerMovementController : MonoBehaviour
             // jumping in mid air force with a downwards force
             rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
 
-            
+
             //Increased gravity
             if (!wallRunController.isWallRunning)
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);
             else
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
         }
+
+        rb.transform.position += conveyorForce;
+        conveyorForce = new Vector3(0, 0, 0);
     }
 
     private void OnDrawGizmos()
