@@ -32,11 +32,11 @@ public class DebugMenuScr : MonoBehaviour
     {       
         if (Input.GetButtonDown("Debug Menu")) debugShowen = !debugShowen;
 
-        if (Time.timeScale != 0f)
-        {
-            Cursor.lockState = debugShowen ? CursorLockMode.Confined : CursorLockMode.Locked;
-            Cursor.visible = debugShowen ? true : false;
+        Cursor.lockState = debugShowen ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Cursor.visible = debugShowen ? true : false;
 
+        if (Time.timeScale == 0f)
+        {
             GameObject parent = transform.parent.gameObject;
             TimerController timerController = parent.GetComponentInChildren<TimerController>();
             timerController.canRestart = false;

@@ -37,7 +37,7 @@ public class TimerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && canRestart)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         }
 
         if (hasCheated)

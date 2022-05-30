@@ -90,7 +90,6 @@ public class WallRunController : MonoBehaviour
 
     void StartWallRun() // the wall running script
     {
-        //if (!isWallRunning) rb.velocity = new Vector3(rb.velocity.x, 2f, rb.velocity.z);
         isWallRunning = true;
 
         if (Input.GetKeyDown(KeyCode.Space)) // checks if the player presses space
