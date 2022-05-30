@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c4ed130bb34e86041b323860299a9b86
   - enabled: 1
-    path: Assets/Scenes/Scenes/SampleScene.unity
-    guid: 042a718b95e8ae84eaae9f1084071c6f
-  - enabled: 1
     path: Assets/Scenes/Level-V.unity
     guid: 50deb3aa892edf242b0fcc01277573fc
+  - enabled: 1
+    path: Assets/Scenes/Scenes/SampleScene.unity
+    guid: 042a718b95e8ae84eaae9f1084071c6f
   - enabled: 1
     path: Assets/Scenes/New Speedrun Map.unity
     guid: bbc9650ef53dbb541967bae49ad703c9

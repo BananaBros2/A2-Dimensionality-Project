@@ -11,21 +11,58 @@ public class TimerController : MonoBehaviour
     public bool hasCheated = false;
 
     public Text timerText;
-
     public GameObject timer;
-
-    float time = 0f;
-
-    bool isRunning = false;
-    public bool canRestart = true;
-
-    private bool isVisible = false;
-
     public BoxCollider levelEndTrigger;
-
     public BoxCollider levelStartTrigger;
 
-    // Update is called once per frame
+    float time = 0f;
+    bool isRunning = false;
+    public bool canRestart = true;
+    private bool isVisible = false;
+    private bool beatenBestTime = false;
+
+    private string currentTime;
+    private int minutes;
+    private float seconds;
+    private float miliseconds;
+
+    private string bestTime;
+    private int bestMinutes = 0;
+    private float bestSeconds = 0f;
+    private float bestMilliseconds = 0f;
+
+
+
+    private void Start()
+    {
+        if (Save_Manager.instance.hasLoaded)
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                bestTime = Save_Manager.instance.saveData.levelVBestTime;
+
+                bestMinutes = Save_Manager.instance.saveData.levelVbestMinutes;
+
+                bestSeconds = Save_Manager.instance.saveData.leveLVbestSeconds;
+
+                bestMilliseconds = Save_Manager.instance.saveData.levelVbestMilliseconds;
+            }
+        }
+        else
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
+
+                Save_Manager.instance.saveData.levelVbestMinutes = 0;
+
+                Save_Manager.instance.saveData.leveLVbestSeconds = 0f;
+
+                Save_Manager.instance.saveData.levelVbestMilliseconds = 0f;
+            }
+        }
+    }
+
     void Update()
     {
         timer.SetActive(isVisible);
@@ -51,14 +88,30 @@ public class TimerController : MonoBehaviour
 
         if (isRunning) time += Time.deltaTime;
 
-        int minutes = Mathf.FloorToInt(time / 60f);
-        float seconds = time - minutes * 60f;
-        float miliseconds = seconds - Mathf.Floor(seconds);
+        minutes = Mathf.FloorToInt(time / 60f);
+        seconds = time - minutes * 60f;
+        miliseconds = seconds - Mathf.Floor(seconds);
 
         miliseconds = Mathf.Floor(miliseconds * 100f);
         seconds = Mathf.Floor(seconds);
 
-        timerText.text = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
+        currentTime = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
+        timerText.text = currentTime;
+
+        if ((minutes <= bestMinutes && seconds <= bestSeconds && miliseconds <= bestMilliseconds) || (bestMilliseconds == 0f && bestMinutes == 0 && bestSeconds == 0f)) // please fix
+        {
+            timerText.color = Color.green;
+            beatenBestTime = true;
+            bestTime = currentTime;
+            bestMinutes = minutes;
+            bestSeconds = seconds;
+            bestMilliseconds = miliseconds;
+        }
+        else
+        {
+            beatenBestTime = true;
+            timerText.color = Color.red;
+        }
     }
 
     public void StartTimer()
@@ -80,6 +133,13 @@ public class TimerController : MonoBehaviour
             timerText.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.1f);
             timerText.gameObject.SetActive(true);
+        }
+        if (!hasCheated && beatenBestTime)
+        {
+            Save_Manager.instance.saveData.levelVBestTime = bestTime;
+            Save_Manager.instance.saveData.levelVbestMinutes = bestMinutes;
+            Save_Manager.instance.saveData.leveLVbestSeconds = bestSeconds;
+            Save_Manager.instance.saveData.levelVbestMilliseconds = bestMilliseconds;
         }
     }
 
