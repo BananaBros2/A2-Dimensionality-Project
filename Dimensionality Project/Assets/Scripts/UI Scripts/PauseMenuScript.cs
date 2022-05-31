@@ -10,7 +10,7 @@ public class PauseMenuScript : MonoBehaviour
 {
     public GameObject pauseMenu;
 
-    private bool isPaused = false;
+    public bool isPaused { get; private set; } = false;
 
     private void Start()
     {

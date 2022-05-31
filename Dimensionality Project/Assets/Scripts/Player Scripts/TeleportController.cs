@@ -31,7 +31,7 @@ public class TeleportController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coolDownBar.value = time <= cooldowntime ? coolDown / cooldowntime - time : coolDown;
+        coolDownBar.value = time <= cooldowntime ? coolDown - (cooldowntime - time) : coolDown;
 
         time += Time.deltaTime;
 

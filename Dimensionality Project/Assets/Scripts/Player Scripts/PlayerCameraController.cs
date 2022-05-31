@@ -11,6 +11,7 @@ public class PlayerCameraController : MonoBehaviour
     public BasicPlayerMovementController movementController;
     public PlayerController playerController;
     public WallRunController wallRunController;
+    public PauseMenuScript pauseMenuScript;
     public Transform headPosition;
     public Transform orientation;
     public Transform cameraPosition;
@@ -39,6 +40,8 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Update()
     {
+        if (pauseMenuScript.isPaused) return;
+
         mouseX = Input.GetAxisRaw("Mouse X"); // this gets the X (left and right) mouse input
         mouseY = Input.GetAxisRaw("Mouse Y"); // this gets the Y (up and down) mouse input
 

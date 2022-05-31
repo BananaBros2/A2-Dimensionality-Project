@@ -51,9 +51,19 @@ public class Save_Manager : MonoBehaviour
 
             //saveData.masterVolumeSave = 1f; >examples<
 
-            saveData.FullscreenMode = 4;
+            saveData.fullscreenMode = 4;
 
             saveData.isTimerVisible = false;
+
+            saveData.levelVBestTime = "0:00.00";
+
+            saveData.levelVbestMinutes = 0;
+
+            saveData.leveLVbestSeconds = 0;
+
+            saveData.levelVbestMilliseconds = 0;
+
+            saveData.levelVNewTime = true;
 
             //saveData.ScreenResolution = 3;
 
@@ -88,9 +98,19 @@ public class SaveData
 
     //public float masterVolumeSave; >examples<
 
-    public int FullscreenMode;
+    public int fullscreenMode;
 
     public bool isTimerVisible;
+
+    public string levelVBestTime;
+
+    public int levelVbestMinutes;
+
+    public float leveLVbestSeconds;
+
+    public float levelVbestMilliseconds;
+
+    public bool levelVNewTime;
 
     //public int ScreenResolution;
 

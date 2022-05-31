@@ -10,24 +10,33 @@ public class MainMenuScr : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject settingsMenu;
+    public GameObject levelSelection;
 
     public Dropdown FullScreenDropdown;
+    public TMP_Text LevelVBestTimeText;
     FullScreenMode settingVid;
+
+    private string LevelVbestTime;
 
     // Start is called before the first frame update
     void Start()
     {
         if (Save_Manager.instance.hasLoaded)
         {
-            FullScreenDropdown.value = Save_Manager.instance.saveData.FullscreenMode;
+            FullScreenDropdown.value = Save_Manager.instance.saveData.fullscreenMode;
+
+            LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
         }
         else
         {
-            Save_Manager.instance.saveData.FullscreenMode = 4;
+            Save_Manager.instance.saveData.fullscreenMode = 4;
+
+            Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
         }
 
         mainMenu.SetActive(true);
         settingsMenu.SetActive(false);
+        levelSelection.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,6 +47,10 @@ public class MainMenuScr : MonoBehaviour
         //other funtions that need to run constantly
         FullScreen();
         Resolution();
+
+
+        LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
+        LevelVBestTimeText.text = "Best time: " + LevelVbestTime;
     }
 
     //sets the fullscreen mode depending on the dropbox value
@@ -102,13 +115,19 @@ public class MainMenuScr : MonoBehaviour
 
         //Save_Manager.instance.saveData.masterVolumeSave = 1f;
 
-        //Save_Manager.instance.saveData.FullscreenMode = 4;
+        Save_Manager.instance.saveData.fullscreenMode = 4;
 
-        //Save_Manager.instance.saveData.ScreenResolution = 3;
+        Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
 
-        //Save_Manager.instance.saveData.HighScore = 0;
+        Save_Manager.instance.saveData.levelVbestMinutes = 0;
 
-        //Save_Manager.instance.Save();
+        Save_Manager.instance.saveData.leveLVbestSeconds = 0f;
+
+        Save_Manager.instance.saveData.levelVbestMilliseconds = 0f;
+
+        Save_Manager.instance.saveData.levelVNewTime = true;
+
+        Save_Manager.instance.Save();
 
         LoadSettings();
     }
@@ -120,7 +139,7 @@ public class MainMenuScr : MonoBehaviour
         //save the values that are set
         //Save_Manager.instance.saveData.masterVolumeSave = masterVolume;
 
-        Save_Manager.instance.saveData.FullscreenMode = FullScreenDropdown.value;
+        Save_Manager.instance.saveData.fullscreenMode = FullScreenDropdown.value;
 
         //Save_Manager.instance.saveData.ScreenResolution = VideoResolution.value;
 
@@ -138,7 +157,7 @@ public class MainMenuScr : MonoBehaviour
         //masterVolume = Save_Manager.instance.saveData.masterVolumeSave;
         //MasterVolume.value = Save_Manager.instance.saveData.masterVolumeSave;
 
-        FullScreenDropdown.value = Save_Manager.instance.saveData.FullscreenMode;
+        FullScreenDropdown.value = Save_Manager.instance.saveData.fullscreenMode;
 
         //VideoResolution.value = Save_Manager.instance.saveData.ScreenResolution;
 
@@ -150,9 +169,7 @@ public class MainMenuScr : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.LogWarning("Game is trying to Quit application");
         Application.Quit();
-        Debug.LogError("Game failed to Quit - In editor use build of the game v 1.2.3 or above");
     }
 
     public void LoadMap001()
