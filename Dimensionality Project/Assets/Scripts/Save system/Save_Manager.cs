@@ -63,6 +63,8 @@ public class Save_Manager : MonoBehaviour
 
             saveData.levelVbestMilliseconds = 0;
 
+            saveData.levelVNewTime = true;
+
             //saveData.ScreenResolution = 3;
 
             //saveData.HighScore = 0;
@@ -107,6 +109,8 @@ public class SaveData
     public float leveLVbestSeconds;
 
     public float levelVbestMilliseconds;
+
+    public bool levelVNewTime;
 
     //public int ScreenResolution;
 

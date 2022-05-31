@@ -48,6 +48,8 @@ public class MainMenuScr : MonoBehaviour
         FullScreen();
         Resolution();
 
+
+        LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
         LevelVBestTimeText.text = "Best time: " + LevelVbestTime;
     }
 
@@ -122,6 +124,8 @@ public class MainMenuScr : MonoBehaviour
         Save_Manager.instance.saveData.leveLVbestSeconds = 0f;
 
         Save_Manager.instance.saveData.levelVbestMilliseconds = 0f;
+
+        Save_Manager.instance.saveData.levelVNewTime = true;
 
         Save_Manager.instance.Save();
 

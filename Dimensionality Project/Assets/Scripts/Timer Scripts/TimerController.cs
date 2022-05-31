@@ -20,6 +20,7 @@ public class TimerController : MonoBehaviour
     public bool canRestart = true;
     private bool isVisible = false;
     private bool beatenBestTime = false;
+    private bool isNewTime;
 
     private string currentTime;
     private int minutes;
@@ -27,9 +28,9 @@ public class TimerController : MonoBehaviour
     private float miliseconds;
 
     private string bestTime;
-    private int bestMinutes = 0;
-    private float bestSeconds = 0f;
-    private float bestMilliseconds = 0f;
+    private int bestMinutes;
+    private float bestSeconds;
+    private float bestMilliseconds;
 
 
 
@@ -46,6 +47,8 @@ public class TimerController : MonoBehaviour
                 bestSeconds = Save_Manager.instance.saveData.leveLVbestSeconds;
 
                 bestMilliseconds = Save_Manager.instance.saveData.levelVbestMilliseconds;
+
+                isNewTime = Save_Manager.instance.saveData.levelVNewTime;
             }
         }
         else
@@ -59,12 +62,16 @@ public class TimerController : MonoBehaviour
                 Save_Manager.instance.saveData.leveLVbestSeconds = 0f;
 
                 Save_Manager.instance.saveData.levelVbestMilliseconds = 0f;
+
+                Save_Manager.instance.saveData.levelVNewTime = true;
             }
         }
     }
 
     void Update()
     {
+        print(bestMinutes + "m " + bestSeconds + "s " + bestMilliseconds + "ms " + isNewTime + " ist " + bestTime + " bt");
+
         timer.SetActive(isVisible);
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -98,19 +105,50 @@ public class TimerController : MonoBehaviour
         currentTime = minutes.ToString() + ":" + (seconds < 10f ? "0" : "") + seconds.ToString() + "." + (miliseconds < 10f ? "0" : "") + miliseconds.ToString();
         timerText.text = currentTime;
 
-        if ((minutes <= bestMinutes && seconds <= bestSeconds && miliseconds <= bestMilliseconds) || (bestMilliseconds == 0f && bestMinutes == 0 && bestSeconds == 0f)) // please fix
+        if (isNewTime)
         {
-            timerText.color = Color.green;
             beatenBestTime = true;
-            bestTime = currentTime;
-            bestMinutes = minutes;
-            bestSeconds = seconds;
-            bestMilliseconds = miliseconds;
+            timerText.color = Color.yellow;
         }
         else
         {
-            beatenBestTime = true;
-            timerText.color = Color.red;
+            beatenBestTime = IsLessThanBestTime(minutes, seconds, miliseconds);
+            if (beatenBestTime) timerText.color = Color.green;
+            else timerText.color = Color.red;
+        }
+    }
+
+    private bool IsLessThanBestTime(int minutes, float seconds, float miliseconds)
+    {
+        if (minutes < bestMinutes)
+        {
+            return true;
+        }
+        else if (minutes == bestMinutes)
+        {
+            if (seconds < bestSeconds)
+            {
+                return true;
+            }
+            else if (seconds == bestSeconds)
+            {
+                if (miliseconds < bestMilliseconds)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -136,10 +174,17 @@ public class TimerController : MonoBehaviour
         }
         if (!hasCheated && beatenBestTime)
         {
+            isNewTime = false;
+            bestTime = currentTime;
+            bestMinutes = minutes;
+            bestSeconds = seconds;
+            bestMilliseconds = miliseconds;
+            Save_Manager.instance.saveData.levelVNewTime = isNewTime;
             Save_Manager.instance.saveData.levelVBestTime = bestTime;
             Save_Manager.instance.saveData.levelVbestMinutes = bestMinutes;
             Save_Manager.instance.saveData.leveLVbestSeconds = bestSeconds;
             Save_Manager.instance.saveData.levelVbestMilliseconds = bestMilliseconds;
+            Save_Manager.instance.Save();
         }
     }
 

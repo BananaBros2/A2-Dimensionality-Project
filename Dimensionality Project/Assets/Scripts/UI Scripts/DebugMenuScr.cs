@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class DebugMenuScr : MonoBehaviour
 {
+    private PauseMenuScript pauseMenuScript;
+
     private bool debugShowen = false;
     public GameObject debugMenu;
 
@@ -25,12 +27,17 @@ public class DebugMenuScr : MonoBehaviour
         Button noClipButton = GameObject.Find("NoClipButton").GetComponent<Button>();
         defultButtonColours = noClipButton.colors;
 
+        GameObject parent = transform.parent.gameObject;
+        pauseMenuScript = parent.GetComponentInChildren<PauseMenuScript>();
+
         debugMenu.SetActive(false);
     }
 
     private void Update()
-    {       
+    {   
         if (Input.GetButtonDown("Debug Menu")) debugShowen = !debugShowen;
+
+        if (pauseMenuScript.isPaused) return;
 
         Cursor.lockState = debugShowen ? CursorLockMode.Confined : CursorLockMode.Locked;
         Cursor.visible = debugShowen ? true : false;
