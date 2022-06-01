@@ -44,7 +44,7 @@ public class WallRunController : MonoBehaviour
         if (isNoClipEnabled) rb.useGravity = false; // stops the gravity and wall running.
         if (isNoClipEnabled) return;
 
-        minimumSpeed = 5 * playerController.PlayerHeight / 2;
+        minimumSpeed = 4 * playerController.PlayerHeight / 2;
         WallRun(); // called the wall run manager
     }
 

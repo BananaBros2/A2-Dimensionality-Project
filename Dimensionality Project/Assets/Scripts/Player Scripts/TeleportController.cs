@@ -8,6 +8,7 @@ public class TeleportController : MonoBehaviour
     public Slider coolDownBar;
 
     CapsuleCollider capsuleCollider;
+    public PlayerController playerController;
 
     public float range = 5f;
 
@@ -45,15 +46,15 @@ public class TeleportController : MonoBehaviour
     {
         RaycastHit hit;
         cooldowntime = time + coolDown;
-        Vector3 topOfCap = new Vector3(player.transform.position.x, player.transform.position.y + capsuleCollider.height / 2f - capsuleCollider.radius, player.transform.position.z);
+        Vector3 topOfCap = new Vector3(player.transform.position.x, player.transform.position.y + capsuleCollider.height / 2f - capsuleCollider.radius playerController.PlayerHeight, player.transform.position.z);
         Vector3 botOfCap = new Vector3(player.transform.position.x, player.transform.position.y - capsuleCollider.height / 2f + capsuleCollider.radius, player.transform.position.z);
-
-        if (Physics.CapsuleCast(topOfCap, botOfCap, capsuleCollider.radius / 1000f, or.forward, out hit, range, ~(1 << 8)))
+        if (Physics.CapsuleCast(topOfCap, botOfCap, 0f, or.forward, out hit, range * playerController.PlayerHeight, ~(1 << 9)))
         {
+            print("huh");
             float offsetZ = (player.transform.position.z - hit.point.z) / 2.5f;
             float offsetX = (player.transform.position.x - hit.point.x) / 2.5f;
             player.transform.position = new Vector3(hit.point.x + offsetX, player.transform.position.y, hit.point.z + offsetZ);
         }
-        else { player.transform.position = transform.position + or.forward * range * capsuleCollider.height / 2f; }
+        else { player.transform.position = transform.position + or.forward * range * playerController.PlayerHeight / 2; }
     }
 }

@@ -90,7 +90,7 @@ public class BasicPlayerMovementController : MonoBehaviour
 
         //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
         groundDistance = playerController.PlayerHeight / 8;
-        airMultiplier = 1 * playerController.PlayerHeight / 2;
+        airMultiplier =  1 * playerController.PlayerHeight / 2 + 1;
     }
 
     private void FixedUpdate()
@@ -143,7 +143,7 @@ public class BasicPlayerMovementController : MonoBehaviour
         }
         else
         {
-            rb.drag = airDrag * playerController.PlayerHeight / 2;
+            rb.drag = airDrag / playerController.PlayerHeight / 2;
         }
     }
 
@@ -165,13 +165,13 @@ public class BasicPlayerMovementController : MonoBehaviour
 
             if (IsGrounded && Input.GetAxis("Vertical") > 0) // if moving forward
             {
-                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime * playerController.PlayerHeight / 2);
+                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime / 2);
 
                 IsMoving = true;
             }
             else if (IsGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0) // else if moving another direction
             {
-                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime * playerController.PlayerHeight / 2);
+                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime / 2);
 
                 IsMoving = true;
             }
@@ -227,17 +227,25 @@ public class BasicPlayerMovementController : MonoBehaviour
         }
         else if (!IsGrounded) // if the player is not on the ground
         {
-            // jumping in mid air force with a downwards force
-            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
-
-            if (!noClip) // stops gravity.
+            if (!wallRunController.isWallRunning)
             {
-                //Increased gravity
-                if (!wallRunController.isWallRunning)
-                    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 10);
-                //else
-                //    rb.AddForce(Physics.gravity * playerController.PlayerHeight * 1);
+                // jumping in mid air force with a downwards force
+                rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
             }
+            else
+            {
+                // jumping in mid air force with a downwards force on a wall
+                rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight) / 100, ForceMode.Acceleration);
+            }
+
+
+            if (noClip) return; // stops gravity.
+
+            //Increased gravity
+            if (!wallRunController.isWallRunning && teleportController.IsPlayerNoClipping == false)
+                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 7f);
+            else if (teleportController.IsPlayerNoClipping == false);
+                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
         }
 
         rb.transform.position += conveyorForce;
