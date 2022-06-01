@@ -46,7 +46,7 @@ public class TeleportController : MonoBehaviour
     {
         RaycastHit hit;
         cooldowntime = time + coolDown;
-        Vector3 topOfCap = new Vector3(player.transform.position.x, player.transform.position.y + capsuleCollider.height / 2f - capsuleCollider.radius playerController.PlayerHeight, player.transform.position.z);
+        Vector3 topOfCap = new Vector3(player.transform.position.x, player.transform.position.y + capsuleCollider.height / 2f - capsuleCollider.radius, player.transform.position.z);
         Vector3 botOfCap = new Vector3(player.transform.position.x, player.transform.position.y - capsuleCollider.height / 2f + capsuleCollider.radius, player.transform.position.z);
         if (Physics.CapsuleCast(topOfCap, botOfCap, 0f, or.forward, out hit, range * playerController.PlayerHeight, ~(1 << 9)))
         {

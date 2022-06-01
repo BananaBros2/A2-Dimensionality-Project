@@ -341,7 +341,7 @@ MonoBehaviour:
   wallRunGravity: 2
   wallRunJumpForce: 80
   wallRunSpeed: -1
-  wallRunDesiredHeight: -10
+  wallRunDesiredHeight: -8
   wallRunDeceleration: 0
   FOV: 90
   wallRunFOV: 90
