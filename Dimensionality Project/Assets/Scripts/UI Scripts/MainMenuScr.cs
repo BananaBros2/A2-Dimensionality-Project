@@ -11,6 +11,7 @@ public class MainMenuScr : MonoBehaviour
     public GameObject mainMenu;
     public GameObject settingsMenu;
     public GameObject levelSelection;
+    public GameObject confermation;
 
     public Dropdown FullScreenDropdown;
     public TMP_Text LevelVBestTimeText;
@@ -37,6 +38,7 @@ public class MainMenuScr : MonoBehaviour
         mainMenu.SetActive(true);
         settingsMenu.SetActive(false);
         levelSelection.SetActive(false);
+        confermation.SetActive(false);
     }
 
     // Update is called once per frame
