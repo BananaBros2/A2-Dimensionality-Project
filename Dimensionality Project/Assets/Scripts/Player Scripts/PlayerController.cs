@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float PlayerHeight { get; private set; } = 2f;
 
-    private bool isPaused = false;
+    public bool isPaused = false;
     private float updateTick = 0.2f;
     
     // Start is called before the first frame update

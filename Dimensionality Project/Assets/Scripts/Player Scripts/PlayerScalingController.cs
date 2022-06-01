@@ -42,7 +42,7 @@ public class PlayerScalingController : MonoBehaviour
 
     private bool ScaleUp()
     {
-        if (IsRoomToScaleUp && currentScaleIndex < maxScaleRange && !scaledThisFrame)
+        if (IsRoomToScaleUp && currentScaleIndex + maxScaleRange < maxScaleRange && !scaledThisFrame)
         {
             transform.localScale *= 2f;
             currentScaleIndex++;
