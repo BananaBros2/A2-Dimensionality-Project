@@ -46,7 +46,7 @@ public class Save_Manager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("COULD NOT FIND SAVE! on path ~ " + dataPath + "/" + saveData.saveName + ".datafile | Generating new blank slate. This is not recommened!");
+            Debug.LogError("COULD NOT FIND SAVE! on path ~ " + dataPath + "/" + saveData.saveName + ".datafile | Generating new blank slate. This is not recommened!  This could be because of a curruption please look into this immidietly or this has just been installed onto the device." );
             hasLoaded = false;
 
             //saveData.masterVolumeSave = 1f; >examples<
@@ -75,17 +75,23 @@ public class Save_Manager : MonoBehaviour
 
             Save();
             Load();
+
+            Debug.Log("Data generated | if this is not ment to happen please look into this");
         }
     }
 
     public void DeleteSaveData() // Call this to delete EVERY THING in the save
     {
+        Debug.Log("Deleting all user data");
+
         string dataPath = Application.persistentDataPath;
 
         if (System.IO.File.Exists(dataPath + "/" + saveData.saveName + ".datafile"))
         {
             File.Delete(dataPath + "/" + saveData.saveName + ".datafile");
         }
+
+        Debug.Log("All user data erased");
     }
 }
 
