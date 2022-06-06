@@ -230,7 +230,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             if (!wallRunController.isWallRunning)
             {
                 // jumping in mid air force with a downwards force
-                rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
+                rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
             }
             else
             {

@@ -305,8 +305,8 @@ MonoBehaviour:
   walkSpeed: 5
   sprintSpeed: 12
   trueSprintSpeed: 12
-  acceleration: 0.5
-  jumpForce: 100
+  acceleration: 0.75
+  jumpForce: 110
   groundDrag: 6
   airDrag: 0.2
   groundCheck: {fileID: 7254066303532056801}
