@@ -24,7 +24,6 @@ public class WallRunController : MonoBehaviour
     public float wallRunJumpForce;
     public float wallRunSpeed;
     public float wallRunDesiredHeight;
-    public float wallRunDeceleration;
     public float timeUntilGravityIsApplied;
 
     [Header("Camera settings")]
@@ -110,9 +109,22 @@ public class WallRunController : MonoBehaviour
 
         if (isJumping) return;
 
-        rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity
+        float ySpeed = rb.velocity.y; // this saves the y velocity.
 
-        time += Time.deltaTime; // base time duration of wall running
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); // the y velocity.
+
+        // clamps to max speed.
+        if (rb.velocity.magnitude > wallRunSpeed * playerController.PlayerHeight / 2)
+        {
+            rb.velocity = rb.velocity.normalized * wallRunSpeed * playerController.PlayerHeight / 2;
+        }
+
+        rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z); // re-adds the y velocity.
+
+
+        rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity.
+
+        time += Time.deltaTime; // base time duration of wall running.
         float time2 = time - timeUntilGravityIsApplied + 1; // time for gravity removing access time.
 
         if (time <= timeUntilGravityIsApplied + 1)
@@ -122,10 +134,10 @@ public class WallRunController : MonoBehaviour
         }
         else rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time.
 
-        if (wallLeft) // checks what side the wall is
-            tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
+        if (wallLeft) // checks what side the wall is.
+            tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall.
         else if (wallRight) // checks what side the wall is
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
 
