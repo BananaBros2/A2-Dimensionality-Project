@@ -80,6 +80,11 @@ public class TimerController : MonoBehaviour
             isVisible = !isVisible;
         }
 
+        if (Input.GetKeyDown(KeyCode.R) && canRestart)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single); // did some googling.
+        }
+
         if (hasCheated)
         {
             time = 0f;
