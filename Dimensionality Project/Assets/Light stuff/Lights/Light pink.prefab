@@ -21,15 +21,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127281913168513312, guid: ace5476c667bccf4886faad1e2106e51, type: 3}
       propertyPath: m_Color.b
-      value: 0.7812414
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4127281913168513312, guid: ace5476c667bccf4886faad1e2106e51, type: 3}
       propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4127281913168513312, guid: ace5476c667bccf4886faad1e2106e51, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4127281913415113776, guid: ace5476c667bccf4886faad1e2106e51, type: 3}
       propertyPath: m_Name
-      value: Light (12)
+      value: Light pink
       objectReference: {fileID: 0}
     - target: {fileID: 4127281913415113791, guid: ace5476c667bccf4886faad1e2106e51, type: 3}
       propertyPath: m_RootOrder
