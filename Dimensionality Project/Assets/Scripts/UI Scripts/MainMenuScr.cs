@@ -11,6 +11,7 @@ public class MainMenuScr : MonoBehaviour
     public GameObject mainMenu;
     public GameObject settingsMenu;
     public GameObject levelSelection;
+    public GameObject confermation;
 
     public Dropdown FullScreenDropdown;
     public TMP_Text LevelVBestTimeText;
@@ -37,6 +38,7 @@ public class MainMenuScr : MonoBehaviour
         mainMenu.SetActive(true);
         settingsMenu.SetActive(false);
         levelSelection.SetActive(false);
+        confermation.SetActive(false);
     }
 
     // Update is called once per frame
@@ -172,12 +174,12 @@ public class MainMenuScr : MonoBehaviour
         Application.Quit();
     }
 
-    public void LoadMap001()
+    public void LoadLevelV()
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
-    public void LoadMap002()
+    public void LoadTutorialMap()
     {
         SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
@@ -185,5 +187,10 @@ public class MainMenuScr : MonoBehaviour
     public void LoadMap003()
     {
         SceneManager.LoadScene(3, LoadSceneMode.Single);
+    }
+
+    public void LoadMap004()
+    {
+        SceneManager.LoadScene(4, LoadSceneMode.Single);
     }
 }

@@ -3027,6 +3027,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &255679591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312981811989513047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fcd100e1c85eb9449fe883646712fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCheckpoint: 0
 --- !u!114 &1854171468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3256,17 +3269,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6648099681105092656}
     m_Modifications:
+    - target: {fileID: 733184070501931435, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2672687079496851606, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3391243968074441186, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
       propertyPath: pauseMenuScript
       value: 
       objectReference: {fileID: 1534158284}
+    - target: {fileID: 3391243968074441186, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+      propertyPath: sensitivityMouse
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 4184830907854241120, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5186398040680255914, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
       propertyPath: airMultiplier
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5186398040680255914, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
       propertyPath: teleportController
@@ -3364,14 +3389,19 @@ PrefabInstance:
     - {fileID: 5633313194196950961, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
     - {fileID: 5633313194489893607, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+--- !u!4 &7800815470096501215 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5910550733111457768, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+  m_PrefabInstance: {fileID: 4486832922890944055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &312981811989513047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4184830907854241120, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+  m_PrefabInstance: {fileID: 4486832922890944055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &6436779006404967461 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7426548633535021586, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
-  m_PrefabInstance: {fileID: 4486832922890944055}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1787888577194034366 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2777513660465035913, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
   m_PrefabInstance: {fileID: 4486832922890944055}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4616499040922711262 stripped
@@ -3385,13 +3415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8638d75cfab540d47b19612106970d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &7800815470096501215 stripped
+--- !u!4 &1787888577194034366 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5910550733111457768, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
-  m_PrefabInstance: {fileID: 4486832922890944055}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &312981811989513047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4184830907854241120, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2777513660465035913, guid: 425e6fdaa64b47f41962dca1f1b5d24a, type: 3}
   m_PrefabInstance: {fileID: 4486832922890944055}
   m_PrefabAsset: {fileID: 0}
