@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1622026362130167791}
   - component: {fileID: 1227267305513231779}
   - component: {fileID: 1227267305513231781}
-  - component: {fileID: 1227267305513231780}
+  - component: {fileID: 1611778348676781903}
   m_Layer: 0
   m_Name: Power Button
   m_TagString: Untagged
@@ -67,7 +67,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1227267305513231780
+--- !u!114 &1611778348676781903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,11 +76,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2146326744630963541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97322c959abf4d64b8fa70ef708ef326, type: 3}
+  m_Script: {fileID: 11500000, guid: 86e7b73c3777a5c4ba250d8f2df07029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 1227267305513231781}
+  Animator: {fileID: 0}
   Pressed: 0
+  Timed: 1
+  coolDown: 10
 --- !u!1 &5738737668391155576
 GameObject:
   m_ObjectHideFlags: 0

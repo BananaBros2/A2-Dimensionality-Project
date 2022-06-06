@@ -14,12 +14,10 @@ public class Container : MonoBehaviour
             //print(buttons[i]);
             if (buttons[i].GetComponent<PowerButton>().Pressed == false)
             {
-                print(i);
                 return;
             }
             if (i == buttons.Count - 1)
             {
-                print("Cheese");
                 Destroy(this.gameObject);
             }
         }
