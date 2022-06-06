@@ -70,18 +70,14 @@ public class TimerController : MonoBehaviour
 
     void Update()
     {
-        print(bestMinutes + "m " + bestSeconds + "s " + bestMilliseconds + "ms " + isNewTime + " ist " + bestTime + " bt");
+        // print(bestMinutes + "m " + bestSeconds + "s " + bestMilliseconds + "ms " + isNewTime + " ist " + bestTime + " bt");
+        // Don't need the line of code but could be useful.
 
         timer.SetActive(isVisible);
 
         if (Input.GetKeyDown(KeyCode.T))
         {
             isVisible = !isVisible;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && canRestart)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         }
 
         if (hasCheated)
