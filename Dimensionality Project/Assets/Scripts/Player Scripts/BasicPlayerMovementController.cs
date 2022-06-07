@@ -10,6 +10,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     public Transform headPosition;
     public Transform cameraPosition;
     public Rigidbody rb;
+    public ParticleSystem speedParticles;
 
     [Header("Keybinds")]
     public KeyCode jumpKey;
@@ -162,6 +163,8 @@ public class BasicPlayerMovementController : MonoBehaviour
             }
 
             rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
+
+            if (rb.velocity.magnitude > walkSpeed) speedParticles.Play(); else speedParticles.Stop();
 
             if (IsGrounded && Input.GetAxis("Vertical") > 0) // if moving forward
             {
