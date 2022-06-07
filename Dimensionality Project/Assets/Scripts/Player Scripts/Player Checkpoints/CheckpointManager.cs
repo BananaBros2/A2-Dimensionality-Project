@@ -26,6 +26,8 @@ public class CheckpointManager : MonoBehaviour
 
         scene = SceneManager.GetActiveScene();
 
+        AllCheckpointParents.Clear();
+
         foreach (GameObject PossibleCheckpoint in scene.GetRootGameObjects())
         {
             if (PossibleCheckpoint.transform.tag == "Checkpoint")
@@ -70,7 +72,7 @@ public class CheckpointManager : MonoBehaviour
             if (!timerController.canRestart) return;
 
             if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-
+            
             if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
             else transform.position = currentCheckpointResetPoint;
         }

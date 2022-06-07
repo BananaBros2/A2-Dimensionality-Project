@@ -50,7 +50,6 @@ public class TeleportController : MonoBehaviour
         Vector3 botOfCap = new Vector3(player.transform.position.x, player.transform.position.y - capsuleCollider.height / 2f + capsuleCollider.radius, player.transform.position.z);
         if (Physics.CapsuleCast(topOfCap, botOfCap, 0f, or.forward, out hit, range * playerController.PlayerHeight, ~(1 << 9)))
         {
-            print("huh");
             float offsetZ = (player.transform.position.z - hit.point.z) / 2.5f;
             float offsetX = (player.transform.position.x - hit.point.x) / 2.5f;
             player.transform.position = new Vector3(hit.point.x + offsetX, player.transform.position.y, hit.point.z + offsetZ);

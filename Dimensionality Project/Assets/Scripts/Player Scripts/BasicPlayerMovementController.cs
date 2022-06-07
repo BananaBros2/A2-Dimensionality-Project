@@ -242,10 +242,10 @@ public class BasicPlayerMovementController : MonoBehaviour
             if (noClip) return; // stops gravity.
 
             //Increased gravity
-            if (!wallRunController.isWallRunning && teleportController.IsPlayerNoClipping == false)
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 7f);
-            else if (teleportController.IsPlayerNoClipping == false);
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
+            if (!wallRunController.isWallRunning && !teleportController.IsPlayerNoClipping)
+                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 9f);
+            //else if (!teleportController.IsPlayerNoClipping)
+                //rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
         }
 
         rb.transform.position += conveyorForce;

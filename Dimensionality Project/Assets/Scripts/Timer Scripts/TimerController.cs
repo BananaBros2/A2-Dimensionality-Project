@@ -14,11 +14,12 @@ public class TimerController : MonoBehaviour
     public GameObject timer;
     public BoxCollider levelEndTrigger;
     public BoxCollider levelStartTrigger;
+    public TMP_Text PBText;
 
     float time = 0f;
     bool isRunning = false;
     public bool canRestart = true;
-    private bool isVisible = false;
+    private bool isVisible = true;
     private bool beatenBestTime = false;
     private bool isNewTime;
 
@@ -75,14 +76,11 @@ public class TimerController : MonoBehaviour
 
         timer.SetActive(isVisible);
 
+        PBText.text = "PB: " + bestTime;
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             isVisible = !isVisible;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && canRestart)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single); // did some googling.
         }
 
         if (hasCheated)
