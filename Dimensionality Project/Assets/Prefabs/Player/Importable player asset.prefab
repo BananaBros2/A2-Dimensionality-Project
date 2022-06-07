@@ -2759,7 +2759,7 @@ MonoBehaviour:
   timer: {fileID: 2554791123971138042}
   levelEndTrigger: {fileID: 0}
   levelStartTrigger: {fileID: 0}
-  PBText: {fileID: 0}
+  PBText: {fileID: 1226881895}
   canRestart: 1
 --- !u!1 &1968291009
 GameObject:
