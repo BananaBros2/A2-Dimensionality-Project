@@ -12,6 +12,8 @@ public class DebugMenuScr : MonoBehaviour
 
     private bool debugShowen = false;
     public GameObject debugMenu;
+    GameObject parent;
+    Scene scene;
 
     public TMP_InputField console;
 
@@ -24,10 +26,12 @@ public class DebugMenuScr : MonoBehaviour
     {
         debugMenu.SetActive(true);
 
+        scene = SceneManager.GetActiveScene();
+
         Button noClipButton = GameObject.Find("NoClipButton").GetComponent<Button>();
         defultButtonColours = noClipButton.colors;
 
-        GameObject parent = transform.parent.gameObject;
+        parent = transform.parent.gameObject;
         pauseMenuScript = parent.GetComponentInChildren<PauseMenuScript>();
 
         debugMenu.SetActive(false);
@@ -44,21 +48,19 @@ public class DebugMenuScr : MonoBehaviour
 
         if (Time.timeScale == 0f)
         {
-            GameObject parent = transform.parent.gameObject;
             TimerController timerController = parent.GetComponentInChildren<TimerController>();
             timerController.canRestart = false;
         }
         else
         {
-            GameObject parent = transform.parent.gameObject;
             TimerController timerController = parent.GetComponentInChildren<TimerController>();
             if (!timerController.canRestart) timerController.canRestart = true;
         }
+
         debugMenu.SetActive(debugShowen);
 
         if (playerCheated)
         {
-            GameObject parent = transform.parent.gameObject;
             TimerController timerController = parent.GetComponentInChildren<TimerController>();
             timerController.hasCheated = true;
         }
