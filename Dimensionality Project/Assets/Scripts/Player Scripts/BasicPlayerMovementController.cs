@@ -247,7 +247,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             //Increased gravity
             if (!wallRunController.isWallRunning && !teleportController.IsPlayerNoClipping)
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 9f);
-            //else if (!teleportController.IsPlayerNoClipping)
+            else if (!teleportController.IsPlayerNoClipping)
                 //rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
         }
 
