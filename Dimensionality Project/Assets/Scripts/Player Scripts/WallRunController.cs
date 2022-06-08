@@ -130,18 +130,15 @@ public class WallRunController : MonoBehaviour
         rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity.
 
         time += Time.deltaTime; // base time duration of wall running.
+        float time2 = time - timeUntilGravityIsApplied + 1; // time for gravity removing access time.
 
-        // I have removed this as it is taking longer than usual.
-
-        //float time2 = time - timeUntilGravityIsApplied + 1; // time for gravity removing access time.
-
-        //if (time <= timeUntilGravityIsApplied + 1)
-        //{
-        //    if (rb.velocity.y <= 0) rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        //    else if (rb.velocity.y > 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * -0.01f, rb.velocity.z);
-        //    rb.AddForce(Vector3.down * beforeWallRunGravity * playerController.PlayerHeight / 2, ForceMode.Acceleration);
-        //}
-        //else rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
+        if (time <= timeUntilGravityIsApplied + 1)
+        {
+            if (rb.velocity.y <= 0) rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            else if (rb.velocity.y > 0) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * -0.01f, rb.velocity.z);
+            rb.AddForce(Vector3.down * beforeWallRunGravity * playerController.PlayerHeight / 2, ForceMode.Acceleration);
+        }
+        else rb.AddForce(Vector3.down * (wallRunGravity * (time2 < 1 ? 1 : time2)) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time.
 

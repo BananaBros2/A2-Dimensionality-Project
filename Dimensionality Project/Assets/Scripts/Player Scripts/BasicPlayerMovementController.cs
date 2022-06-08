@@ -248,7 +248,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             if (!wallRunController.isWallRunning && !teleportController.IsPlayerNoClipping)
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 9f);
             else if (!teleportController.IsPlayerNoClipping)
-                //rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
+                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
         }
 
         rb.transform.position += conveyorForce;
