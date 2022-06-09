@@ -270,6 +270,7 @@ MonoBehaviour:
   movementController: {fileID: 5186398040680255914}
   playerController: {fileID: -21374666972907026}
   wallRunController: {fileID: 6232795009754679149}
+  pauseMenuScript: {fileID: 0}
   headPosition: {fileID: 5633313194370008140}
   orientation: {fileID: 2777513660465035913}
   cameraPosition: {fileID: 4661226149377441425}
@@ -293,11 +294,12 @@ MonoBehaviour:
   playerController: {fileID: -21374666972907026}
   wallRunController: {fileID: 6232795009754679149}
   teleportController: {fileID: 0}
-  playerScalingController: {fileID: 0}
+  playerScalingController: {fileID: 9103313812203768553}
   orientation: {fileID: 2777513660465035913}
   headPosition: {fileID: 5633313194370008140}
   cameraPosition: {fileID: 4661226149377441425}
   rb: {fileID: 3184520929093536050}
+  speedParticles: {fileID: 0}
   jumpKey: 32
   walkKey: 308
   airMultiplier: 1
@@ -337,12 +339,14 @@ MonoBehaviour:
     m_Bits: 192
   minimumJumpHeight: 1.5
   minimumSpeed: 5
+  maxSpeed: 0
   isNoClipEnabled: 0
   wallRunGravity: 2
+  beforeWallRunGravity: 0
   wallRunJumpForce: 80
   wallRunSpeed: -1
   wallRunDesiredHeight: -8
-  wallRunDeceleration: 0
+  timeUntilGravityIsApplied: 0
   FOV: 90
   wallRunFOV: 90
   wallRunFOVTime: 10

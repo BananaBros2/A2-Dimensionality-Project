@@ -51,7 +51,6 @@ public class CheckpointManager : MonoBehaviour
 
         TrueCheckpointCount = AllCheckpointParents.Count - 1;
 
-        
     }
 
     private static int SortByName(GameObject o1, GameObject o2) // simple string sorting by comparing
