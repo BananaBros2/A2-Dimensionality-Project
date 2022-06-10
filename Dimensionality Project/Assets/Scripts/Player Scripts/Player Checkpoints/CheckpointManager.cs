@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CheckpointManager : MonoBehaviour
 {
-    public static List<GameObject> AllCheckpointParents = new List<GameObject>();
+    [SerializeField] private List<GameObject> AllCheckpointParents = new List<GameObject>();
     private Scene scene;
 
     private Vector3 currentCheckpointResetPoint;
@@ -47,7 +47,7 @@ public class CheckpointManager : MonoBehaviour
 
         AllCheckpointParents.Sort(SortByName);
 
-        if (AllCheckpointParents.Count > 0) isThereCheckpoints = true;
+        if (AllCheckpointParents.Count >= 0) isThereCheckpoints = true;
 
         TrueCheckpointCount = AllCheckpointParents.Count - 1;
 
@@ -64,17 +64,29 @@ public class CheckpointManager : MonoBehaviour
 
         if (currentCheckpoint > TrueCheckpointCount) currentCheckpoint = TrueCheckpointCount; // could be simplified
 
-        if (currentCheckpoint > -1) currentCheckpointResetPoint = AllCheckpointParents[currentCheckpoint].transform.Find("Respawn Point").position;
+        if (currentCheckpoint >= 0) currentCheckpointResetPoint = AllCheckpointParents[currentCheckpoint].transform.Find("Respawn Point").position;
 
-        if (Input.GetKey(KeyCode.R) && isThereCheckpoints)
-        {
-            if (!timerController.canRestart) return;
+        // L is being a pain help me please
 
-            if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //if (Input.GetKey(KeyCode.R) && isThereCheckpoints)
+        //{
+        //    if (!timerController.canRestart) return;
+
+        //    if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
             
-            if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-            else transform.position = currentCheckpointResetPoint;
-        }
+        //    if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //    else transform.position = currentCheckpointResetPoint;
+        //}
+    }
+
+    public void RestartToChecpoint()
+    {
+        if (!timerController.canRestart) return;
+
+        if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+
+        if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        else transform.position = currentCheckpointResetPoint;
     }
 
     void PopulateList()
