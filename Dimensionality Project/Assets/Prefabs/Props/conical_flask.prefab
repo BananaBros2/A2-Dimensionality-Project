@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9085251316988682940}
   - component: {fileID: 5361268006174421736}
   m_Layer: 0
-  m_Name: conical_flask
+  m_Name: Conical_Flask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4631447983637835833}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.38048574, y: 1.1693537, z: -2.9226618}
-  m_LocalScale: {x: 0.104217, y: 0.104217, z: 0.104217}
+  m_LocalScale: {x: 0.208434, y: 0.208434, z: 0.208434}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

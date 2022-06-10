@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3080931206726502326}
   - component: {fileID: 7968416626572890789}
   m_Layer: 0
-  m_Name: science_desk
+  m_Name: Science_Desk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

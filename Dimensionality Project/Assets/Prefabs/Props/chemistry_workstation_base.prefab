@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5923259746224188467}
   - component: {fileID: 481151265652582088}
   m_Layer: 0
-  m_Name: chemistry_workstation_base
+  m_Name: Chemistry_Workstation_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3072377439708124599}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.20556839, y: 0.8639589, z: -2.8624535}
-  m_LocalScale: {x: 0.45261702, y: 0.45261702, z: 0.45261702}
+  m_LocalScale: {x: 0.905234, y: 0.905234, z: 0.905234}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
