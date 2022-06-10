@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5053412409739671166}
   - component: {fileID: 3353759838422074893}
   m_Layer: 0
-  m_Name: graduated_cylinder
+  m_Name: Graduated_Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 769590639276007625}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.07905427, y: 1.3545159, z: -2.6605108}
-  m_LocalScale: {x: 0.21749, y: 0.21749, z: 0.21749}
+  m_LocalScale: {x: 0.43498, y: 0.43498, z: 0.43498}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
