@@ -63,7 +63,7 @@ public class DoorController : MonoBehaviour
         doorLeft.transform.position = Vector3.MoveTowards(doorLeft.transform.position, targetLeft.position, speed * Time.deltaTime);
         if (doorRight.transform.position == targetRight.position)
         {
-            doorState = DoorState.Open;
+            //doorState = DoorState.Open;
         }
         else
         {
