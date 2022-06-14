@@ -73,10 +73,11 @@ public class CheckpointManager : MonoBehaviour
         //    if (!timerController.canRestart) return;
 
         //    if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-            
+
         //    if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         //    else transform.position = currentCheckpointResetPoint;
         //}
+        if (Input.GetKey(KeyCode.R)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
     public void RestartToChecpoint()
