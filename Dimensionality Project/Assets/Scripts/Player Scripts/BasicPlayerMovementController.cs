@@ -1,264 +1,137 @@
 using UnityEngine;
 
-public class BasicPlayerMovementController : MonoBehaviour
+public class WallRunController : MonoBehaviour
 {
+    public bool isWallRunning { get; private set; } = false;
+    public float tilt { get; private set; }
+
     public PlayerController playerController;
-    public WallRunController wallRunController;
-    public TeleportController teleportController;
-    public PlayerScalingController playerScalingController;
     public Transform orientation;
-    public Transform headPosition;
-    public Transform cameraPosition;
+    public Camera cam;
     public Rigidbody rb;
-    public ParticleSystem speedParticles;
 
-    [Header("Keybinds")]
-    public KeyCode jumpKey;
-    public KeyCode walkKey;
+    [Header("Wall Running Checks")]
+    public float wallDistance;
+    public LayerMask wallMask;
+    public float minimumJumpHeight;
+    public float minimumSpeed;
 
-    [Header("Basic Movement")]
-    public float airMultiplier;
+    public bool isNoClipEnabled = false;
 
-    public bool IsMoving { get; private set; } = false;
-    public bool IsGrounded { get; private set; } = false;
-    public bool IsCrouching { get; private set; } = false;
-    public float CurrentMovementSpeed { get; private set; } = 0f;
+    [Header("Wall Running Forces")]
+    public float wallRunGravity;
+    public float wallRunJumpForce;
+    public float wallRunSpeed;
+    public float wallRunDesiredHeight;
+    public float wallRunDeceleration;
 
-    private float horizontalMovement = 0f;
-    private float verticalMovement = 0f;
-    private float yAxisOfMovement = 0f;
-    private float movementMultiplier = 10f;
+    [Header("Camera settings")]
+    public float FOV;
+    public float wallRunFOV;
+    public float wallRunFOVTime;
+    public float camTilt;
+    public float camTiltTime;
 
-    public bool noClip = false;
+    private float time = 0f;
+    private bool wallLeft = false;
+    private bool wallRight = false;
+    private RaycastHit leftWallHit;
+    private RaycastHit rightWallHit;
 
-    [Header("Sprinting")]
-    public float walkSpeed;
-    public float sprintSpeed;
-    public float trueSprintSpeed = 12;
-    public float acceleration;
-
-    [Header("Jumping")]
-    public float jumpForce;
-
-    [Header("Drag and Gravity")]
-    public float groundDrag;
-    public float airDrag;
-
-    [Header("Ground Detection")]
-    public Transform groundCheck;
-    public LayerMask groundMask;
-    public float groundDistance;
-
-    private Vector3 moveDirection = Vector3.zero;
-    private Vector3 slopeMoveDirection = Vector3.zero;
-    private RaycastHit slopeHit; // out
-    //private Vector3 jumpMoveDirection; May need this in the future
-    public Vector3 conveyorForce = new Vector3(0, 0, 0);
-
-
-    private void Update()
+    void Update() // runs all wallrun functions every frame
     {
-        if (noClip)
-        {
-            horizontalMovement = Input.GetAxisRaw("Horizontal");
-            verticalMovement = Input.GetAxisRaw("Vertical");
-            yAxisOfMovement = Input.GetAxisRaw("Up and Down");
+        //rb.useGravity = false; // stops the gravity and wall running.
+        if (isNoClipEnabled) return;
 
-            moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement + orientation.up * yAxisOfMovement;
-
-            rb.drag = groundDrag;
-
-            return;
-        }
-        IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //is grounded check
-
-        //runs myinput function and control drag (more over this further down)
-        SetMoveDirectionFromInput();
-        ControlDrag();
-        ControlSpeed();
-
-        //allows the player to jump if they are on the ground and presses the jump key
-        if (Input.GetKeyDown(jumpKey) && IsGrounded)
-        {
-            Jump();
-        }
-
-        //sets the direction following the slope
-        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
-
-        //move direction so the player can control inair movement
-        //jumpMoveDirection = moveDirection * 0.1f;
-
-        //gets the player's height by getting the scale of the Rigidbody and doubling as default is 1
-        groundDistance = playerController.PlayerHeight / 8;
-        airMultiplier =  1 * playerController.PlayerHeight / 2 + 1;
+        minimumSpeed = 4 * playerController.PlayerHeight / 2;
+        WallRun(); // called the wall run manager
     }
 
-    private void FixedUpdate()
+    void WallRun() // this manages the wall running
     {
-        wallRunController.isNoClipEnabled = noClip; // toggles gravity and wall running.
-        playerScalingController.IsNoClipEnabled = noClip; // toggles scaling on and off.
-        teleportController.IsPlayerNoClipping = noClip;
+        CheckWall(); // calles the check wall to see what side the wall is on
 
-        if (noClip)
+        if (CanWallRun()) // check if the player can wall run by runnung the check
         {
-            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * movementMultiplier * playerController.PlayerHeight / 2, ForceMode.Acceleration);
+            if (wallLeft || wallRight) // checks if the player has a wall to their side
+            {
+                StartWallRun(); // if the player has a wall to the side they will begin to wall run
+            }
+            else // if not then they will not or stop wall running
+            {
+                StopWallRun(); // calles the stop wall running
+            }
+        }
+        else // this stops the player from wall running when if they're touching the wall still
+        {
+            StopWallRun(); // calles the stop wall run function
+        }
+    }
 
-            Transform collider = transform.Find("Capsule");
-            CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
-
-            capsuleCollider.enabled = false;
-
-            return;
+    bool CanWallRun() // runs a ground check
+    {
+        if (rb.velocity.magnitude > minimumSpeed && Input.GetAxis("Vertical") > 0 && Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight * playerController.PlayerHeight / 2) == false)
+        {
+            return true;
         }
         else
         {
-            Transform collider = transform.Find("Capsule");
-            CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
-
-            capsuleCollider.enabled = true;
-
-            //calls the Move player function
-            MovePlayer();
+            return false;
         }
     }
 
-    //when called it will grab movement input
-    void SetMoveDirectionFromInput()
+    void CheckWall() // checks what side the wall is on
     {
-        //grabs key inputs
-        horizontalMovement = Input.GetAxisRaw("Horizontal");
-        verticalMovement = Input.GetAxisRaw("Vertical");
-
-        //combines both inputs into one direction
-        moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, rb.transform.localScale.x * wallDistance, wallMask); // sends out a raycast to the left and sets left to ture if hit
+        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, rb.transform.localScale.x * wallDistance, wallMask); // sends out a raycast to the right and sets right to true if hit
     }
 
-    //when called then drag will be controlled
-    void ControlDrag()
+    void StartWallRun() // the wall running script
     {
-        //drag is controlled if in air or ground so the player is not slow falling
-        if (IsGrounded)
+        //if (!isWallRunning) rb.velocity = new Vector3(rb.velocity.x, 2f, rb.velocity.z);
+        isWallRunning = true;
+
+        if (Input.GetKeyDown(KeyCode.Space)) // checks if the player presses space
         {
-            rb.drag = groundDrag;
+            Vector3 wallRunJumpDirection;
+            if (wallLeft) // if the wall is to the left and space is pressed
+            {
+                wallRunJumpDirection = transform.up + leftWallHit.normal; // this will return the direction of the face of the wall
+            }
+            else // if the wall is to the right and space is pressed
+            {
+                wallRunJumpDirection = transform.up + rightWallHit.normal; // this will return the direction of the face of the wall
+            }
+            rb.velocity = new Vector3(rb.velocity.x * playerController.PlayerHeight / 2, wallRunDesiredHeight * playerController.PlayerHeight / 2, rb.velocity.z); // will set y > 0 or it will make the player fall
+            rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100 * playerController.PlayerHeight / 2, ForceMode.Force); // this applies the jump force (left and right)
         }
-        else
-        {
-            rb.drag = airDrag / playerController.PlayerHeight / 2;
-        }
+
+        //rb.useGravity = false; // this stop normal gravity of pulling the player down at 9.81f allowing for custom gravity
+
+        time += Time.deltaTime;
+
+        rb.AddForce(Vector3.down * (wallRunGravity * time) * playerController.PlayerHeight / 2, ForceMode.Acceleration); // this applies the custom gravity to the player
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFOV, wallRunFOVTime * Time.deltaTime); // this will lerp from the defult fov to the wall run fov over desired time
+
+        if (wallLeft) // checks what side the wall is
+            tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
+        else if (wallRight) // checks what side the wall is
+            tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime); // this tilts the camera to the desired tilt opposite to the wall
+
+        //rb.AddForce(orientation.forward * wallRunSpeed, ForceMode.Acceleration); // this makes the player move forward because if you stop you fall
+
     }
 
-    void ControlSpeed()
+    void StopWallRun() // the stop wall run function
     {
-        if (!wallRunController.isWallRunning || IsGrounded) //DO NOT TOUCH IF STATEMENT UNLESS YOU WANT TO REWORK BOTH THIS AND WALL RUNNING SCRIPTS
-        {
-            float ySpeed = rb.velocity.y;
+        time = 1f;
 
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        isWallRunning = false;
 
-            // clamps to max speed
-            if (rb.velocity.magnitude > sprintSpeed * playerController.PlayerHeight / 2)
-            {
-                rb.velocity = rb.velocity.normalized * sprintSpeed * playerController.PlayerHeight / 2;
-            }
+        //rb.useGravity = true; // turns back on the normal gravity
 
-            rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
-
-            if (rb.velocity.magnitude > walkSpeed) speedParticles.Play(); else speedParticles.Stop();
-
-            if (IsGrounded && Input.GetAxis("Vertical") > 0) // if moving forward
-            {
-                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime / 2);
-
-                IsMoving = true;
-            }
-            else if (IsGrounded && Mathf.Abs(Input.GetAxis("Vertical")) > 0 && Mathf.Abs(Input.GetAxis("Horizontal")) > 0) // else if moving another direction
-            {
-                CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, walkSpeed, acceleration * Time.deltaTime / 2);
-
-                IsMoving = true;
-            }
-            else if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
-            {
-                CurrentMovementSpeed = walkSpeed / 2;
-
-                IsMoving = false;
-            }
-            sprintSpeed = trueSprintSpeed;
-        }
-        else if (wallRunController.isWallRunning)
-        {
-            // CurrentMovementSpeed = walkSpeed * airDrag;
-        }
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, FOV, wallRunFOVTime * Time.deltaTime); // sets fov back to normal
+        tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime); // set the tilt back to normal
     }
-
-    void Jump() //when called then the player will jump in the air
-    {
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce * playerController.PlayerHeight / 2, ForceMode.Impulse); //add a jump force to the rigid body component.
-    }
-
-    //when called it will send a raycast out and return is true if the vector does not return stright up
-    private bool IsOnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerController.PlayerHeight)) // might need to make this value scale with player later
-        {
-            if (slopeHit.normal != Vector3.up)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    // when called then the rigid body will get force applyed
-    void MovePlayer()
-    {
-        if (IsGrounded && !IsOnSlope()) // if on the ground but not on a slope
-        {
-            // walk speed on flat ground
-            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * movementMultiplier * playerController.PlayerHeight / 2, ForceMode.Acceleration);
-        }
-        else if (IsGrounded && IsOnSlope()) // if the player is on the ground and on a slope
-        {
-            // walk speed on slope
-            rb.AddForce(slopeMoveDirection.normalized * CurrentMovementSpeed * movementMultiplier * playerController.PlayerHeight / 2, ForceMode.Acceleration);
-        }
-        else if (!IsGrounded) // if the player is not on the ground
-        {
-            if (!wallRunController.isWallRunning)
-            {
-                // jumping in mid air force with a downwards force
-                rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight), ForceMode.Acceleration);
-            }
-            else
-            {
-                // jumping in mid air force with a downwards force on a wall
-                rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * airMultiplier * (playerController.PlayerHeight > 2 ? 0.9f : playerController.PlayerHeight) / 100, ForceMode.Acceleration);
-            }
-
-
-            if (noClip) return; // stops gravity.
-
-            //Increased gravity
-            if (!wallRunController.isWallRunning && !teleportController.IsPlayerNoClipping)
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 9f);
-            else if (!teleportController.IsPlayerNoClipping)
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
-        }
-
-        rb.transform.position += conveyorForce;
-        conveyorForce = new Vector3(0, 0, 0);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(groundCheck.position, groundDistance);
-    }
-
 }
-// this seems to be the end... or it's just the begining.
