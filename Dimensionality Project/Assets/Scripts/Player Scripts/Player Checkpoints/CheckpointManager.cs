@@ -66,7 +66,7 @@ public class CheckpointManager : MonoBehaviour
 
         if (currentCheckpoint >= 0) currentCheckpointResetPoint = AllCheckpointParents[currentCheckpoint].transform.Find("Respawn Point").position;
 
-        // L is being a pain help me please
+        // here lies the remains of the old press r to restart and the new hold shift and r to restart
 
         //if (Input.GetKey(KeyCode.R) && isThereCheckpoints)
         //{
@@ -79,8 +79,10 @@ public class CheckpointManager : MonoBehaviour
         //}
     }
 
+    // called so another script can reset the player like the death zones
     public void RestartToChecpoint()
     {
+        // this check if the script can restart
         if (!timerController.canRestart) return;
 
         if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
