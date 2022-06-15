@@ -77,7 +77,9 @@ public class CheckpointManager : MonoBehaviour
         //    if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         //    else transform.position = currentCheckpointResetPoint;
         //}
-        if (Input.GetKey(KeyCode.R)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //if (Input.GetKey(KeyCode.R)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+
+        if (Input.GetKey(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
     public void RestartToChecpoint()
@@ -92,7 +94,7 @@ public class CheckpointManager : MonoBehaviour
 
     void PopulateList()
     {
-        if (LoadSceneAsync == null) return;
+        //if (LoadSceneAsync == null) return;
 
         if (LoadSceneAsync.isDone && AllCheckpointParents.Count == 0)
         {
