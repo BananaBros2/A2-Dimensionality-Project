@@ -299,16 +299,15 @@ MonoBehaviour:
   headPosition: {fileID: 5633313194370008140}
   cameraPosition: {fileID: 4661226149377441425}
   rb: {fileID: 3184520929093536050}
-  speedParticles: {fileID: 0}
   jumpKey: 32
   walkKey: 308
   airMultiplier: 1
   noClip: 0
   walkSpeed: 5
-  sprintSpeed: 12
-  trueSprintSpeed: 12
-  acceleration: 0.75
-  jumpForce: 110
+  sprintSpeed: 13
+  trueSprintSpeed: 13
+  acceleration: 0.9
+  jumpForce: 120
   groundDrag: 6
   airDrag: 0.2
   groundCheck: {fileID: 7254066303532056801}
@@ -339,14 +338,12 @@ MonoBehaviour:
     m_Bits: 192
   minimumJumpHeight: 1.5
   minimumSpeed: 5
-  maxSpeed: 0
   isNoClipEnabled: 0
   wallRunGravity: 2
-  beforeWallRunGravity: 0
   wallRunJumpForce: 80
   wallRunSpeed: -1
   wallRunDesiredHeight: -8
-  timeUntilGravityIsApplied: 0
+  wallRunDeceleration: 0
   FOV: 90
   wallRunFOV: 90
   wallRunFOVTime: 10
