@@ -10,6 +10,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     public Transform headPosition;
     public Transform cameraPosition;
     public Rigidbody rb;
+    public ParticleSystem PS;
 
     [Header("Keybinds")]
     public KeyCode jumpKey;
@@ -163,6 +164,8 @@ public class BasicPlayerMovementController : MonoBehaviour
 
             rb.velocity = new Vector3(rb.velocity.x, ySpeed, rb.velocity.z);
 
+            if (rb.velocity.magnitude > walkSpeed) PS.Play(); else PS.Stop();
+
             if (IsGrounded && Input.GetAxis("Vertical") > 0) // if moving forward
             {
                 CurrentMovementSpeed = Mathf.Lerp(CurrentMovementSpeed, sprintSpeed, acceleration * Time.deltaTime / 2);
@@ -245,7 +248,7 @@ public class BasicPlayerMovementController : MonoBehaviour
             if (!wallRunController.isWallRunning && teleportController.IsPlayerNoClipping == false)
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 7f);
             else if (wallRunController.isWallRunning && teleportController.IsPlayerNoClipping == false)
-                rb.AddForce(Physics.gravity * playerController.PlayerHeight * -3);
+                rb.AddForce(Physics.gravity * playerController.PlayerHeight * -1);
             else if (teleportController.IsPlayerNoClipping == false);
                 rb.AddForce(Physics.gravity * playerController.PlayerHeight * 2);
         }
