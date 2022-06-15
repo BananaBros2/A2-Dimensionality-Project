@@ -10,7 +10,22 @@ public class ExitTriggerController : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-           timerController.StartCoroutine("StopTimer");
+            timerController.StartCoroutine("StopTimer");
+            //RestartLevel(other);
+            this.GetComponent<BoxCollider>().enabled = false;
         }
     }
+
+    //private IEnumerable RestartLevel(Collider Other)
+    //{
+    //    print("yes");
+    //    yield return new WaitForSeconds(10f);
+    //    callFunction(Other);
+    //}
+
+    //private void callFunction(Collider Other)
+    //{
+    //    CheckpointManager CM = Other.transform.root.transform.GetComponentInChildren<CheckpointManager>();
+    //    CM.ResetScene();
+    //}
 }
