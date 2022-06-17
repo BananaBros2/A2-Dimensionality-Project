@@ -27,7 +27,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     private float horizontalMovement = 0f;
     private float verticalMovement = 0f;
     private float yAxisOfMovement = 0f;
-    private float movementMultiplier = 10f;
+    private float movementMultiplier = 20f;
 
     public bool noClip = false;
 

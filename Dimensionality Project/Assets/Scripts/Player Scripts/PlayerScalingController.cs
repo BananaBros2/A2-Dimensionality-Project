@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerScalingController : MonoBehaviour
 {
+    public GameObject[] optionsForScaling = new GameObject[4];
+
     public PlayerController playerController;
     public GameObject scaleUpTrigger;
     public int maxScaleRange;
@@ -16,10 +18,48 @@ public class PlayerScalingController : MonoBehaviour
     public int currentScaleIndex = 0;
     private bool scaledThisFrame = false;
 
+    private void FixedUpdate()
+    {
+        switch (currentScaleIndex)
+        {
+            case 0:
+                for (int i = 0; i < optionsForScaling.Length; i++)
+                {
+                    optionsForScaling[i].SetActive(true); 
+                }
+                optionsForScaling[0].SetActive(false);
+                break;
+
+            case -1:
+                for (int i = 0; i < optionsForScaling.Length; i++)
+                {
+                    optionsForScaling[i].SetActive(true);
+                }
+                optionsForScaling[1].SetActive(false);
+                break;
+
+            case -2:
+                for (int i = 0; i < optionsForScaling.Length; i++)
+                {
+                    optionsForScaling[i].SetActive(true);
+                }
+                optionsForScaling[2].SetActive(false);
+                break;
+
+            case -3:
+                for (int i = 0; i < optionsForScaling.Length; i++)
+                {
+                    optionsForScaling[i].SetActive(true);
+                }
+                optionsForScaling[3].SetActive(false);
+                break;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (IsNoClipEnabled) { transform.localScale = new Vector3(2, 2, 2); return; } // sets player back to normal and stops code of running.
+        if (IsNoClipEnabled) { currentScaleIndex = 2; return; } // sets player back to normal and stops code of running.
 
         scaledThisFrame = false;
         if (Input.GetButtonUp("Scale Down")) scaledThisFrame = ScaleDown();
