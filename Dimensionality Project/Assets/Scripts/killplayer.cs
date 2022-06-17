@@ -37,7 +37,8 @@ public class killplayer : MonoBehaviour
             }
             else
             {
-                CM.RestartToChecpoint();
+                //CM.RestartToChecpoint();
+                CM.ResetScene();
             }
         }
     }
