@@ -36,8 +36,6 @@ public class CheckpointManager : MonoBehaviour
             }
         }
 
-        print(AllCheckpointParents.Count);
-
         for (int i = 0; i >= AllCheckpointParents.Count; i++)
         {
             print(AllCheckpointParents[i].transform.name);

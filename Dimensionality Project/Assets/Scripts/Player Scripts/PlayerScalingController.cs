@@ -25,33 +25,33 @@ public class PlayerScalingController : MonoBehaviour
             case 0:
                 for (int i = 0; i < optionsForScaling.Length; i++)
                 {
-                    optionsForScaling[i].SetActive(true); 
+                    optionsForScaling[i].SetActive(false); 
                 }
-                optionsForScaling[0].SetActive(false);
+                optionsForScaling[0].SetActive(true);
                 break;
 
             case -1:
                 for (int i = 0; i < optionsForScaling.Length; i++)
                 {
-                    optionsForScaling[i].SetActive(true);
+                    optionsForScaling[i].SetActive(false);
                 }
-                optionsForScaling[1].SetActive(false);
+                optionsForScaling[1].SetActive(true);
                 break;
 
             case -2:
                 for (int i = 0; i < optionsForScaling.Length; i++)
                 {
-                    optionsForScaling[i].SetActive(true);
+                    optionsForScaling[i].SetActive(false);
                 }
-                optionsForScaling[2].SetActive(false);
+                optionsForScaling[2].SetActive(true);
                 break;
 
             case -3:
                 for (int i = 0; i < optionsForScaling.Length; i++)
                 {
-                    optionsForScaling[i].SetActive(true);
+                    optionsForScaling[i].SetActive(false);
                 }
-                optionsForScaling[3].SetActive(false);
+                optionsForScaling[3].SetActive(true);
                 break;
         }
     }
