@@ -64,6 +64,11 @@ public class DebugMenuScr : MonoBehaviour
             TimerController timerController = parent.GetComponentInChildren<TimerController>();
             timerController.hasCheated = true;
         }
+        else
+        {
+            TimerController timerController = parent.GetComponentInChildren<TimerController>();
+            timerController.hasCheated = false;
+        }
     }
 
     public void Submit()
@@ -74,11 +79,17 @@ public class DebugMenuScr : MonoBehaviour
         {
             NoClip();
         }
+        else if (inputedText == "Reset")
+        {
+            playerCheated = false;
+        }
         else
         {
             Debug.Log("Error! unkown command");
         }
     }
+
+
 
     public void NoClip()
     {

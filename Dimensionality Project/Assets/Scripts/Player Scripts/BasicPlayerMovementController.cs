@@ -28,6 +28,7 @@ public class BasicPlayerMovementController : MonoBehaviour
     private float verticalMovement = 0f;
     private float yAxisOfMovement = 0f;
     private float movementMultiplier = 20f;
+    public float noClipSpeed = 50f;
 
     public bool noClip = false;
 
@@ -102,7 +103,7 @@ public class BasicPlayerMovementController : MonoBehaviour
 
         if (noClip)
         {
-            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * movementMultiplier * playerController.PlayerHeight / 2, ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * CurrentMovementSpeed * noClipSpeed * playerController.PlayerHeight / 2, ForceMode.Acceleration);
 
             Transform collider = transform.Find("Capsule");
             CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();

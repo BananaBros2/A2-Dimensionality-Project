@@ -59,7 +59,7 @@ public class PlayerScalingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsNoClipEnabled) { currentScaleIndex = 2; return; } // sets player back to normal and stops code of running.
+        if (IsNoClipEnabled) { currentScaleIndex = 0; return; } // sets player back to normal and stops code of running.
 
         scaledThisFrame = false;
         if (Input.GetButtonUp("Scale Down")) scaledThisFrame = ScaleDown();
