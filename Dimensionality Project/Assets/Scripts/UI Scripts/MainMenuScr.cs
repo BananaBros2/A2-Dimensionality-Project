@@ -184,12 +184,12 @@ public class MainMenuScr : MonoBehaviour
         SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 
-    public void LoadMap003()
+    public void LoadLevelOne()
     {
         SceneManager.LoadScene(3, LoadSceneMode.Single);
     }
 
-    public void LoadMap004()
+    public void LoadDevmap()
     {
         SceneManager.LoadScene(4, LoadSceneMode.Single);
     }
