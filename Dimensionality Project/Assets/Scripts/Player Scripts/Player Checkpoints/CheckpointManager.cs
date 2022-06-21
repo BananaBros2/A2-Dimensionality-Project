@@ -36,10 +36,10 @@ public class CheckpointManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i >= AllCheckpointParents.Count; i++)
-        {
-            print(AllCheckpointParents[i].transform.name);
-        }
+        //for (int i = 0; i >= AllCheckpointParents.Count; i++)
+        //{
+        //    print(AllCheckpointParents[i].transform.name);
+        //}
 
         PopulateList();
 

@@ -23,7 +23,7 @@ public class killplayer : MonoBehaviour
 
         CM = root.transform.Find("Player").GetComponent<CheckpointManager>();
 
-        print(CM.name);
+        //print(CM.name);
     }
 
     private void OnTriggerEnter(Collider other)
