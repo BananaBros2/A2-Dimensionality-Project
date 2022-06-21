@@ -71,7 +71,7 @@ public class WallRunController : MonoBehaviour
         }
     }
 
-    bool CanWallRun() // runs a ground check
+    bool CanWallRun() // runs a ground check so low valuse means the player can wall run
     {
         if (rb.velocity.magnitude > minimumSpeed && Input.GetAxis("Vertical") > 0 && Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight * playerController.PlayerHeight / 2) == false)
         {
@@ -91,7 +91,7 @@ public class WallRunController : MonoBehaviour
 
     void StartWallRun() // the wall running script
     {
-        print(rb.velocity.y);
+        //print(rb.velocity.y);
 
         isWallRunning = true;
 

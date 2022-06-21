@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class TeleportController : MonoBehaviour
 {
     public Slider coolDownBar;
+    public GameObject LPB;
+    private ProgressBarManager PBM;
 
     CapsuleCollider capsuleCollider;
     public PlayerController playerController;
@@ -23,16 +25,26 @@ public class TeleportController : MonoBehaviour
 
     private void Start()
     {
+        PBM = LPB.GetComponent<ProgressBarManager>();
+        PBM.minimum = 0f;
+        PBM.maximum = coolDown;
+        PBM.current = coolDown;
+
         capsuleCollider = GetComponentInChildren<CapsuleCollider>();
 
-        coolDownBar.maxValue = coolDown;
-        coolDownBar.value = coolDown;
+        //coolDownBar.maxValue = coolDown; // use this if you are using a slider
+        //coolDownBar.value = coolDown;
     }
 
     // Update is called once per frame
     void Update()
     {
-        coolDownBar.value = time <= cooldowntime ? coolDown - (cooldowntime - time) : coolDown;
+        float coolDownCurrentTime = time <= cooldowntime ? coolDown - (cooldowntime - time) : coolDown;
+        PBM.current = coolDownCurrentTime;
+
+        //coolDownBar.value = coolDownCurrentTime; // use this if you are using a slider
+
+        LPB.SetActive(coolDownCurrentTime == coolDown ? false : true);
 
         time += Time.deltaTime;
 
