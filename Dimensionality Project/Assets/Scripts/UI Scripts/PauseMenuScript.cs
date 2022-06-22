@@ -75,9 +75,11 @@ public class PauseMenuScript : MonoBehaviour
     public void ReturnToMainMenu()
     {
         pauseMenu.SetActive(false);
-
-        GM.Loadmenu();
-
-        //SceneManager.LoadScene(0, LoadSceneMode.Single);
+        if (GM == null)
+        {
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+        }
+        else
+            GM.Loadmenu();
     }
 }
