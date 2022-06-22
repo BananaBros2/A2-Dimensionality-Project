@@ -18,21 +18,56 @@ public class MainMenuScr : MonoBehaviour
     FullScreenMode settingVid;
 
     private string LevelVbestTime;
+    bool shutdown = false;
+
+
+    
+    //public Scene[] AllOpenScenes;
+    public Scene MasterScene;
+    GameManager GM;
 
     // Start is called before the first frame update
     void Start()
     {
+        int countLoaded = SceneManager.sceneCount;
+        Scene[] loadedScenes = new Scene[countLoaded];
+
+        for (int i = 0; i < countLoaded; i++)
+        {
+            loadedScenes[i] = SceneManager.GetSceneAt(i);
+        }
+
+        foreach (Scene x in loadedScenes)
+        {
+            print(x.name);
+            if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
+        }
+
+        foreach (GameObject x in MasterScene.GetRootGameObjects())
+        {
+            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+        }
+
+        //foreach (GameObject x in MasterScene.GetRootGameObjects())
+        //{
+        //    if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+        //}
+
         if (Save_Manager.instance.hasLoaded)
         {
             FullScreenDropdown.value = Save_Manager.instance.saveData.fullscreenMode;
 
             LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
+
+            shutdown = false;
         }
         else
         {
             Save_Manager.instance.saveData.fullscreenMode = 4;
 
             Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
+
+            shutdown = true;
         }
 
         mainMenu.SetActive(true);
@@ -50,9 +85,11 @@ public class MainMenuScr : MonoBehaviour
         FullScreen();
         Resolution();
 
-
-        LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
-        LevelVBestTimeText.text = "Best time: " + LevelVbestTime;
+        if (!shutdown)
+        {
+            LevelVbestTime = Save_Manager.instance.saveData.levelVBestTime;
+            LevelVBestTimeText.text = "Best time: " + LevelVbestTime;
+        }
     }
 
     //sets the fullscreen mode depending on the dropbox value
@@ -176,21 +213,29 @@ public class MainMenuScr : MonoBehaviour
 
     public void LoadLevelV()
     {
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        GM.LoadLevelV();
+
+        //SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void LoadTutorialMap()
     {
-        SceneManager.LoadScene(2, LoadSceneMode.Single);
+        GM.Load2();
+
+        //SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 
     public void LoadLevelOne()
     {
-        SceneManager.LoadScene(3, LoadSceneMode.Single);
+        GM.Load3();
+
+        //SceneManager.LoadScene(3, LoadSceneMode.Single);
     }
 
     public void LoadDevmap()
     {
-        SceneManager.LoadScene(4, LoadSceneMode.Single);
+        GM.Load4();
+
+        //SceneManager.LoadScene(4, LoadSceneMode.Single);
     }
 }

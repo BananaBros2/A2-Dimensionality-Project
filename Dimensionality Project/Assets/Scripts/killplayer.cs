@@ -9,10 +9,34 @@ public class killplayer : MonoBehaviour
     private CheckpointManager CM;
     private Scene scene;
     private GameObject root;
+    private bool canReload = true;
 
-    private void Start()
+    public Scene MasterScene;
+    GameManager GM;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        scene = SceneManager.GetActiveScene();
+        int countLoaded = SceneManager.sceneCount;
+        Scene[] loadedScenes = new Scene[countLoaded];
+
+        for (int i = 0; i < countLoaded; i++)
+        {
+            loadedScenes[i] = SceneManager.GetSceneAt(i);
+        }
+
+        foreach (Scene x in loadedScenes)
+        {
+            print(x.name);
+            if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
+        }
+
+        foreach (GameObject x in MasterScene.GetRootGameObjects())
+        {
+            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+        }
+
+        scene = SceneManager.GetSceneAt(1);
         foreach (GameObject PossibleItem in scene.GetRootGameObjects())
         {
             if (PossibleItem.transform.name == "Importable player asset")
@@ -32,8 +56,20 @@ public class killplayer : MonoBehaviour
         {
             if (CM == null)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single); // safty if statement
-                print("NULL REFERNCE");
+                if (GM == null)
+                {
+                    print("NULL REFERNCE | FALIURE");
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single); // safty if statement
+                }
+                else
+                {
+                    if (canReload)
+                    {
+                        print("NULL REFERNCE");
+                        GM.Reload();
+                        canReload = false;
+                    }
+                }
             }
             else
             {
