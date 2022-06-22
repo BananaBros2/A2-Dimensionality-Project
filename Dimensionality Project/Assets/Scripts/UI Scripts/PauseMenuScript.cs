@@ -12,8 +12,30 @@ public class PauseMenuScript : MonoBehaviour
 
     public bool isPaused { get; private set; } = false;
 
+    public Scene MasterScene;
+    GameManager GM;
+
     private void Start()
     {
+        int countLoaded = SceneManager.sceneCount;
+        Scene[] loadedScenes = new Scene[countLoaded];
+
+        for (int i = 0; i < countLoaded; i++)
+        {
+            loadedScenes[i] = SceneManager.GetSceneAt(i);
+        }
+
+        foreach (Scene x in loadedScenes)
+        {
+            print(x.name);
+            if (x.name == "Master Scene") MasterScene = x;
+        }
+
+        foreach (GameObject x in MasterScene.GetRootGameObjects())
+        {
+            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+        }
+
         // save system load
 
         Time.timeScale = 1f;
@@ -52,6 +74,10 @@ public class PauseMenuScript : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        pauseMenu.SetActive(false);
+
+        GM.Loadmenu();
+
+        //SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }
