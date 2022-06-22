@@ -46,7 +46,7 @@ public class CheckpointManager : MonoBehaviour
 
         currentCheckpoint = -1;
 
-        scene = SceneManager.GetActiveScene();
+        scene = SceneManager.GetSceneAt(1);
 
         AllCheckpointParents.Clear();
 

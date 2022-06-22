@@ -67,7 +67,7 @@ public class killplayer : MonoBehaviour
                     {
                         print("NULL REFERNCE");
                         GM.Reload();
-                        canReload = false;
+                        //canReload = false;
                     }
                 }
             }
@@ -83,11 +83,9 @@ public class killplayer : MonoBehaviour
                     if (canReload)
                     {
                         print("reload!");
-                        GM.Reload();
-                        canReload = false;
+                        CM.RestartToChecpoint();
+                        //canReload = false;
                     }
-
-                    //CM.RestartToChecpoint();
                 }
             }
         }

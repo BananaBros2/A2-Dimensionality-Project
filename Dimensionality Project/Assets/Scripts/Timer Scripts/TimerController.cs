@@ -39,7 +39,7 @@ public class TimerController : MonoBehaviour
     {
         if (Save_Manager.instance.hasLoaded)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 1)
+            if (SceneManager.GetActiveScene().buildIndex == 2)
             {
                 bestTime = Save_Manager.instance.saveData.levelVBestTime;
 
@@ -54,7 +54,7 @@ public class TimerController : MonoBehaviour
         }
         else
         {
-            if (SceneManager.GetActiveScene().buildIndex == 1)
+            if (SceneManager.GetActiveScene().buildIndex == 2)
             {
                 Save_Manager.instance.saveData.levelVBestTime = "0:00.00";
 
