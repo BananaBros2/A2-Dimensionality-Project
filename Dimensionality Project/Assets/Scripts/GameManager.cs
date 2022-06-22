@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     public void Reload()
     {
-        if (!isReloading) return;
+        if (isReloading) return;
 
         LoadingScreen.gameObject.SetActive(true);
 

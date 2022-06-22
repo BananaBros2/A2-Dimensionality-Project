@@ -73,7 +73,22 @@ public class killplayer : MonoBehaviour
             }
             else
             {
-                CM.RestartToChecpoint();
+                if (GM == null)
+                {
+                    print("NULL REFERNCE | FALIURE");
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single); // safty if statement
+                }
+                else
+                {
+                    if (canReload)
+                    {
+                        print("reload!");
+                        GM.Reload();
+                        canReload = false;
+                    }
+
+                    //CM.RestartToChecpoint();
+                }
             }
         }
     }

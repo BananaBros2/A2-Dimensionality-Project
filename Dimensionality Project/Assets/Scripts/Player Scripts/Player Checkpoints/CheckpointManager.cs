@@ -16,8 +16,30 @@ public class CheckpointManager : MonoBehaviour
 
     private AsyncOperation LoadSceneAsync;
 
+    public Scene MasterScene;
+    GameManager GM;
+
+    // Start is called before the first frame update
     void Start()
     {
+        int countLoaded = SceneManager.sceneCount;
+        Scene[] loadedScenes = new Scene[countLoaded];
+
+        for (int i = 0; i < countLoaded; i++)
+        {
+            loadedScenes[i] = SceneManager.GetSceneAt(i);
+        }
+
+        foreach (Scene x in loadedScenes)
+        {
+            print(x.name);
+            if (x.name == "Master Scene") MasterScene = x; GM = GetComponentInChildren<GameManager>();
+        }
+
+        foreach (GameObject x in MasterScene.GetRootGameObjects())
+        {
+            if (x.transform.name == "Game manager") GM = x.GetComponent<GameManager>();
+        }
         Transform root = transform.root;
 
         timerController = root.GetComponentInChildren<TimerController>();
@@ -83,9 +105,9 @@ public class CheckpointManager : MonoBehaviour
         // this check if the script can restart
         if (!timerController.canRestart) return;
 
-        if (Input.GetKey(KeyCode.LeftShift)) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        if (Input.GetKey(KeyCode.LeftShift)) GM.Reload();
 
-        if (currentCheckpoint == -1) LoadSceneAsync = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        if (currentCheckpoint == -1) GM.Reload();
         else transform.position = currentCheckpointResetPoint;
     }
 
