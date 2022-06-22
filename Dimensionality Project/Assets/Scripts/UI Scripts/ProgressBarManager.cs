@@ -11,7 +11,7 @@ using UnityEditor;
 public class ProgressBarManager : MonoBehaviour
 {
 #if UNITY_EDITOR
-    [MenuItem("GameObject/UI/Linear progress bar")]
+    [MenuItem("GameObject/UI/Linear progress bar (float)")]
     public static void AddLinearProgressBar()
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("UI/Linear progress bar"));
@@ -19,9 +19,12 @@ public class ProgressBarManager : MonoBehaviour
     }
 #endif
 
-    public int minimum;
-    public int maximum;
-    public int current;
+    [Header("Values")]
+    public float minimum;
+    public float maximum;
+    public float current;
+
+    [Header("Important values for the progress bar to work")]
     public Image mask;
     public Image fill;
     public Color color;
