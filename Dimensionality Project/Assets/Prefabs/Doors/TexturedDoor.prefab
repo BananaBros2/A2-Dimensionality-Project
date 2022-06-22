@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2444531135179323728}
+  - component: {fileID: -7534159812560240954}
+  - component: {fileID: 4692111327208057014}
   m_Layer: 0
   m_Name: TexturedDoor
   m_TagString: Untagged
@@ -34,6 +36,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!136 &-7534159812560240954
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600799780365041903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4692111327208057014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600799780365041903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0deaea26230c94047950047e3f98c1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorRight: {fileID: 5203425618226957331}
+  doorLeft: {fileID: 5203425617901975211}
+  targetRight: {fileID: 5101262859743212667}
+  targetLeft: {fileID: 1797757637204636988}
+  speed: 7
 --- !u!1 &1806711942029155525
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12b8ed6e607e9294d8eef0f1f375d0a2, type: 3}
+--- !u!1 &5203425618226957331 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 12b8ed6e607e9294d8eef0f1f375d0a2, type: 3}
+  m_PrefabInstance: {fileID: 4969477916860150082}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4863211034970003113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 12b8ed6e607e9294d8eef0f1f375d0a2, type: 3}
@@ -349,6 +387,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12b8ed6e607e9294d8eef0f1f375d0a2, type: 3}
+--- !u!1 &5203425617901975211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 12b8ed6e607e9294d8eef0f1f375d0a2, type: 3}
+  m_PrefabInstance: {fileID: 4969477917743238138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4863211034053618705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 12b8ed6e607e9294d8eef0f1f375d0a2, type: 3}
