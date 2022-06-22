@@ -303,12 +303,13 @@ MonoBehaviour:
   jumpKey: 32
   walkKey: 308
   airMultiplier: 1
+  noClipSpeed: 50
   noClip: 0
   walkSpeed: 5
   sprintSpeed: 12
   trueSprintSpeed: 12
   acceleration: 0.75
-  jumpForce: 110
+  jumpForce: 120
   groundDrag: 6
   airDrag: 0.2
   groundCheck: {fileID: 7254066303532056801}
@@ -364,6 +365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8638d75cfab540d47b19612106970d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionsForScaling:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerController: {fileID: -21374666972907026}
   scaleUpTrigger: {fileID: 733184070501931435}
   maxScaleRange: 3

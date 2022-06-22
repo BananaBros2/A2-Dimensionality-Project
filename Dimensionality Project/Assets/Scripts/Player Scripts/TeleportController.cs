@@ -11,7 +11,7 @@ public class TeleportController : MonoBehaviour
 
     CapsuleCollider capsuleCollider;
     public PlayerController playerController;
-
+    public PauseMenuScript pauseScript;
     public float range = 5f;
 
     public float coolDown = 2f;
@@ -48,7 +48,7 @@ public class TeleportController : MonoBehaviour
 
         time += Time.deltaTime;
 
-        if (Input.GetButtonDown("Teleport") && time >= cooldowntime && !IsPlayerNoClipping)
+        if (Input.GetButtonDown("Teleport") && time >= cooldowntime && !IsPlayerNoClipping && pauseScript.isPaused == false)
         {
             Teleport(); //calls function
         }

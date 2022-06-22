@@ -6383,7 +6383,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.8
+  m_fontSize: 54.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8410,6 +8410,7 @@ MonoBehaviour:
   coolDownBar: {fileID: 0}
   LPB: {fileID: 797307454}
   playerController: {fileID: 4751404396415420377}
+  pauseScript: {fileID: 1534158284}
   range: 5
   coolDown: 1.5
   player: {fileID: 312981811989513047}

@@ -12,6 +12,7 @@ public class EntryTriggerController : MonoBehaviour
         {
             timerController.ResetTimer();
             timerController.StartTimer();
+            this.GetComponent<BoxCollider>().enabled = false;
         }
     }
 }
