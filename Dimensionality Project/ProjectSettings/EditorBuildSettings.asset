@@ -6,21 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Master Scene.unity
+    path: Assets/Scenes/Other Important Scenes/Master Scene.unity
     guid: 5050e9c3c7e113748b2a829cee1a757a
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Other Important Scenes/MainMenu.unity
     guid: c4ed130bb34e86041b323860299a9b86
   - enabled: 1
-    path: Assets/Scenes/Level-V.unity
+    path: Assets/Scenes/Levels/Level-V.unity
     guid: 50deb3aa892edf242b0fcc01277573fc
   - enabled: 1
-    path: Assets/Scenes/Tutorial map.unity
-    guid: 042a718b95e8ae84eaae9f1084071c6f
+    path: Assets/Scenes/Levels/Tutorial V2.unity
+    guid: 832b66ea882ba0b45a0793210cb487d8
   - enabled: 1
-    path: Assets/Scenes/Stage 1.unity
+    path: Assets/Scenes/Levels/Stage 1.unity
     guid: 8a018b7e9390f02429e23fa6c3a5b247
   - enabled: 1
-    path: Assets/Scenes/assets_museum.unity
+    path: Assets/Scenes/Levels/assets_museum.unity
     guid: ec87a3d3e2d18544abab7446bad0fa2c
   m_configObjects: {}
